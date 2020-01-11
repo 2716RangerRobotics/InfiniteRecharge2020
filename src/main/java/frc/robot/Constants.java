@@ -16,4 +16,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //PWM output channels
+    public static final int LEFT_MOTOR_CHANNEL = 0;
+    public static final int RIGHT_MOTOR_CHANNEL = 1;
+
+    //CAN ID numbers
 }
