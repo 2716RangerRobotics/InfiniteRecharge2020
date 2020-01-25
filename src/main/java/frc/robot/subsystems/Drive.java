@@ -9,18 +9,36 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
 
 import frc.robot.Constants;
 
 public class Drive extends SubsystemBase {
-  PWMSparkMax leftMotors;
-  PWMSparkMax rightMotors;
+  CANSparkMax leftMotorMaster;
+  CANSparkMax leftMotorFollower;
+  CANSparkMax rightMotorMaster;
+  CANSparkMax rightMotorFollower;
+  CANEncoder rightEncoder;
+  CANEncoder leftEncoder;
   /**
    * Creates a new Drive.
    */
   public Drive() {
-    leftMotors = new PWMSparkMax(Constants.LEFT_MOTOR_CHANNEL);
-    rightMotors = new PWMSparkMax(Constants.RIGHT_MOTOR_CHANNEL);
+    leftMotorMaster = new CANSparkMax(Constants.LEFT_MOTOR_MASTER, MotorType.kBrushless);
+    leftMotorFollower = new CANSparkMax(Constants.LEFT_MOTOR_FOLLOWER,MotorType.kBrushless);
+    rightMotorMaster = new CANSparkMax(Constants.RIGHT_MOTOR_MASTER,MotorType.kBrushless);
+    rightMotorFollower = new CANSparkMax(Constants.RIGHT_MOTOR_FOLLOWER,MotorType.kBrushless);
+
+    rightMotorMaster.setInverted(true);
+    rightMotorFollower.setInverted(true);
+
+    leftMotorFollower.follow(leftMotorMaster);
+    rightMotorFollower.follow(rightMotorMaster);
+
+    rightEncoder = rightMotorMaster.getEncoder();
+    leftEncoder = leftMotorMaster.getEncoder();
   }
 
   @Override
@@ -72,19 +90,32 @@ public class Drive extends SubsystemBase {
   }
 
   public void setLeftRightMotorOutputs(double leftOutput, double rightOutput) {
-    if (leftMotors == null || rightMotors == null) {
+    if (leftMotorMaster == null || leftMotorFollower == null || 
+      rightMotorMaster == null || rightMotorFollower == null) {
       throw new NullPointerException("Null motor provided");
     }
 
-    if (leftMotors != null) {
-      leftMotors.set(limit(leftOutput));
+    if (leftMotorMaster != null && leftMotorFollower != null) {
+      leftMotorMaster.set(limit(leftOutput));
     }
 
-    if (rightMotors != null) {
-      rightMotors.set(-limit(rightOutput));
+    if (rightMotorMaster != null && rightMotorFollower != null) {
+      rightMotorMaster.set(limit(rightOutput));
     }
   }
 
+  public double getRightPosition(){
+    return rightEncoder.getPosition();
+  }
+  public double getLeftPosition(){
+    return leftEncoder.getPosition();
+  }
+  public void resetLeftEncoder(){
+    leftEncoder.setPosition(0.0);
+  }
+  public void resetRightEncoder(){
+    rightEncoder.setPosition(0.0);
+  }
   protected static double limit(double num) {
     if (num > 1.0) {
       return 1.0;

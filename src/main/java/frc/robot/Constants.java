@@ -16,9 +16,24 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //PWM output channels
-    public static final int LEFT_MOTOR_CHANNEL = 0;
-    public static final int RIGHT_MOTOR_CHANNEL = 1;
+    //SparkMax IDs
+    public static final int LEFT_MOTOR_MASTER = 1;
+    public static final int LEFT_MOTOR_FOLLOWER = 2;
+    public static final int RIGHT_MOTOR_MASTER = 3;
+    public static final int RIGHT_MOTOR_FOLLOWER = 4;
+    //CTRE CAN ID's
+    public static final int TILT_MOTOR_RIGHT = 1;
+    public static final int TILT_MOTOR_LEFT = 2;
+    public static final int UPPER_MOTOR_1 = 3;
+    public static final int UPPER_MOTOR_2 = 4;
+    public static final int LOWER_MOTOR_1 = 5;
+    public static final int LOWER_MOTOR_2 = 6;
+    public static final int CLIMBING_LEFT_MOTOR = 7;
+    public static final int CLIMBING_RIGHT_MOTOR = 8;
 
-    //CAN ID numbers
+    //motor speeds
+    public static final double UPPER_MOTOR_SPEED = 0.5;
+    public static final double LOWER_MOTOR_SPEED = 0.5;
+    public static final double CLIMBING_MOTOR_SPEED = 0.5;
+
 }
