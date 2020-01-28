@@ -14,9 +14,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.BallIntakeIntake;
+import frc.robot.commands.BallIntakeIntakeStop;
+import frc.robot.commands.BallIntakeTiltIn;
+import frc.robot.commands.BallIntakeTiltOut;
+import frc.robot.commands.BallIntakeTiltStop;
 import frc.robot.commands.DriveWithGamePad;
+import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.HangingMechanism;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -30,6 +37,8 @@ public class RobotContainer {
   // The robot's subsystems are instantiated here...
   private ExampleSubsystem m_exampleSubsystem;
   public static Drive drive;
+  public static HangingMechanism hangingMechanism;
+  public static BallIntake ballIntake;
   // The robot's commands are instantiated here...
   private ExampleCommand m_autoCommand;
   // The driver's controller
@@ -79,10 +88,13 @@ public class RobotContainer {
     // The robot's subsystems and commands are constructed here...
     m_exampleSubsystem = new ExampleSubsystem();
     drive = new Drive();
+    hangingMechanism = new HangingMechanism();
+    ballIntake = new BallIntake();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
-    m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+    // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
     SmartDashboard.putData(drive);
-    // Configure the button bindings
+
+    // Configure the button bindings - DO THIS LAST!!!
     configureButtonBindings();
   }
 
@@ -93,7 +105,12 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // driverA1.whenPressed();
+    driverA1.whenPressed(new BallIntakeTiltOut());
+    driverA1.whenReleased(new BallIntakeTiltStop());
+    driverB2.whenPressed(new BallIntakeTiltIn());
+    driverB2.whenReleased(new BallIntakeTiltStop());
+    driverRB6.whenPressed(new BallIntakeIntake());
+    driverRB6.whenReleased(new BallIntakeIntakeStop());
   }
 
 

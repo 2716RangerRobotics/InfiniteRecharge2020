@@ -8,13 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 
-public class BallIntakeWithGamepad extends CommandBase {
+public class BallIntakeTiltStop extends CommandBase {
   /**
-   * Creates a new BallIntakeWithGamepad.
+   * Creates a new BallIntakeTiltStop.
    */
-  public BallIntakeWithGamepad() {
+  public BallIntakeTiltStop() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.ballIntake);
   }
 
   // Called when the command is initially scheduled.
@@ -25,16 +27,18 @@ public class BallIntakeWithGamepad extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.ballIntake.intakeTiltStop();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.ballIntake.intakeTiltStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

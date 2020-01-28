@@ -22,13 +22,13 @@ public class BallIntake extends SubsystemBase {
     VictorSP lowerMotor2;
     final double ROLLER_MOTOR_IN_SPEED = -0.5;
     final double ROLLER_MOTOR_OUT_SPEED = 0.5;
-    enum UpperState {
+    public enum UpperState {
       kOff,
       kIn,
       kOut,
       kSpin
     }
-    enum LowerState {
+    public enum LowerState {
       kOff,
       kIn,
       kOut,
@@ -58,6 +58,10 @@ public class BallIntake extends SubsystemBase {
   public void intakeTiltOut() {
     tiltMotorLeft.set(TILT_OUT_SPEED * -1.0);
     tiltMotorRight.set(TILT_OUT_SPEED);
+  }
+  public void intakeTiltStop() {
+    tiltMotorRight.set(0.0);
+    tiltMotorLeft.set(0.0);
   }
   public void setUpperMotors(UpperState state) {
     switch (state) {
