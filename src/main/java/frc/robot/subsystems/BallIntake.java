@@ -7,21 +7,25 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class BallIntake extends SubsystemBase {
-    VictorSP tiltMotorRight;
-    VictorSP tiltMotorLeft;
-    final double TILT_OUT_SPEED = 0.5;
-    final double TILT_IN_SPEED = -0.5;
-    VictorSP upperMotor1;
-    VictorSP upperMotor2;
-    VictorSP lowerMotor1;
-    VictorSP lowerMotor2;
-    final double ROLLER_MOTOR_IN_SPEED = -0.5;
-    final double ROLLER_MOTOR_OUT_SPEED = 0.5;
+    TalonSRX tiltMotorRight;
+    TalonSRX tiltMotorLeft;
+    VictorSPX upperMotor1;
+    VictorSPX upperMotor2;
+    VictorSPX lowerMotor1;
+    VictorSPX lowerMotor2;
+    
+    static final double TILT_OUT_SPEED = 0.5;
+    static final double TILT_IN_SPEED = -0.5;
+    static final double ROLLER_MOTOR_IN_SPEED = -0.5;
+    static final double ROLLER_MOTOR_OUT_SPEED = 0.5;
+    
     public enum UpperState {
       kOff,
       kIn,
@@ -38,12 +42,12 @@ public class BallIntake extends SubsystemBase {
     * Creates a new BallIntake.
     */
     public BallIntake() {
-        tiltMotorRight = new VictorSP(Constants.TILT_MOTOR_RIGHT);
-        tiltMotorLeft = new VictorSP(Constants.TILT_MOTOR_LEFT);
-        upperMotor1 = new VictorSP(Constants.UPPER_MOTOR_1);
-        upperMotor2 = new VictorSP(Constants.UPPER_MOTOR_2);
-        lowerMotor1 = new VictorSP(Constants.LOWER_MOTOR_1);
-        lowerMotor2 = new VictorSP(Constants.LOWER_MOTOR_2);
+        tiltMotorRight = new TalonSRX(Constants.TILT_MOTOR_RIGHT);
+        tiltMotorLeft = new TalonSRX(Constants.TILT_MOTOR_LEFT);
+        upperMotor1 = new VictorSPX(Constants.UPPER_MOTOR_1);
+        upperMotor2 = new VictorSPX(Constants.UPPER_MOTOR_2);
+        lowerMotor1 = new VictorSPX(Constants.LOWER_MOTOR_1);
+        lowerMotor2 = new VictorSPX(Constants.LOWER_MOTOR_2);
     }
 
   @Override
@@ -52,34 +56,35 @@ public class BallIntake extends SubsystemBase {
   }
 
   public void intakeTiltIn() {
-    tiltMotorRight.set(TILT_IN_SPEED);
-    tiltMotorLeft.set(TILT_IN_SPEED * -1.0);
+    tiltMotorRight.set(ControlMode.PercentOutput, TILT_IN_SPEED);
+    tiltMotorLeft.set(ControlMode.PercentOutput, TILT_IN_SPEED * -1.0);
   }
   public void intakeTiltOut() {
-    tiltMotorLeft.set(TILT_OUT_SPEED * -1.0);
-    tiltMotorRight.set(TILT_OUT_SPEED);
+    tiltMotorLeft.set(ControlMode.PercentOutput, TILT_OUT_SPEED * -1.0);
+    tiltMotorRight.set(ControlMode.PercentOutput, TILT_OUT_SPEED);
   }
   public void intakeTiltStop() {
-    tiltMotorRight.set(0.0);
-    tiltMotorLeft.set(0.0);
+    tiltMotorRight.set(ControlMode.PercentOutput, 0.0);
+    tiltMotorLeft.set(ControlMode.PercentOutput, 0.0);
   }
+  
   public void setUpperMotors(UpperState state) {
     switch (state) {
       case kOff:
-        upperMotor1.set(0.0);
-        upperMotor2.set(0.0);
+        upperMotor1.set(ControlMode.PercentOutput, 0.0);
+        upperMotor2.set(ControlMode.PercentOutput, 0.0);
         break;
       case kIn:
-        upperMotor1.set(-Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(Constants.UPPER_MOTOR_SPEED);
+        upperMotor1.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
+        upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
         break;
       case kOut:
-        upperMotor1.set(Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(-Constants.UPPER_MOTOR_SPEED);
+        upperMotor1.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
+        upperMotor2.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
         break;
       case kSpin:
-        upperMotor1.set(Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(Constants.UPPER_MOTOR_SPEED);
+        upperMotor1.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
+        upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
         break;
     }
   }
@@ -87,20 +92,20 @@ public class BallIntake extends SubsystemBase {
   public void setLowerMotors(LowerState state) {
     switch (state) {
       case kOff:
-        lowerMotor1.set(0.0);
-        lowerMotor2.set(0.0);
+        lowerMotor1.set(ControlMode.PercentOutput, 0.0);
+        lowerMotor2.set(ControlMode.PercentOutput, 0.0);
         break;
       case kIn:
-        lowerMotor1.set(-Constants.LOWER_MOTOR_SPEED);
-        lowerMotor2.set(Constants.LOWER_MOTOR_SPEED);
+        lowerMotor1.set(ControlMode.PercentOutput, -Constants.LOWER_MOTOR_SPEED);
+        lowerMotor2.set(ControlMode.PercentOutput, Constants.LOWER_MOTOR_SPEED);
         break;
       case kOut:
-        lowerMotor1.set(Constants.LOWER_MOTOR_SPEED);
-        lowerMotor2.set(-Constants.LOWER_MOTOR_SPEED);
+        lowerMotor1.set(ControlMode.PercentOutput, Constants.LOWER_MOTOR_SPEED);
+        lowerMotor2.set(ControlMode.PercentOutput, -Constants.LOWER_MOTOR_SPEED);
         break;
       case kSpin:
-        lowerMotor1.set(Constants.LOWER_MOTOR_SPEED);
-        lowerMotor2.set(Constants.LOWER_MOTOR_SPEED);
+        lowerMotor1.set(ControlMode.PercentOutput, Constants.LOWER_MOTOR_SPEED);
+        lowerMotor2.set(ControlMode.PercentOutput, Constants.LOWER_MOTOR_SPEED);
         break;
     }
   }

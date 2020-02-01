@@ -22,18 +22,21 @@ public final class Constants {
     public static final int RIGHT_MOTOR_MASTER = 3;
     public static final int RIGHT_MOTOR_FOLLOWER = 4;
     //CTRE CAN ID's
-    public static final int TILT_MOTOR_RIGHT = 1;
-    public static final int TILT_MOTOR_LEFT = 2;
+    public static final int TILT_MOTOR_RIGHT = 7;
+    public static final int TILT_MOTOR_LEFT = 8;
     public static final int UPPER_MOTOR_1 = 3;
     public static final int UPPER_MOTOR_2 = 4;
     public static final int LOWER_MOTOR_1 = 5;
     public static final int LOWER_MOTOR_2 = 6;
-    public static final int CLIMBING_LEFT_MOTOR = 7;
-    public static final int CLIMBING_RIGHT_MOTOR = 8;
+    public static final int CLIMBING_LEFT_MOTOR = 1;
+    public static final int CLIMBING_RIGHT_MOTOR = 2;
+    public static final int WHEEL_MOTOR = 9;
+    public static final int LIFT_MOTOR = 10;
 
     //motor speeds
     public static final double UPPER_MOTOR_SPEED = 0.5;
     public static final double LOWER_MOTOR_SPEED = 0.5;
     public static final double CLIMBING_MOTOR_SPEED = 0.5;
-
+    public static final double WHEEL_MOTOR_SPEED = 0.5;
+    public static final double LIFT_MOTOR_SPEED = 0.5;
 }

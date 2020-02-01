@@ -19,13 +19,24 @@ import frc.robot.commands.BallIntakeIntakeStop;
 import frc.robot.commands.BallIntakeTiltIn;
 import frc.robot.commands.BallIntakeTiltOut;
 import frc.robot.commands.BallIntakeTiltStop;
+import frc.robot.commands.ColorWheelSpinnerLift;
+import frc.robot.commands.ColorWheelSpinnerLiftStop;
+import frc.robot.commands.ColorWheelSpinnerTurnWheel;
+import frc.robot.commands.ColorWheelSpinnerTurnWheelStop;
 import frc.robot.commands.DriveWithGamePad;
 import frc.robot.subsystems.BallIntake;
+import frc.robot.subsystems.ColorWheelSpinner;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HangingMechanism;
+import frc.robot.commands.HangingMechanismRelease;
+import frc.robot.commands.HangingMechanismReleaseStop;
+import frc.robot.commands.HangingMechanismExtend;
+import frc.robot.commands.HangingMechanismExtendStop;
+//import frc.robot.commands.ColorWheelSpinnerTurnWheel;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+//import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -39,6 +50,7 @@ public class RobotContainer {
   public static Drive drive;
   public static HangingMechanism hangingMechanism;
   public static BallIntake ballIntake;
+  public static ColorWheelSpinner colorWheelSpinner;
   // The robot's commands are instantiated here...
   private ExampleCommand m_autoCommand;
   // The driver's controller
@@ -90,6 +102,7 @@ public class RobotContainer {
     drive = new Drive();
     hangingMechanism = new HangingMechanism();
     ballIntake = new BallIntake();
+    colorWheelSpinner = new ColorWheelSpinner();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
     // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
     SmartDashboard.putData(drive);
@@ -111,6 +124,14 @@ public class RobotContainer {
     driverB2.whenReleased(new BallIntakeTiltStop());
     driverRB6.whenPressed(new BallIntakeIntake());
     driverRB6.whenReleased(new BallIntakeIntakeStop());
+    driverX3.whenPressed(new HangingMechanismRelease());
+    driverX3.whenReleased(new HangingMechanismReleaseStop());
+    driverY4.whenPressed(new HangingMechanismExtend());
+    driverY4.whenReleased(new HangingMechanismExtendStop());
+    coDriverA1.whenPressed(new ColorWheelSpinnerTurnWheel());
+    coDriverA1.whenReleased(new ColorWheelSpinnerTurnWheelStop());
+    coDriverB2.whenPressed(new ColorWheelSpinnerLift());
+    coDriverB2.whenReleased(new ColorWheelSpinnerLiftStop());
   }
 
 
@@ -145,6 +166,8 @@ public class RobotContainer {
 			return -1.0*driverPad.getX(Hand.kLeft);
 		} else {
 			return 0;
-		}
-	}
-}
+    }
+  }
+
+  
+  }
