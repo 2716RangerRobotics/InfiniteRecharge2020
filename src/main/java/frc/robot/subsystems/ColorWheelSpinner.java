@@ -74,14 +74,18 @@ public class ColorWheelSpinner extends SubsystemBase {
 
     if (match.color == kBlueTarget) {
       colorString = "Blue";
+      System.out.println("Blue");
     } else if (match.color == kRedTarget) {
       colorString = "Red";
+      System.out.println("Red");
     } else if (match.color == kGreenTarget) {
       colorString = "Green";
+      System.out.println("Green");
     } else if (match.color == kYellowTarget) {
       colorString = "Yellow";
-    } else {
+      System.out.println("Yellow");
       colorString = "Unknown";
+      System.out.println("Unknown");
     }
 
     /**
