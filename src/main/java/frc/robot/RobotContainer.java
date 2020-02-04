@@ -13,21 +13,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.BallIntakeIntake;
 import frc.robot.commands.BallIntakeIntakeStop;
+import frc.robot.commands.BallIntakeOuttake;
+import frc.robot.commands.BallIntakeOuttakeStop;
 import frc.robot.commands.BallIntakeTiltIn;
 import frc.robot.commands.BallIntakeTiltOut;
 import frc.robot.commands.BallIntakeTiltStop;
 import frc.robot.commands.ColorWheelSpinnerLift;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
-import frc.robot.commands.ColorWheelSpinnerTurnWheel;
-import frc.robot.commands.ColorWheelSpinnerTurnWheelStop;
+//import frc.robot.commands.ColorWheelSpinnerTurnWheel;
+//import frc.robot.commands.ColorWheelSpinnerTurnWheelStop;
+import frc.robot.commands.ColorWheelSpinnerRotationWheel;
+import frc.robot.commands.ColorWheelSpinnerRotationWheelStop;
+import frc.robot.commands.ColorWheelSpinnerColorRotation;
+import frc.robot.commands.ColorWheelSpinnerColorRotationStop;
 import frc.robot.commands.DriveWithGamePad;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.ColorWheelSpinner;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.ExampleSubsystem;
+// import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HangingMechanism;
 import frc.robot.commands.HangingMechanismRelease;
 import frc.robot.commands.HangingMechanismReleaseStop;
@@ -46,13 +51,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class RobotContainer {
   // The robot's subsystems are instantiated here...
-  private ExampleSubsystem m_exampleSubsystem;
   public static Drive drive;
   public static HangingMechanism hangingMechanism;
   public static BallIntake ballIntake;
   public static ColorWheelSpinner colorWheelSpinner;
   // The robot's commands are instantiated here...
-  private ExampleCommand m_autoCommand;
   // The driver's controller
   static XboxController driverPad = new XboxController(0);
   static Button driverA1 = new JoystickButton(driverPad, 1);
@@ -98,7 +101,6 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // The robot's subsystems and commands are constructed here...
-    m_exampleSubsystem = new ExampleSubsystem();
     drive = new Drive();
     hangingMechanism = new HangingMechanism();
     ballIntake = new BallIntake();
@@ -124,15 +126,31 @@ public class RobotContainer {
     driverB2.whenReleased(new BallIntakeTiltStop());
     driverRB6.whenPressed(new BallIntakeIntake());
     driverRB6.whenReleased(new BallIntakeIntakeStop());
-    driverX3.whenPressed(new HangingMechanismRelease());
-    driverX3.whenReleased(new HangingMechanismReleaseStop());
-    driverY4.whenPressed(new HangingMechanismExtend());
-    driverY4.whenReleased(new HangingMechanismExtendStop());
-    coDriverA1.whenPressed(new ColorWheelSpinnerTurnWheel());
-    coDriverA1.whenReleased(new ColorWheelSpinnerTurnWheelStop());
-    coDriverB2.whenPressed(new ColorWheelSpinnerLift());
-    coDriverB2.whenReleased(new ColorWheelSpinnerLiftStop());
+    driverLB5.whenPressed(new BallIntakeOuttake());
+    driverLB5.whenReleased(new BallIntakeOuttakeStop());
+
+    // driverX3.whenPressed(new HangingMechanismRelease());
+    // driverX3.whenReleased(new HangingMechanismReleaseStop());
+    // driverY4.whenPressed(new HangingMechanismExtend());
+    // driverY4.whenReleased(new HangingMechanismExtendStop());
+    //coDriverA1.whenPressed(new ColorWheelSpinnerTurnWheel());
+    //coDriverA1.whenReleased(new ColorWheelSpinnerTurnWheelStop());
+    coDriverDLeft.whenReleased(new ColorWheelSpinnerRotationWheel());
+    coDriverDLeft.whenReleased(new ColorWheelSpinnerRotationWheelStop());
+    coDriverDRight.whenReleased(new ColorWheelSpinnerColorRotation());
+    coDriverDRight.whenReleased(new ColorWheelSpinnerColorRotationStop());
+    coDriverDUp.whenPressed(new ColorWheelSpinnerLift());
+    coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
+    coDriverA1.whenPressed(new BallIntakeTiltOut());
+    coDriverA1.whenReleased(new BallIntakeTiltStop());
+    coDriverB2.whenPressed(new BallIntakeTiltIn());
+    coDriverB2.whenReleased(new BallIntakeTiltStop());
+    coDriverRB6.whenPressed(new BallIntakeIntake());
+    coDriverRB6.whenReleased(new BallIntakeIntakeStop());
+    coDriverLB5.whenPressed(new BallIntakeOuttake());
+    coDriverLB5.whenReleased(new BallIntakeOuttakeStop());
   }
+
 
 
   /**
@@ -142,7 +160,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 
   /**
@@ -150,7 +168,7 @@ public class RobotContainer {
    * @return value of the joystick [-1.0, 1.0]
    */
   public static double getDriverLeftStickY() {
-		if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.05) {
+		if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.1) {
 			return -1.0*driverPad.getY(Hand.kLeft);
 		} else {
 			return 0;
@@ -162,7 +180,7 @@ public class RobotContainer {
    * @return value of the joystick [-1.0, 1.0]
    */
 	public static double getDriverLeftStickX() {
-		if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.05) {
+		if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.1) {
 			return -1.0*driverPad.getX(Hand.kLeft);
 		} else {
 			return 0;
