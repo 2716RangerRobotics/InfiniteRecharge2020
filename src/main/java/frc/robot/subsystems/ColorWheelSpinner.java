@@ -65,6 +65,7 @@ public class ColorWheelSpinner extends SubsystemBase {
      * measurements and make it difficult to accurately determine its color.
      */
     Color detectedColor = m_colorSensor.getColor();
+    // System.out.println(detectedColor);
 
     /**
      * Run the color match algorithm on our detected color
@@ -84,10 +85,10 @@ public class ColorWheelSpinner extends SubsystemBase {
     } else if (match.color == kYellowTarget) {
       colorString = "Yellow";
       System.out.println("Yellow");
+    } else {
       colorString = "Unknown";
       System.out.println("Unknown");
     }
-
     /**
      * Open Smart Dashboard or Shuffleboard to see the color detected by the 
      * sensor.
