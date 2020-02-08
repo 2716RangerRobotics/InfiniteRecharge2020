@@ -7,11 +7,14 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.kauailabs.navx.frc.AHRS;
 
 import frc.robot.Constants;
 
@@ -22,20 +25,27 @@ public class Drive extends SubsystemBase {
   CANSparkMax rightMotorFollower;
   CANEncoder rightEncoder;
   CANEncoder leftEncoder;
+  private AHRS imu;
+  public static final double FeedForward=0.2;
+  public static final double kProportion=0.02;
   /**
    * Creates a new Drive.
    */
   public Drive() {
+    imu = new AHRS(I2C.Port.kMXP);
     leftMotorMaster = new CANSparkMax(Constants.LEFT_MOTOR_MASTER, MotorType.kBrushless);
-    leftMotorFollower = new CANSparkMax(Constants.LEFT_MOTOR_FOLLOWER,MotorType.kBrushless);
-    rightMotorMaster = new CANSparkMax(Constants.RIGHT_MOTOR_MASTER,MotorType.kBrushless);
-    rightMotorFollower = new CANSparkMax(Constants.RIGHT_MOTOR_FOLLOWER,MotorType.kBrushless);
+    leftMotorFollower = new CANSparkMax(Constants.LEFT_MOTOR_FOLLOWER, MotorType.kBrushless);
+    rightMotorMaster = new CANSparkMax(Constants.RIGHT_MOTOR_MASTER, MotorType.kBrushless);
+    rightMotorFollower = new CANSparkMax(Constants.RIGHT_MOTOR_FOLLOWER, MotorType.kBrushless);
 
     rightMotorMaster.setInverted(true);
     rightMotorFollower.setInverted(true);
 
     leftMotorFollower.follow(leftMotorMaster);
     rightMotorFollower.follow(rightMotorMaster);
+
+    leftMotorMaster.enableVoltageCompensation(12.5);
+    rightMotorMaster.enableVoltageCompensation(12.5);
 
     rightEncoder = rightMotorMaster.getEncoder();
     leftEncoder = leftMotorMaster.getEncoder();
@@ -90,8 +100,8 @@ public class Drive extends SubsystemBase {
   }
 
   public void setLeftRightMotorOutputs(double leftOutput, double rightOutput) {
-    if (leftMotorMaster == null || leftMotorFollower == null || 
-      rightMotorMaster == null || rightMotorFollower == null) {
+    if (leftMotorMaster == null || leftMotorFollower == null || rightMotorMaster == null
+        || rightMotorFollower == null) {
       throw new NullPointerException("Null motor provided");
     }
 
@@ -104,18 +114,41 @@ public class Drive extends SubsystemBase {
     }
   }
 
-  public double getRightPosition(){
+  public void turnToAngle(double targetAngle, double turnSpeed) {
+    double error = targetAngle - getAngle();
+      if (error > 0) {
+        arcadeDrive(0, FeedForward + (kProportion * error), false);
+      }
+      else {
+        arcadeDrive (0, -FeedForward + (-kProportion * error), false);
+      }
+  }
+
+  public double getAngle() {
+    SmartDashboard.putNumber("gyro", imu.getYaw());
+    return imu.getYaw();
+  }
+
+  public void zeroAngle() {
+    imu.zeroYaw();
+  }
+
+  public double getRightPosition() {
     return rightEncoder.getPosition();
   }
-  public double getLeftPosition(){
+
+  public double getLeftPosition() {
     return leftEncoder.getPosition();
   }
-  public void resetLeftEncoder(){
+
+  public void resetLeftEncoder() {
     leftEncoder.setPosition(0.0);
   }
-  public void resetRightEncoder(){
+
+  public void resetRightEncoder() {
     rightEncoder.setPosition(0.0);
   }
+
   protected static double limit(double num) {
     if (num > 1.0) {
       return 1.0;

@@ -10,6 +10,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,7 +23,8 @@ public class BallIntake extends SubsystemBase {
     VictorSPX upperMotor2;
     VictorSPX lowerMotor1;
     VictorSPX lowerMotor2;
-    
+    DoubleSolenoid tiltPnuematic;
+
     static final double TILT_OUT_SPEED = 0.5;
     static final double TILT_IN_SPEED = -0.5;
     static final double ROLLER_MOTOR_IN_SPEED = -0.5;
@@ -48,6 +52,7 @@ public class BallIntake extends SubsystemBase {
         upperMotor2 = new VictorSPX(Constants.UPPER_MOTOR_2);
         lowerMotor1 = new VictorSPX(Constants.LOWER_MOTOR_1);
         lowerMotor2 = new VictorSPX(Constants.LOWER_MOTOR_2);
+        tiltPnuematic = new DoubleSolenoid(Constants.TILT_FORWARD_1,Constants.TILT_REVERSE_2);
     }
 
   @Override
@@ -55,13 +60,18 @@ public class BallIntake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /**
+   * Pnuematics used for tiltIn
+   */
   public void intakeTiltIn() {
     tiltMotorRight.set(ControlMode.PercentOutput, TILT_IN_SPEED);
     tiltMotorLeft.set(ControlMode.PercentOutput, TILT_IN_SPEED * -1.0);
+    tiltPnuematic.set(Value.kForward);
   }
   public void intakeTiltOut() {
     tiltMotorLeft.set(ControlMode.PercentOutput, TILT_OUT_SPEED * -1.0);
     tiltMotorRight.set(ControlMode.PercentOutput, TILT_OUT_SPEED);
+    tiltPnuematic.set(Value.kReverse);
   }
   public void intakeTiltStop() {
     tiltMotorRight.set(ControlMode.PercentOutput, 0.0);
