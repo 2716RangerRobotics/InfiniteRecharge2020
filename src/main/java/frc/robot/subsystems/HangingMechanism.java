@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import frc.robot.Constants;
@@ -21,12 +21,12 @@ public class HangingMechanism extends SubsystemBase {
 //  Encoder leftHangingEncoder;
 //  Encoder rightHangingEncoder;
 
-  public void HangingMechanism() {
-    leftHangingMotor = new TalonSRX(Constants.CLIMBING_LEFT_MOTOR);
-    rightHangingMotor = new TalonSRX(Constants.CLIMBING_RIGHT_MOTOR);
-    leftHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    rightHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-  }
+  //public void HangingMechanism() {
+    //leftHangingMotor = new TalonSRX(Constants.CLIMBING_LEFT_MOTOR);
+    //rightHangingMotor = new TalonSRX(Constants.CLIMBING_RIGHT_MOTOR);
+    //leftHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    //rightHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+  //}
 
   @Override
   public void periodic() {

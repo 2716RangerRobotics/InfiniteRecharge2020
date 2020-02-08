@@ -17,14 +17,14 @@ public class DriveStraightToDistance extends CommandBase {
 	private boolean isReverse;
   private double startAngle;
 
-	/**
+	/**$
 	 * Drive to distance
 	 * @param distanceInInches Distance in "inches"
 	 * @param speed Speed
 	 */
   public DriveStraightToDistance(double distanceInInches, double speed) {
     this.distance = distanceInInches;
-    this.speed = -speed;
+    this.speed = speed;
     addRequirements(RobotContainer.drive);
     
     if (speed < 0) isReverse = true;
@@ -35,6 +35,8 @@ public class DriveStraightToDistance extends CommandBase {
   public void initialize() {
     // RobotContainer.drive.zeroAngle();
     startAngle = RobotContainer.drive.getAngle();
+    RobotContainer.drive.resetLeftEncoder();
+    RobotContainer.drive.resetRightEncoder();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -62,7 +64,7 @@ public class DriveStraightToDistance extends CommandBase {
     // System.out.println("slowing");
     // }
     // System.out.println(currentAngle + ", " + turnValue);
-    // System.out.println(drive.getLeftPosition() + ", " + drive.getRightPosition());
+    System.out.println(RobotContainer.drive.getLeftPosition() + ", " + RobotContainer.drive.getRightPosition());
     RobotContainer.drive.arcadeDrive(moveValue, turnValue, false);
   }
 
@@ -84,7 +86,9 @@ public class DriveStraightToDistance extends CommandBase {
   // Called once after isFinished returns true
   @Override
   public void end(boolean interupted) {
-   	RobotContainer.drive.arcadeDrive(0, 0, false);
+     RobotContainer.drive.arcadeDrive(0, 0, false);
+     RobotContainer.drive.resetLeftEncoder();
+    RobotContainer.drive.resetRightEncoder();
   }
 
 

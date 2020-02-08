@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoDriveAndScore;
 import frc.robot.commands.BallIntakeIntake;
 import frc.robot.commands.BallIntakeIntakeStop;
 import frc.robot.commands.BallIntakeOuttake;
@@ -34,10 +35,10 @@ import frc.robot.subsystems.ColorWheelSpinner;
 import frc.robot.subsystems.Drive;
 // import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HangingMechanism;
-import frc.robot.commands.HangingMechanismRelease;
-import frc.robot.commands.HangingMechanismReleaseStop;
-import frc.robot.commands.HangingMechanismExtend;
-import frc.robot.commands.HangingMechanismExtendStop;
+//import frc.robot.commands.HangingMechanismRelease;
+//import frc.robot.commands.HangingMechanismReleaseStop;
+//import frc.robot.commands.HangingMechanismExtend;
+//import frc.robot.commands.HangingMechanismExtendStop;
 //import frc.robot.commands.ColorWheelSpinnerTurnWheel;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -55,6 +56,7 @@ public class RobotContainer {
   public static HangingMechanism hangingMechanism;
   public static BallIntake ballIntake;
   public static ColorWheelSpinner colorWheelSpinner;
+  public static AutoDriveAndScore autoDriveAndScore;
   // The robot's commands are instantiated here...
   // The driver's controller
   static XboxController driverPad = new XboxController(0);
@@ -105,6 +107,7 @@ public class RobotContainer {
     hangingMechanism = new HangingMechanism();
     ballIntake = new BallIntake();
     colorWheelSpinner = new ColorWheelSpinner();
+    autoDriveAndScore = new AutoDriveAndScore();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
     // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
     SmartDashboard.putData(drive);
@@ -128,7 +131,7 @@ public class RobotContainer {
     driverRB6.whenReleased(new BallIntakeIntakeStop());
     driverLB5.whenPressed(new BallIntakeOuttake());
     driverLB5.whenReleased(new BallIntakeOuttakeStop());
-
+    driverLTrigger.whenPressed(new AutoDriveAndScore());
     // driverX3.whenPressed(new HangingMechanismRelease());
     // driverX3.whenReleased(new HangingMechanismReleaseStop());
     // driverY4.whenPressed(new HangingMechanismExtend());

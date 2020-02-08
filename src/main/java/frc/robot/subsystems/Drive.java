@@ -49,6 +49,9 @@ public class Drive extends SubsystemBase {
 
     rightEncoder = rightMotorMaster.getEncoder();
     leftEncoder = leftMotorMaster.getEncoder();
+
+    rightEncoder.setPositionConversionFactor(1.6866);
+    leftEncoder.setPositionConversionFactor(1.6866);
   }
 
   @Override
@@ -126,7 +129,7 @@ public class Drive extends SubsystemBase {
 
   public double getAngle() {
     SmartDashboard.putNumber("gyro", imu.getYaw());
-    return imu.getYaw();
+    return 0.0;//imu.getYaw();
   }
 
   public void zeroAngle() {
