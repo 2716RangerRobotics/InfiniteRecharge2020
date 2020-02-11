@@ -21,7 +21,8 @@ import frc.robot.commands.BallIntakeOuttakeStop;
 import frc.robot.commands.BallIntakeTiltIn;
 import frc.robot.commands.BallIntakeTiltOut;
 import frc.robot.commands.BallIntakeTiltStop;
-import frc.robot.commands.ColorWheelSpinnerLift;
+import frc.robot.commands.ColorWheelSpinnerLiftUp;
+import frc.robot.commands.ColorWheelSpinnerLiftDown;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
 //import frc.robot.commands.ColorWheelSpinnerTurnWheel;
 //import frc.robot.commands.ColorWheelSpinnerTurnWheelStop;
@@ -132,6 +133,8 @@ public class RobotContainer {
     driverLB5.whenPressed(new BallIntakeOuttake());
     driverLB5.whenReleased(new BallIntakeOuttakeStop());
     driverLTrigger.whenPressed(new AutoDriveAndScore());
+    driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
+    driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
     // driverX3.whenPressed(new HangingMechanismRelease());
     // driverX3.whenReleased(new HangingMechanismReleaseStop());
     // driverY4.whenPressed(new HangingMechanismExtend());
@@ -142,7 +145,7 @@ public class RobotContainer {
     coDriverDLeft.whenReleased(new ColorWheelSpinnerRotationWheelStop());
     coDriverDRight.whenReleased(new ColorWheelSpinnerColorRotation());
     coDriverDRight.whenReleased(new ColorWheelSpinnerColorRotationStop());
-    coDriverDUp.whenPressed(new ColorWheelSpinnerLift());
+    coDriverDUp.whenPressed(new ColorWheelSpinnerLiftUp());
     coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
     coDriverA1.whenPressed(new BallIntakeTiltOut());
     coDriverA1.whenReleased(new BallIntakeTiltStop());

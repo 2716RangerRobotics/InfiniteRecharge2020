@@ -33,6 +33,9 @@ public final class Constants {
     public static final int WHEEL_MOTOR = 9;
     public static final int LIFT_MOTOR = 10;
 
+    //PWM Channels
+    public static final int YOUR_ACTUATOR_CHANNEL = 1;
+
     //PCM Channels
     public static final int TILT_FORWARD_1 = 0;
 	public static final int TILT_REVERSE_2 = 1;

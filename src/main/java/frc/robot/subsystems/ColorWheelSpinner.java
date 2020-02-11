@@ -18,12 +18,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.Servo;
 
 public class ColorWheelSpinner extends SubsystemBase {
   VictorSPX wheelMotor;
   VictorSPX liftMotor;
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  private ColorSensorV3 m_colorSensor;
+  Servo yourActuator;
   /**
    * A Rev Color Match object is used to register and detect known colors. This can 
    * be calibrated ahead of time or during operation.
@@ -45,6 +47,10 @@ public class ColorWheelSpinner extends SubsystemBase {
    * Creates a new ColorWheelSpinner.
    */
   public ColorWheelSpinner() {
+    m_colorSensor = new ColorSensorV3(i2cPort);
+    yourActuator = new Servo(Constants.YOUR_ACTUATOR_CHANNEL);
+    yourActuator.setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
+    yourActuator.setSpeed(-1.0);
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
@@ -108,12 +114,15 @@ public class ColorWheelSpinner extends SubsystemBase {
   }
   
   public void liftUp() {
-    wheelMotor.set(ControlMode.PercentOutput, Constants.LIFT_MOTOR_SPEED);
+    //wheelMotor.set(ControlMode.PercentOutput, Constants.LIFT_MOTOR_SPEED);
+    yourActuator.setSpeed(1.0); //to open
   }
   public void liftDown() {
-    wheelMotor.set(ControlMode.PercentOutput, -Constants.LIFT_MOTOR_SPEED);
+    //.set(ControlMode.PercentOutput, -Constants.LIFT_MOTOR_SPEED);
+    yourActuator.setSpeed(-1.0); //to close
   }
   public void stopLift() {
-    liftMotor.set(ControlMode.PercentOutput, 0.0);
+    //liftMotor.set(ControlMode.PercentOutput, 0.0);
+    yourActuator.setSpeed(0.0);
   }
   }
