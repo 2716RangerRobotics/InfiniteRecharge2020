@@ -9,13 +9,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.BallIntake;
 
-public class BallIntakeIntake extends CommandBase {
+public class BallIntakeCountReset extends CommandBase {
   /**
-   * Creates a new BallIntakeIntake.
+   * Creates a new BallIntakeCountReset.
    */
-  public BallIntakeIntake() {
+  public BallIntakeCountReset() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.ballIntake);
   }
@@ -23,23 +22,13 @@ public class BallIntakeIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+   RobotContainer.ballIntake.resetBallCount();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kIn);
-    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kSpin);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

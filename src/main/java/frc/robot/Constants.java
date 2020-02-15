@@ -47,4 +47,8 @@ public final class Constants {
     public static final double WHEEL_MOTOR_SPEED = 0.5;
     public static final double LIFT_MOTOR_SPEED = 0.5;
 
+    // //limit switch
+    // public static final int GEAR_SWITCH_PORT = 0;
+    // public static final int GEAR_SENSOR_DIO_ID = 1;
+    public static final int BALL_COUNT_SENSOR = 3;
 }

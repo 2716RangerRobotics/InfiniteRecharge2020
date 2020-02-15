@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,13 +25,17 @@ public class BallIntake extends SubsystemBase {
     VictorSPX upperMotor2;
     VictorSPX lowerMotor1;
     VictorSPX lowerMotor2;
+    DigitalInput ballCountSensor;
     //DoubleSolenoid tiltPnuematic;
 
-    static final double TILT_OUT_SPEED = 0.5;
-    static final double TILT_IN_SPEED = -0.5;
+    boolean prevBallSensor;
+    int ballCount = 0;
+
+    static final double TILT_OUT_SPEED = -0.15;
+    static final double TILT_IN_SPEED = 0.15;
     static final double ROLLER_MOTOR_IN_SPEED = -0.5;
     static final double ROLLER_MOTOR_OUT_SPEED = 0.5;
-    
+
     public enum UpperState {
       kOff,
       kIn,
@@ -52,14 +58,24 @@ public class BallIntake extends SubsystemBase {
         upperMotor2 = new VictorSPX(Constants.UPPER_MOTOR_2);
         lowerMotor1 = new VictorSPX(Constants.LOWER_MOTOR_1);
         lowerMotor2 = new VictorSPX(Constants.LOWER_MOTOR_2);
+        ballCountSensor = new DigitalInput(Constants.BALL_COUNT_SENSOR);
         // tiltPnuematic = new DoubleSolenoid(Constants.TILT_FORWARD_1,Constants.TILT_REVERSE_2);
     }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if( !ballCountSensor.get() && prevBallSensor){
+      ballCount++;
+    }
+    SmartDashboard.putBoolean("Ball Count Sensor", ballCountSensor.get());
+    SmartDashboard.putNumber("Ball Count", ballCount);
+    prevBallSensor = ballCountSensor.get();
   }
 
+  public void resetBallCount(){
+    ballCount = 0;
+  }
   /**
    * Pnuematics used for tiltIn
    */

@@ -81,19 +81,19 @@ public class ColorWheelSpinner extends SubsystemBase {
 
     if (match.color == kBlueTarget) {
       colorString = "Blue";
-      System.out.println("Blue");
+      // System.out.println("Blue");
     } else if (match.color == kRedTarget) {
       colorString = "Red";
-      System.out.println("Red");
+      // System.out.println("Red");
     } else if (match.color == kGreenTarget) {
       colorString = "Green";
-      System.out.println("Green");
+      // System.out.println("Green");
     } else if (match.color == kYellowTarget) {
       colorString = "Yellow";
-      System.out.println("Yellow");
+      // System.out.println("Yellow");
     } else {
       colorString = "Unknown";
-      System.out.println("Unknown");
+      // System.out.println("Unknown");
     }
     /**
      * Open Smart Dashboard or Shuffleboard to see the color detected by the 
@@ -116,13 +116,15 @@ public class ColorWheelSpinner extends SubsystemBase {
   public void liftUp() {
     //wheelMotor.set(ControlMode.PercentOutput, Constants.LIFT_MOTOR_SPEED);
     yourActuator.setSpeed(1.0); //to open
+    yourActuator.setPosition(1.00);
   }
   public void liftDown() {
     //.set(ControlMode.PercentOutput, -Constants.LIFT_MOTOR_SPEED);
     yourActuator.setSpeed(-1.0); //to close
+    yourActuator.setPosition(0.00);
   }
   public void stopLift() {
     //liftMotor.set(ControlMode.PercentOutput, 0.0);
-    yourActuator.setSpeed(0.0);
+    yourActuator.setSpeed(0.0); //to stop
   }
   }

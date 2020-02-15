@@ -21,6 +21,7 @@ import frc.robot.commands.BallIntakeOuttakeStop;
 import frc.robot.commands.BallIntakeTiltIn;
 import frc.robot.commands.BallIntakeTiltOut;
 import frc.robot.commands.BallIntakeTiltStop;
+//import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.commands.ColorWheelSpinnerLiftUp;
 import frc.robot.commands.ColorWheelSpinnerLiftDown;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
@@ -56,6 +57,7 @@ public class RobotContainer {
   public static Drive drive;
   public static HangingMechanism hangingMechanism;
   public static BallIntake ballIntake;
+  //public DigitalInput gearSwitch;
   public static ColorWheelSpinner colorWheelSpinner;
   public static AutoDriveAndScore autoDriveAndScore;
   // The robot's commands are instantiated here...
@@ -107,6 +109,7 @@ public class RobotContainer {
     drive = new Drive();
     hangingMechanism = new HangingMechanism();
     ballIntake = new BallIntake();
+    //gearSwitch = new DigitalInput(Constants.GEAR_SWITCH_PORT);
     colorWheelSpinner = new ColorWheelSpinner();
     autoDriveAndScore = new AutoDriveAndScore();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
