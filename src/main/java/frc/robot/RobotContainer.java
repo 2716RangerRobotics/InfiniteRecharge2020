@@ -37,6 +37,7 @@ import frc.robot.subsystems.ColorWheelSpinner;
 import frc.robot.subsystems.Drive;
 // import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HangingMechanism;
+import frc.robot.subsystems.Limelight;
 //import frc.robot.commands.HangingMechanismRelease;
 //import frc.robot.commands.HangingMechanismReleaseStop;
 //import frc.robot.commands.HangingMechanismExtend;
@@ -60,6 +61,7 @@ public class RobotContainer {
   //public DigitalInput gearSwitch;
   public static ColorWheelSpinner colorWheelSpinner;
   public static AutoDriveAndScore autoDriveAndScore;
+  public static Limelight limelight;
   // The robot's commands are instantiated here...
   // The driver's controller
   static XboxController driverPad = new XboxController(0);
@@ -115,6 +117,7 @@ public class RobotContainer {
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
     // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
     SmartDashboard.putData(drive);
+    limelight = new Limelight();
 
     // Configure the button bindings - DO THIS LAST!!!
     configureButtonBindings();
