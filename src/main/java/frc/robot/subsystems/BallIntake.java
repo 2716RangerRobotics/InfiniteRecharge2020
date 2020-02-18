@@ -8,11 +8,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,13 +25,18 @@ public class BallIntake extends SubsystemBase {
     VictorSPX lowerMotor1;
     VictorSPX lowerMotor2;
     DigitalInput ballCountSensor;
+    DigitalInput rightFrontLimit;
+    DigitalInput leftFrontLimit;
+    DigitalInput rightRearLimit;
+    DigitalInput leftRearLimit;
+    
     //DoubleSolenoid tiltPnuematic;
 
     boolean prevBallSensor;
     int ballCount = 0;
 
-    static final double TILT_OUT_SPEED = -0.15;
-    static final double TILT_IN_SPEED = 0.15;
+    static final double TILT_OUT_SPEED = 0.15;
+    static final double TILT_IN_SPEED = -0.15;
     static final double ROLLER_MOTOR_IN_SPEED = -0.5;
     static final double ROLLER_MOTOR_OUT_SPEED = 0.5;
 
@@ -53,13 +57,25 @@ public class BallIntake extends SubsystemBase {
     */
     public BallIntake() {
         tiltMotorRight = new TalonSRX(Constants.TILT_MOTOR_RIGHT);
+        tiltMotorRight.configFactoryDefault();
+        tiltMotorRight.setInverted(true);
+
         tiltMotorLeft = new TalonSRX(Constants.TILT_MOTOR_LEFT);
+        tiltMotorLeft.configFactoryDefault();
+        tiltMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+        tiltMotorLeft.setInverted(false);
+        tiltMotorLeft.setSensorPhase(false);
+        tiltMotorRight.follow(tiltMotorLeft);
+        
         upperMotor1 = new VictorSPX(Constants.UPPER_MOTOR_1);
         upperMotor2 = new VictorSPX(Constants.UPPER_MOTOR_2);
         lowerMotor1 = new VictorSPX(Constants.LOWER_MOTOR_1);
         lowerMotor2 = new VictorSPX(Constants.LOWER_MOTOR_2);
         ballCountSensor = new DigitalInput(Constants.BALL_COUNT_SENSOR);
-        // tiltPnuematic = new DoubleSolenoid(Constants.TILT_FORWARD_1,Constants.TILT_REVERSE_2);
+        rightFrontLimit = new DigitalInput(Constants.RIGHT_FRONT_LIMIT);
+        leftFrontLimit = new DigitalInput(Constants.LEFT_FRONT_LIMIT);
+        rightRearLimit = new DigitalInput(Constants.RIGHT_REAR_LIMIT);
+        leftRearLimit = new DigitalInput(Constants.LEFT_REAR_LIMIT);
     }
 
   @Override
@@ -68,32 +84,69 @@ public class BallIntake extends SubsystemBase {
     if( !ballCountSensor.get() && prevBallSensor){
       ballCount++;
     }
-    SmartDashboard.putBoolean("Ball Count Sensor", ballCountSensor.get());
+    SmartDashboard.putBoolean("Right Front Limit Switch", !rightFrontLimit.get());
+    SmartDashboard.putBoolean("Left Front Limit Switch", !leftFrontLimit.get());
+    SmartDashboard.putBoolean("Right Rear Limit Switch", !rightRearLimit.get());
+    SmartDashboard.putBoolean("Left Rear Limit Switch", !leftRearLimit.get());
+    SmartDashboard.putNumber("LeftEnc",getEncoder());
+    SmartDashboard.putBoolean("Ball Count Sensor", !ballCountSensor.get());
     SmartDashboard.putNumber("Ball Count", ballCount);
     prevBallSensor = ballCountSensor.get();
+    if(isRearLimit()){
+      tiltMotorLeft.setSelectedSensorPosition(2200);
+    }else if(isFrontLimit()){
+      tiltMotorLeft.setSelectedSensorPosition(0);
+    }
   }
 
   public void resetBallCount(){
     ballCount = 0;
   }
+  public boolean isFrontLimit() {
+    if(!rightFrontLimit.get() || !leftFrontLimit.get()){
+     return true; 
+    }
+    else{
+      return false;
+    } 
+
+  }
+  public boolean isRearLimit() {
+    if(!rightRearLimit.get() || !leftRearLimit.get()){
+     return true; 
+    }
+    else{
+      return false;
+    } 
+  }
   /**
    * Pnuematics used for tiltIn
    */
   public void intakeTiltIn() {
-    tiltMotorRight.set(ControlMode.PercentOutput, TILT_IN_SPEED);
-    tiltMotorLeft.set(ControlMode.PercentOutput, TILT_IN_SPEED * -1.0);
-    // tiltPnuematic.set(Value.kForward);
+    driveTiltMotors(ControlMode.PercentOutput, TILT_IN_SPEED);
+    
   }
   public void intakeTiltOut() {
-    tiltMotorLeft.set(ControlMode.PercentOutput, TILT_OUT_SPEED * -1.0);
-    tiltMotorRight.set(ControlMode.PercentOutput, TILT_OUT_SPEED);
-    // tiltPnuematic.set(Value.kReverse);
+    driveTiltMotors(ControlMode.PercentOutput, TILT_OUT_SPEED);
+    
   }
   public void intakeTiltStop() {
-    tiltMotorRight.set(ControlMode.PercentOutput, 0.0);
-    tiltMotorLeft.set(ControlMode.PercentOutput, 0.0);
+    driveTiltMotors(ControlMode.PercentOutput, 0.0);
   }
   
+  private void driveTiltMotors(ControlMode mode, double speed){
+    if(isRearLimit() && speed > 0.0){
+      speed = 0.0;
+    }else if (isFrontLimit() && speed < 0.0){
+      speed = 0.0;
+    }
+    tiltMotorLeft.set(mode, speed);
+  }
+
+  public double getEncoder(){
+    return tiltMotorLeft.getSelectedSensorPosition();
+  }
+
   public void setUpperMotors(UpperState state) {
     switch (state) {
       case kOff:
