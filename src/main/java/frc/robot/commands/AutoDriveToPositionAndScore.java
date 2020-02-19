@@ -29,3 +29,4 @@ public class AutoDriveToPositionAndScore extends SequentialCommandGroup {
 }
 //Position is where two balls are located in the rendezvous area
 // 15 pt. plan
+//go to human player station after to pick up balls (in code or not?)

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import frc.robot.Constants;
@@ -22,16 +22,18 @@ public class HangingMechanism extends SubsystemBase {
 //  Encoder leftHangingEncoder;
 //  Encoder rightHangingEncoder;
 
-  //public void HangingMechanism() {
-    //leftHangingMotor = new TalonSRX(Constants.CLIMBING_LEFT_MOTOR);
-    //rightHangingMotor = new TalonSRX(Constants.CLIMBING_RIGHT_MOTOR);
-    //leftHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    //rightHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-  //}
-  // tiltMotorLeft.configFactoryDefault();
-  // tiltMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-  // tiltMotorLeft.configVoltageCompSaturation(12.5);
-  // tiltMotorLeft.enableVoltageCompensation(true);
+  public HangingMechanism() {
+    leftHangingMotor = new TalonSRX(Constants.CLIMBING_LEFT_MOTOR);
+    rightHangingMotor = new TalonSRX(Constants.CLIMBING_RIGHT_MOTOR);
+    leftHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    rightHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+    // tiltMotorLeft.configFactoryDefault();
+    // tiltMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    // tiltMotorLeft.configVoltageCompSaturation(12.5);
+    // tiltMotorLeft.enableVoltageCompensation(true);
+  }
+
 
   @Override
   public void periodic() {

@@ -100,7 +100,7 @@ public class RobotContainer {
 	static Button coDriverDRight = new DPadButton(coDriverPad, DPadButton.Value.kDPadRight);
 	static Button coDriverLTrigger = new TriggerButton(coDriverPad, Hand.kLeft);
 	static Button coDriverRTrigger = new TriggerButton(coDriverPad, Hand.kRight);
-	// static Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
+	static Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
 
 
   /**
