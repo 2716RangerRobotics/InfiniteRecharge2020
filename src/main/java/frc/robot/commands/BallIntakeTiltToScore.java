@@ -10,13 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class HangingMechanismReleaseStop extends CommandBase {
+public class BallIntakeTiltToScore extends CommandBase {
   /**
-   * Creates a new HangingMechanismReleaseStop.
+   * Creates a new BallIntakeTiltToScore.
    */
-  public HangingMechanismReleaseStop() {
+  public BallIntakeTiltToScore() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.hangingMechanism);
+    addRequirements(RobotContainer.ballIntake);
+
   }
 
   // Called when the command is initially scheduled.
@@ -27,12 +28,15 @@ public class HangingMechanismReleaseStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.ballIntake.intakeTiltScore();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.hangingMechanism.stopLeftMotor();
+    RobotContainer.ballIntake.intakeTiltStop();
+ 
   }
 
   // Returns true when the command should end.

@@ -21,7 +21,9 @@ public class AutoDriveAndScore extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveStraightToDistance(50, .5),
+      new BallIntakeTiltOut(),
       new BallIntakeOuttake()
     );
   }
 }
+//11 pt. plan

@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -27,10 +28,16 @@ public class HangingMechanism extends SubsystemBase {
     //leftHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     //rightHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
   //}
+  // tiltMotorLeft.configFactoryDefault();
+  // tiltMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+  // tiltMotorLeft.configVoltageCompSaturation(12.5);
+  // tiltMotorLeft.enableVoltageCompensation(true);
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("ClimbLeftEnc", getLeftEncoder());
+    SmartDashboard.putNumber("ClimbRightEnc", getRightEncoder());
   }
 
   public void resetLeftEncoder() {
@@ -45,11 +52,11 @@ public class HangingMechanism extends SubsystemBase {
   public double getRightEncoder() {
     return rightHangingMotor.getSelectedSensorPosition();
   }
-  public void setLeftMotor() {
-    leftHangingMotor.set(ControlMode.PercentOutput, Constants.CLIMBING_MOTOR_SPEED);
+  public void setLeftMotor(double speed) {
+    leftHangingMotor.set(ControlMode.PercentOutput, speed);
   }
-  public void setRightMotor(){
-    rightHangingMotor.set(ControlMode.PercentOutput, Constants.CLIMBING_MOTOR_SPEED);
+  public void setRightMotor(double speed){
+    rightHangingMotor.set(ControlMode.PercentOutput, speed);
   }
   public void stopLeftMotor() {
     leftHangingMotor.set(ControlMode.PercentOutput, 0.0);

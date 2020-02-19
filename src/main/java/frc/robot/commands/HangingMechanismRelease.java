@@ -32,7 +32,7 @@ public class HangingMechanismRelease extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.hangingMechanism.setLeftMotor();
+    // RobotContainer.hangingMechanism.setLeftMotor();
   }
 
   // Returns true when the command should end.

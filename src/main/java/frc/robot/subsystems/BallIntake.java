@@ -39,6 +39,7 @@ public class BallIntake extends SubsystemBase {
     static final double TILT_IN_SPEED = -0.15;
     static final double ROLLER_MOTOR_IN_SPEED = -0.5;
     static final double ROLLER_MOTOR_OUT_SPEED = 0.5;
+    static final double TILT_SCORE_POSITION = 1200;//need real value
 
     public enum UpperState {
       kOff,
@@ -58,15 +59,27 @@ public class BallIntake extends SubsystemBase {
     public BallIntake() {
         tiltMotorRight = new TalonSRX(Constants.TILT_MOTOR_RIGHT);
         tiltMotorRight.configFactoryDefault();
+        tiltMotorRight.configVoltageCompSaturation(12.5);
+        tiltMotorRight.enableVoltageCompensation(true);
         tiltMotorRight.setInverted(true);
 
         tiltMotorLeft = new TalonSRX(Constants.TILT_MOTOR_LEFT);
         tiltMotorLeft.configFactoryDefault();
         tiltMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+        tiltMotorLeft.configVoltageCompSaturation(12.5);
+        tiltMotorLeft.enableVoltageCompensation(true);
         tiltMotorLeft.setInverted(false);
         tiltMotorLeft.setSensorPhase(false);
         tiltMotorRight.follow(tiltMotorLeft);
-        
+
+        tiltMotorLeft.config_kP(0,.01);
+        tiltMotorLeft.config_kI(0, 0);
+        tiltMotorLeft.config_kD(0, 0);
+        tiltMotorLeft.config_kF(0, 0);
+
+        tiltMotorLeft.configPeakOutputForward(TILT_OUT_SPEED);
+        tiltMotorLeft.configPeakOutputReverse(TILT_IN_SPEED);
+
         upperMotor1 = new VictorSPX(Constants.UPPER_MOTOR_1);
         upperMotor2 = new VictorSPX(Constants.UPPER_MOTOR_2);
         lowerMotor1 = new VictorSPX(Constants.LOWER_MOTOR_1);
@@ -130,6 +143,10 @@ public class BallIntake extends SubsystemBase {
     driveTiltMotors(ControlMode.PercentOutput, TILT_OUT_SPEED);
     
   }
+  public void intakeTiltScore() {
+    driveTiltMotors(ControlMode.Position, TILT_SCORE_POSITION);
+  }
+
   public void intakeTiltStop() {
     driveTiltMotors(ControlMode.PercentOutput, 0.0);
   }

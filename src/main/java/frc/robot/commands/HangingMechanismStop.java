@@ -10,11 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class HangingMechanismExtend extends CommandBase {
+public class HangingMechanismStop extends CommandBase {
   /**
-   * Creates a new HangingMechanismExtend.
+   * Creates a new HangingMechanismExtendStop.
    */
-  public HangingMechanismExtend() {
+  public HangingMechanismStop() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hangingMechanism);
   }
@@ -32,7 +32,8 @@ public class HangingMechanismExtend extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.hangingMechanism.setRightMotor();
+    RobotContainer.hangingMechanism.stopRightMotor();
+    RobotContainer.hangingMechanism.stopLeftMotor();
   }
 
   // Returns true when the command should end.
