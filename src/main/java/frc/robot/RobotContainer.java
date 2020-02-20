@@ -40,7 +40,6 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.HangingMechanism;
 import frc.robot.subsystems.Limelight;
 import frc.robot.commands.HangingMechanismRelease;
-import frc.robot.commands.HangingMechanismReleaseDown;
 import frc.robot.commands.HangingMechanismRetract;
 import frc.robot.commands.HangingMechanismExtendToDistance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -100,7 +99,7 @@ public class RobotContainer {
 	static Button coDriverDRight = new DPadButton(coDriverPad, DPadButton.Value.kDPadRight);
 	static Button coDriverLTrigger = new TriggerButton(coDriverPad, Hand.kLeft);
 	static Button coDriverRTrigger = new TriggerButton(coDriverPad, Hand.kRight);
-	static Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
+	static Button coDriverLTriggerRTrigger = new DoubleButton(coDriverLTrigger, coDriverRTrigger);
 
 
   /**
@@ -143,10 +142,9 @@ public class RobotContainer {
     driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
     driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
 
-    coDriverX3.whenPressed(new HangingMechanismRelease());
-    coDriverRTrigger.whenPressed(new HangingMechanismReleaseDown());
+    coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
     coDriverY4.whenPressed(new HangingMechanismExtendToDistance(0, 0));
-    coDriverLTrigger.whenPressed(new HangingMechanismRetract());
+    coDriverX3.whenPressed(new HangingMechanismRetract());
     coDriverA1.whenPressed(new BallIntakeTiltOut());
     coDriverA1.whenReleased(new BallIntakeTiltStop());
     coDriverB2.whenPressed(new BallIntakeTiltIn());
@@ -202,6 +200,22 @@ public class RobotContainer {
 			return 0;
     }
   }
+
+public static double getDriverDPadLeft() {
+  if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.1) {
+    return -1.0*driverPad.getX(Hand.kLeft);
+  } else {
+  return 0;
+  }
+}
+
+public static double getDriverDPadRight() {
+  if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.1) {
+    return -1.0*driverPad.getY(Hand.kLeft);
+  } else {
+    return 0;
+  }
+}
 
   
   }

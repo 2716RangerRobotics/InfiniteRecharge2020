@@ -8,22 +8,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoDriveAndScore extends SequentialCommandGroup {
+public class AutoFeedShooter extends SequentialCommandGroup {
   /**
-   * Creates a new AutoDriveAndScore.
+   * Creates a new AutoFeedShooter.
    */
-  public AutoDriveAndScore() {
+  public AutoFeedShooter() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
-      new DriveStraightToDistance(50, .5),
-      new BallIntakeTiltToScore().withTimeout(3.0),
-      new BallIntakeOuttake()
+      new BallIntakeTiltOut(),
+      new WaitCommand(5),
+      new BallIntakeOuttake().withTimeout(5),
+      new BallIntakeTiltIn(),
+      new DriveTurnToAngle(45, .5),
+      new DriveStraightToDistance(-25, .5)
     );
   }
 }
-//11 pt. plan

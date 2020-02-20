@@ -12,18 +12,21 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoDriveAndScore extends SequentialCommandGroup {
+public class AutoFeederStationPosition extends SequentialCommandGroup {
   /**
-   * Creates a new AutoDriveAndScore.
+   * Creates a new AutoFeederStationPosition.
    */
-  public AutoDriveAndScore() {
+  public AutoFeederStationPosition() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
-      new DriveStraightToDistance(50, .5),
-      new BallIntakeTiltToScore().withTimeout(3.0),
+      new DriveStraightToDistance(15, .5),
+      new DriveTurnToAngle(90.0, .5),
+      new DriveStraightToDistance(30, .5),
+      new DriveTurnToAngle(-90.0, .5),
+      new DriveStraightToDistance(5, .25),
+      new BallIntakeTiltToScore().withTimeout(2.0),
       new BallIntakeOuttake()
     );
   }
 }
-//11 pt. plan

@@ -26,13 +26,14 @@ public class Drive extends SubsystemBase {
   CANEncoder rightEncoder;
   CANEncoder leftEncoder;
   private AHRS imu;
-  public static final double FeedForward=0.2;
-  public static final double kProportion=0.02;
+  public static final double FeedForward = 0.2;
+  public static final double kProportion = 0.02;
+
   /**
    * Creates a new Drive.
    */
   public Drive() {
-    imu = new AHRS(I2C.Port.kMXP);
+    imu = new AHRS(I2C.Port.kOnboard);
     leftMotorMaster = new CANSparkMax(Constants.LEFT_MOTOR_MASTER, MotorType.kBrushless);
     leftMotorFollower = new CANSparkMax(Constants.LEFT_MOTOR_FOLLOWER, MotorType.kBrushless);
     rightMotorMaster = new CANSparkMax(Constants.RIGHT_MOTOR_MASTER, MotorType.kBrushless);
@@ -57,6 +58,7 @@ public class Drive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Gyro", imu.getYaw());
   }
 
   public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
@@ -119,17 +121,16 @@ public class Drive extends SubsystemBase {
 
   public void turnToAngle(double targetAngle, double turnSpeed) {
     double error = targetAngle - getAngle();
-      if (error > 0) {
-        arcadeDrive(0, FeedForward + (kProportion * error), false);
-      }
-      else {
-        arcadeDrive (0, -FeedForward + (-kProportion * error), false);
-      }
+    if (error > 0) {
+      arcadeDrive(0, FeedForward + (kProportion * error), false);
+    } else {
+      arcadeDrive(0, -FeedForward + (-kProportion * error), false);
+    }
   }
 
   public double getAngle() {
     // SmartDashboard.putNumber("gyro", imu.getYaw());
-    return 0.0;//imu.getYaw();
+    return imu.getYaw();
   }
 
   public void zeroAngle() {
@@ -161,4 +162,4 @@ public class Drive extends SubsystemBase {
     }
     return num;
   }
-} 
+}
