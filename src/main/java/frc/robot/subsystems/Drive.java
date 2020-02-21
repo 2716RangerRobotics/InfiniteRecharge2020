@@ -33,7 +33,7 @@ public class Drive extends SubsystemBase {
    * Creates a new Drive.
    */
   public Drive() {
-    imu = new AHRS(I2C.Port.kOnboard);
+    imu = new AHRS(I2C.Port.kMXP);
     leftMotorMaster = new CANSparkMax(Constants.LEFT_MOTOR_MASTER, MotorType.kBrushless);
     leftMotorFollower = new CANSparkMax(Constants.LEFT_MOTOR_FOLLOWER, MotorType.kBrushless);
     rightMotorMaster = new CANSparkMax(Constants.RIGHT_MOTOR_MASTER, MotorType.kBrushless);
