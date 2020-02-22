@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -26,12 +27,11 @@ import frc.robot.commands.BallIntakeTiltStop;
 import frc.robot.commands.ColorWheelSpinnerLiftUp;
 import frc.robot.commands.ColorWheelSpinnerLiftDown;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
-import frc.robot.commands.ColorWheelSpinnerTurnWheel;
-import frc.robot.commands.ColorWheelSpinnerTurnWheelStop;
+import frc.robot.commands.ColorWheelSpinnerWheelStop;
+import frc.robot.commands.DriveTurnToAngle;
 import frc.robot.commands.ColorWheelSpinnerRotationWheel;
-import frc.robot.commands.ColorWheelSpinnerRotationWheelStop;
+import frc.robot.commands.ColorWheelSpinnerWheelStop;
 import frc.robot.commands.ColorWheelSpinnerColorRotation;
-import frc.robot.commands.ColorWheelSpinnerColorRotationStop;
 import frc.robot.commands.DriveWithGamePad;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.ColorWheelSpinner;
@@ -140,7 +140,11 @@ public class RobotContainer {
     driverLTrigger.whenPressed(new AutoDriveAndScore());
     driverRTrigger.whenPressed(new AutoDriveToPositionAndScore());
     driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
+    driverSTART8.whenReleased(new ColorWheelSpinnerLiftStop());
     driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
+    driverSEL7.whenReleased(new ColorWheelSpinnerLiftStop());
+    driverDLeft.whenPressed(new DriveTurnToAngle(-5, .25));
+    driverDRight.whenPressed(new DriveTurnToAngle(5, .25));
 
     coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
     coDriverY4.whenPressed(new HangingMechanismExtendToDistance(0, 0));
@@ -154,11 +158,8 @@ public class RobotContainer {
     coDriverLB5.whenPressed(new BallIntakeOuttake());
     coDriverLB5.whenReleased(new BallIntakeOuttakeStop());
     coDriverDLeft.whenPressed(new ColorWheelSpinnerRotationWheel());
-    coDriverDLeft.whenReleased(new ColorWheelSpinnerRotationWheelStop());
+    coDriverDLeft.whenReleased(new ColorWheelSpinnerWheelStop());
     coDriverDRight.whenPressed(new ColorWheelSpinnerColorRotation());
-    coDriverDRight.whenReleased(new ColorWheelSpinnerColorRotationStop());
-    coDriverSTART8.whenPressed(new ColorWheelSpinnerTurnWheel());
-    coDriverSTART8.whenReleased(new ColorWheelSpinnerTurnWheelStop());
     coDriverDUp.whenPressed(new ColorWheelSpinnerLiftUp());
     coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
     coDriverDDown.whenPressed(new ColorWheelSpinnerLiftDown());
@@ -201,21 +202,24 @@ public class RobotContainer {
     }
   }
 
-public static double getDriverDPadLeft() {
-  if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.1) {
-    return -1.0*driverPad.getX(Hand.kLeft);
-  } else {
-  return 0;
-  }
-}
-
-public static double getDriverDPadRight() {
-  if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.1) {
-    return -1.0*driverPad.getY(Hand.kLeft);
-  } else {
+  public static double getDriverDPadLeft() {
+    if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.1) {
+      return -1.0*driverPad.getX(Hand.kLeft);
+    } else {
     return 0;
+    }
   }
-}
 
-  
+  public static double getDriverDPadRight() {
+    if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.1) {
+      return -1.0*driverPad.getY(Hand.kLeft);
+    } else {
+      return 0;
+    }
   }
+
+  public static void setRumbleDriver(double rumble) {
+    driverPad.setRumble(RumbleType.kLeftRumble, rumble);
+  }
+
+}

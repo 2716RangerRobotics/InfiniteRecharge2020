@@ -12,20 +12,27 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.Servo;
 
 public class ColorWheelSpinner extends SubsystemBase {
   VictorSPX wheelMotor;
   VictorSPX liftMotor;
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private ColorSensorV3 m_colorSensor;
-  Servo yourActuator;
+  private ColorSensorV3 colorSensor;
+  // Servo yourActuator;
+  DigitalInput bottomBaseLimit;
+  DigitalInput topBaseLimit;
+  DigitalInput extendLimit;
+
+  String colorString = "U";
   /**
    * A Rev Color Match object is used to register and detect known colors. This can 
    * be calibrated ahead of time or during operation.
@@ -33,7 +40,7 @@ public class ColorWheelSpinner extends SubsystemBase {
    * This object uses a simple euclidian distance to estimate the closest match
    * with given confidence range.
    */
-  private final ColorMatch m_colorMatcher = new ColorMatch();
+  private final ColorMatch colorMatcher = new ColorMatch();
   /**
    * Note: Any example colors should be calibrated as the user needs, these
    * are here as a basic example.
@@ -47,14 +54,22 @@ public class ColorWheelSpinner extends SubsystemBase {
    * Creates a new ColorWheelSpinner.
    */
   public ColorWheelSpinner() {
-    m_colorSensor = new ColorSensorV3(i2cPort);
-    yourActuator = new Servo(Constants.YOUR_ACTUATOR_CHANNEL);
-    yourActuator.setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
-    yourActuator.setSpeed(-1.0);
-    m_colorMatcher.addColorMatch(kBlueTarget);
-    m_colorMatcher.addColorMatch(kGreenTarget);
-    m_colorMatcher.addColorMatch(kRedTarget);
-    m_colorMatcher.addColorMatch(kYellowTarget);  
+    colorSensor = new ColorSensorV3(i2cPort);
+    colorMatcher.addColorMatch(kBlueTarget);
+    colorMatcher.addColorMatch(kGreenTarget);
+    colorMatcher.addColorMatch(kRedTarget);
+    colorMatcher.addColorMatch(kYellowTarget); 
+    
+    // yourActuator = new Servo(Constants.YOUR_ACTUATOR_CHANNEL);
+    // yourActuator.setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
+    // yourActuator.setSpeed(-1.0);
+    
+    wheelMotor = new VictorSPX(Constants.WHEEL_MOTOR);
+    liftMotor = new VictorSPX(Constants.LIFT_MOTOR);
+    
+    bottomBaseLimit = new DigitalInput(Constants.BOTTOM_BASE_LIMIT);
+    topBaseLimit = new DigitalInput(Constants.TOP_BASE_LIMIT);
+    extendLimit = new DigitalInput(Constants.EXTEND_LIMIT);
   }
 
   @Override
@@ -70,31 +85,39 @@ public class ColorWheelSpinner extends SubsystemBase {
      * an object is the more light from the surroundings will bleed into the 
      * measurements and make it difficult to accurately determine its color.
      */
-    Color detectedColor = m_colorSensor.getColor();
+
+
+    Color detectedColor = colorSensor.getColor();
     // System.out.println(detectedColor);
 
     /**
      * Run the color match algorithm on our detected color
      */
-    String colorString;
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    
+    ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
     if (match.color == kBlueTarget) {
-      colorString = "Blue";
+      colorString = "B";
       // System.out.println("Blue");
     } else if (match.color == kRedTarget) {
-      colorString = "Red";
+      colorString = "R";
       // System.out.println("Red");
     } else if (match.color == kGreenTarget) {
-      colorString = "Green";
+      colorString = "G";
       // System.out.println("Green");
     } else if (match.color == kYellowTarget) {
-      colorString = "Yellow";
+      colorString = "Y";
       // System.out.println("Yellow");
     } else {
-      colorString = "Unknown";
+      colorString = "U";
       // System.out.println("Unknown");
     }
+    if(isExtendLimit()) {
+      RobotContainer.setRumbleDriver(.5);
+    }else{
+      RobotContainer.setRumbleDriver(0);
+    }
+
     /**
      * Open Smart Dashboard or Shuffleboard to see the color detected by the 
      * sensor.
@@ -104,7 +127,46 @@ public class ColorWheelSpinner extends SubsystemBase {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putBoolean("Bottom Base Limit Switch", isBottomBaseLimit());
+    SmartDashboard.putBoolean("Top Base Limit Switch", isTopBaseLimit());
+    SmartDashboard.putBoolean("Extend Limit Switch", isExtendLimit());
   }
+  
+  public boolean isBottomBaseLimit() {
+    if(!bottomBaseLimit.get()){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  public boolean isTopBaseLimit() {
+    if(!topBaseLimit.get()){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  public boolean isExtendLimit() {
+    if(!extendLimit.get()){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  public boolean isRed(){
+    return colorString.contentEquals("R");
+  }
+  
+  public String getColorString(){
+    return colorString;
+  }  
+  
   public void wheelSpin() {
     wheelMotor.set(ControlMode.PercentOutput, Constants.WHEEL_MOTOR_SPEED);
   }
@@ -114,17 +176,25 @@ public class ColorWheelSpinner extends SubsystemBase {
   }
   
   public void liftUp() {
-    //wheelMotor.set(ControlMode.PercentOutput, Constants.LIFT_MOTOR_SPEED);
-    yourActuator.setSpeed(1.0); //to open
-    yourActuator.setPosition(1.00);
+    if(isTopBaseLimit()){
+      liftMotor.set(ControlMode.PercentOutput, 0.0);
+    }else{
+      liftMotor.set(ControlMode.PercentOutput, Constants.LIFT_MOTOR_SPEED);
+    }
+    // yourActuator.setSpeed(1.0); //to open
+    // yourActuator.setPosition(1.00);
   }
   public void liftDown() {
-    //.set(ControlMode.PercentOutput, -Constants.LIFT_MOTOR_SPEED);
-    yourActuator.setSpeed(-1.0); //to close
-    yourActuator.setPosition(0.00);
+    if(isBottomBaseLimit()){
+      liftMotor.set(ControlMode.PercentOutput, 0.0);
+    }else{
+      liftMotor.set(ControlMode.PercentOutput, -Constants.LIFT_MOTOR_SPEED);
+    }
+    // yourActuator.setSpeed(-1.0); //to close
+    // yourActuator.setPosition(0.00);
   }
   public void stopLift() {
-    //liftMotor.set(ControlMode.PercentOutput, 0.0);
-    yourActuator.setSpeed(0.0); //to stop
+    liftMotor.set(ControlMode.PercentOutput, 0.0);
+    // yourActuator.setSpeed(0.0); //to stop
   }
   }

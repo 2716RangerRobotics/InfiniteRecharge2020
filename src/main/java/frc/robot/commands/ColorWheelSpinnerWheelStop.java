@@ -10,11 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class ColorWheelSpinnerRotationWheelStop extends CommandBase {
+public class ColorWheelSpinnerWheelStop extends CommandBase {
   /**
-   * Creates a new ColorWheelSpinnerRotationWheelStop.
+   * Creates a new ColorWheelSpinnerTurnWheelStop.
    */
-  public ColorWheelSpinnerRotationWheelStop() {
+  public ColorWheelSpinnerWheelStop() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.colorWheelSpinner);
   }
@@ -27,6 +27,7 @@ public class ColorWheelSpinnerRotationWheelStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
   }
 
   // Called once the command ends or is interrupted.

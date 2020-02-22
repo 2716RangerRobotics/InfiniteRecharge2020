@@ -8,9 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class ColorWheelSpinnerRotationWheel extends CommandBase {
+  public int numberOfReds;
+  public boolean prevIsRed;
   /**
    * Creates a new ColorWheelSpinnerRotationWheel.
    */
@@ -22,22 +25,30 @@ public class ColorWheelSpinnerRotationWheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    numberOfReds = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.colorWheelSpinner.wheelSpin();
+
+    if(RobotContainer.colorWheelSpinner.isRed() && !prevIsRed){
+      numberOfReds++;
+    } 
+    
+    prevIsRed = RobotContainer.colorWheelSpinner.isRed();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.colorWheelSpinner.wheelSpin();
+    RobotContainer.colorWheelSpinner.stopWheelSpin();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return numberOfReds >= 8;
   }
 }
