@@ -43,7 +43,7 @@ public final class Constants {
     //motor speeds
     public static final double UPPER_MOTOR_SPEED = 1.0;
     public static final double LOWER_MOTOR_SPEED = 1.0;
-    public static final double CLIMBING_MOTOR_SPEED = 0.1;
+    public static final double CLIMBING_MOTOR_SPEED = 0.3;
     public static final double WHEEL_MOTOR_SPEED = 0.05;
     public static final double LIFT_MOTOR_SPEED = 0.05;
 

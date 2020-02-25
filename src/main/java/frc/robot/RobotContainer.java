@@ -153,9 +153,9 @@ public class RobotContainer {
     // driverDRight.whenPressed(new DriveTurnToAngle(25, .25));
 
     coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
-    coDriverY4.whenPressed(new HangingMechanismExtendToDistance(0, 0));
+    coDriverY4.whenPressed(new HangingMechanismExtendToDistance(15000, 0.3));
     coDriverY4.whenReleased(new HangingMechanismStop());
-    // coDriverX3.whenPressed(new HangingMechanismRetract());//does nothing
+    coDriverX3.whenPressed(new HangingMechanismRetract());//does nothing
     coDriverX3.whenReleased(new HangingMechanismStop());
     coDriverA1.whenPressed(new BallTiltOut());
     coDriverA1.whenReleased(new BallTiltStop());

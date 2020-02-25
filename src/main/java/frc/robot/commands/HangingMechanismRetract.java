@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class HangingMechanismRetract extends CommandBase {
@@ -27,14 +28,15 @@ public class HangingMechanismRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // RobotContainer.hangingMechanism.setRightMotor();
+   // RobotContainer.hangingMechanism.setRightMotor
   }
-
+  
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

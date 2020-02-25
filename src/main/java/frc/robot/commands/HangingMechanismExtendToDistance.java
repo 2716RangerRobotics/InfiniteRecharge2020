@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class HangingMechanismExtendToDistance extends CommandBase {
@@ -33,12 +34,12 @@ public class HangingMechanismExtendToDistance extends CommandBase {
   @Override
   public void execute() {
     if(RobotContainer.hangingMechanism.getRightEncoder()<distance){
-      RobotContainer.hangingMechanism.setRightMotor(speed);
+      RobotContainer.hangingMechanism.setRightMotor(-Constants.CLIMBING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopRightMotor();
     }
     if(RobotContainer.hangingMechanism.getLeftEncoder()<distance){
-      RobotContainer.hangingMechanism.setLeftMotor(speed);
+      RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopLeftMotor();
     }

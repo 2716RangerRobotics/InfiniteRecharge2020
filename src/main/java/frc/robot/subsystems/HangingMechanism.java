@@ -66,4 +66,17 @@ public class HangingMechanism extends SubsystemBase {
   public void stopRightMotor() {
     rightHangingMotor.set(ControlMode.PercentOutput, 0.0);
   }
+
+
+public void setLeftMotor(ControlMode percentoutput, double d) {
+}
+
+
+public void setRightMotor(ControlMode percentoutput, double d) {
+}
+
+
+public boolean getLeftEncoder(ControlMode percentoutput, double d) {
+	return false;
+}
 }
