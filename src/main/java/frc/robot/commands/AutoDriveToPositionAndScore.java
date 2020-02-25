@@ -18,12 +18,12 @@ public class AutoDriveToPositionAndScore extends SequentialCommandGroup {
       super(
         new BallIntakeIntake(),
         new DriveStraightToDistance(125, .5),
-        new BallIntakeTiltOut(),
+        new BallTiltOut(),
         new BallIntakeIntake(),
-        new BallIntakeTiltIn(),
+        new BallTiltIn(),
         new DriveTurnToAngle(180, .5),
         new DriveStraightToDistance(50, .5),
-        new BallIntakeTiltToScore(),
+        new BallTiltToScore(),
         new BallIntakeOuttake()
       );
   }

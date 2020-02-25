@@ -27,12 +27,12 @@ public class ColorWheelSpinnerLiftStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.colorWheelSpinner.stopLift();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.colorWheelSpinner.stopLift();
   }
 
   // Returns true when the command should end.

@@ -20,6 +20,7 @@ public class HangingMechanismExtendToDistance extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hangingMechanism);
     this.distance = distance;
+    distance = 15.0;
     this.speed = speed;
   }
 

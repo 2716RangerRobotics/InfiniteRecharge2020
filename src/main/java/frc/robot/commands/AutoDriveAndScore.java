@@ -25,7 +25,7 @@ public class AutoDriveAndScore extends SequentialCommandGroup {
       new DriveStraightToDistance(25, .5),
       new DriveTurnToAngle(90, .5),
       new DriveStraightToDistance(50, .5),
-      new BallIntakeTiltToScore().withTimeout(3.0),
+      new BallTiltToScore().withTimeout(3.0),
       new BallIntakeOuttake()
     );
   }

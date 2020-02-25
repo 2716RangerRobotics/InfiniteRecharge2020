@@ -50,6 +50,8 @@ public class ColorWheelSpinner extends SubsystemBase {
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
+  static final double SPIN_COLOR_WHEEL_POSITION = 5;
+
   /**
    * Creates a new ColorWheelSpinner.
    */
@@ -194,7 +196,7 @@ public class ColorWheelSpinner extends SubsystemBase {
     // yourActuator.setPosition(0.00);
   }
   public void stopLift() {
-    liftMotor.set(ControlMode.PercentOutput, 0.0);
+    liftMotor.set(ControlMode.PercentOutput, SPIN_COLOR_WHEEL_POSITION);
     // yourActuator.setSpeed(0.0); //to stop
   }
   }

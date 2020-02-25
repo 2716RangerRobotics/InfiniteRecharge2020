@@ -124,7 +124,7 @@ public class Drive extends SubsystemBase {
     if (error > 0) {
       arcadeDrive(0, FeedForward + (kProportion * error), false);
     } else {
-      arcadeDrive(0, -FeedForward + (-kProportion * error), false);
+      //This is wrong: arcadeDrive(0, -FeedForward + (-kProportion * error), false);
     }
   }
 

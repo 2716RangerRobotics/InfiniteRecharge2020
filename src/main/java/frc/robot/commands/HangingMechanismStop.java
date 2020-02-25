@@ -27,13 +27,13 @@ public class HangingMechanismStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.hangingMechanism.stopRightMotor();
+    RobotContainer.hangingMechanism.stopLeftMotor();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.hangingMechanism.stopRightMotor();
-    RobotContainer.hangingMechanism.stopLeftMotor();
   }
 
   // Returns true when the command should end.

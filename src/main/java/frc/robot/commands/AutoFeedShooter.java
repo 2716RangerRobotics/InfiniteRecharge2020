@@ -21,10 +21,10 @@ public class AutoFeedShooter extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
-      new BallIntakeTiltOut(),
+      new BallTiltOut(),
       new WaitCommand(5),
       new BallIntakeOuttake().withTimeout(5),
-      new BallIntakeTiltIn(),
+      new BallTiltIn(),
       new DriveTurnToAngle(45, .5),
       new DriveStraightToDistance(-25, .5)
     );

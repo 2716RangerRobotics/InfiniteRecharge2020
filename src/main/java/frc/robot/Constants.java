@@ -26,12 +26,12 @@ public final class Constants {
     public static final int TILT_MOTOR_LEFT = 8;
     public static final int UPPER_MOTOR_1 = 3;
     public static final int UPPER_MOTOR_2 = 4;
-    public static final int LOWER_MOTOR_1 = 5;
-    public static final int LOWER_MOTOR_2 = 6;
+    public static final int LOWER_MOTOR_1 = 10;
+    public static final int LOWER_MOTOR_2 = 9;
     public static final int CLIMBING_LEFT_MOTOR = 1;
     public static final int CLIMBING_RIGHT_MOTOR = 2;
-    public static final int WHEEL_MOTOR = 9;
-    public static final int LIFT_MOTOR = 10;
+    public static final int WHEEL_MOTOR = 6;
+    public static final int LIFT_MOTOR = 5;
 
     //PWM Channels
     public static final int YOUR_ACTUATOR_CHANNEL = 1;
@@ -41,11 +41,11 @@ public final class Constants {
 	public static final int TILT_REVERSE_2 = 1;
 
     //motor speeds
-    public static final double UPPER_MOTOR_SPEED = 0.5;
-    public static final double LOWER_MOTOR_SPEED = 0.5;
-    public static final double CLIMBING_MOTOR_SPEED = 0.5;
-    public static final double WHEEL_MOTOR_SPEED = 0.5;
-    public static final double LIFT_MOTOR_SPEED = 0.5;
+    public static final double UPPER_MOTOR_SPEED = 1.0;
+    public static final double LOWER_MOTOR_SPEED = 1.0;
+    public static final double CLIMBING_MOTOR_SPEED = 0.1;
+    public static final double WHEEL_MOTOR_SPEED = 0.05;
+    public static final double LIFT_MOTOR_SPEED = 0.05;
 
     // //limit switch
     // public static final int GEAR_SWITCH_PORT = 0;

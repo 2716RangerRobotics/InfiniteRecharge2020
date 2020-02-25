@@ -25,7 +25,7 @@ public class AutoFeederStationPosition extends SequentialCommandGroup {
       new DriveStraightToDistance(30, .5),
       new DriveTurnToAngle(-90.0, .5),
       new DriveStraightToDistance(5, .25),
-      new BallIntakeTiltToScore().withTimeout(2.0),
+      new BallTiltToScore().withTimeout(2.0),
       new BallIntakeOuttake()
     );
   }
