@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoDriveAndScore;
 import frc.robot.commands.AutoDriveToPositionAndScore;
+import frc.robot.commands.AutoFeedShooter;
+import frc.robot.commands.AutoFeederStationPosition;
 import frc.robot.commands.BallIntakeIntake;
 import frc.robot.commands.BallIntakeIntakeStop;
 import frc.robot.commands.BallIntakeOuttake;
@@ -42,6 +44,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.HangingMechanism;
 import frc.robot.subsystems.Limelight;
 import frc.robot.commands.HangingMechanismRelease;
+import frc.robot.commands.HangingMechanismResetEnc;
 import frc.robot.commands.HangingMechanismRetract;
 import frc.robot.commands.HangingMechanismStop;
 import frc.robot.commands.HangingMechanismExtendToDistance;
@@ -64,6 +67,9 @@ public class RobotContainer {
   //public DigitalInput gearSwitch;
   public static ColorWheelSpinner colorWheelSpinner;
   public static AutoDriveAndScore autoDriveAndScore;
+  public static AutoFeederStationPosition autoFeederStationPosition;
+  public static AutoFeedShooter autoFeedShooter;
+  public static AutoDriveToPositionAndScore autoDriveToPositionAndScore;
   public static Limelight limelight;
   // The robot's commands are instantiated here...
   // The driver's controller
@@ -118,6 +124,9 @@ public class RobotContainer {
     //gearSwitch = new DigitalInput(Constants.GEAR_SWITCH_PORT);
     colorWheelSpinner = new ColorWheelSpinner();
     autoDriveAndScore = new AutoDriveAndScore();
+    autoDriveToPositionAndScore = new AutoDriveToPositionAndScore();
+    autoFeederStationPosition = new AutoFeederStationPosition();
+    autoFeedShooter = new AutoFeedShooter();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
     // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
     SmartDashboard.putData(drive);
@@ -138,13 +147,14 @@ public class RobotContainer {
     driverA1.whenReleased(new BallTiltStop());
     driverB2.whenPressed(new BallTiltIn());
     driverB2.whenReleased(new BallTiltStop());
+    driverX3.whenPressed(new HangingMechanismResetEnc());
     driverY4.whenPressed(new BallTiltToScore());
     driverRB6.whenPressed(new BallIntakeIntake());
     driverRB6.whenReleased(new BallIntakeIntakeStop());
     driverLB5.whenPressed(new BallIntakeOuttake());
     driverLB5.whenReleased(new BallIntakeOuttakeStop());
-    driverLTrigger.whenPressed(new AutoDriveAndScore());
-    driverRTrigger.whenPressed(new AutoDriveToPositionAndScore());
+    // driverLTrigger.whenPressed(new AutoDriveAndScore());
+    // driverRTrigger.whenPressed(new AutoDriveToPositionAndScore()); //don't need buttons for auto
     driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
     driverSEL7.whenReleased(new ColorWheelSpinnerLiftStop());
     driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
@@ -153,7 +163,7 @@ public class RobotContainer {
     // driverDRight.whenPressed(new DriveTurnToAngle(25, .25));
 
     coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
-    coDriverY4.whenPressed(new HangingMechanismExtendToDistance(15000, 0.3));
+    coDriverY4.whenPressed(new HangingMechanismExtendToDistance(100000, 0.3));
     coDriverY4.whenReleased(new HangingMechanismStop());
     coDriverX3.whenPressed(new HangingMechanismRetract());//does nothing
     coDriverX3.whenReleased(new HangingMechanismStop());

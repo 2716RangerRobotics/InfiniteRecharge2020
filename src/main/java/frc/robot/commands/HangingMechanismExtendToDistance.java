@@ -21,7 +21,6 @@ public class HangingMechanismExtendToDistance extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hangingMechanism);
     this.distance = distance;
-    distance = 15.0;
     this.speed = speed;
   }
 
@@ -33,13 +32,13 @@ public class HangingMechanismExtendToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.hangingMechanism.getRightEncoder()<distance){
-      RobotContainer.hangingMechanism.setRightMotor(-Constants.CLIMBING_MOTOR_SPEED);
+    if(RobotContainer.hangingMechanism.getRightEncoder()<Constants.HANGING_EXTENDING_POSITION){
+      RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopRightMotor();
     }
-    if(RobotContainer.hangingMechanism.getLeftEncoder()<distance){
-      RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_MOTOR_SPEED);
+    if(RobotContainer.hangingMechanism.getLeftEncoder()<Constants.HANGING_EXTENDING_POSITION){
+      RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopLeftMotor();
     }

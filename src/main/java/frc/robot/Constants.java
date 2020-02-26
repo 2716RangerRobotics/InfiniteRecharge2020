@@ -28,8 +28,8 @@ public final class Constants {
     public static final int UPPER_MOTOR_2 = 4;
     public static final int LOWER_MOTOR_1 = 10;
     public static final int LOWER_MOTOR_2 = 9;
-    public static final int CLIMBING_LEFT_MOTOR = 1;
-    public static final int CLIMBING_RIGHT_MOTOR = 2;
+    public static final int CLIMBING_LEFT_MOTOR = 2;
+    public static final int CLIMBING_RIGHT_MOTOR = 1;
     public static final int WHEEL_MOTOR = 6;
     public static final int LIFT_MOTOR = 5;
 
@@ -44,6 +44,8 @@ public final class Constants {
     public static final double UPPER_MOTOR_SPEED = 1.0;
     public static final double LOWER_MOTOR_SPEED = 1.0;
     public static final double CLIMBING_MOTOR_SPEED = 0.3;
+    public static final double CLIMBING_EXTENDING_MOTOR_SPEED = 0.3;
+    public static final double CLIMBING_RETRACTING_MOTOR_SPEED = -0.3;
     public static final double WHEEL_MOTOR_SPEED = 0.05;
     public static final double LIFT_MOTOR_SPEED = 0.05;
 
@@ -58,4 +60,8 @@ public final class Constants {
     public static final int BOTTOM_BASE_LIMIT = 7;
     public static final int TOP_BASE_LIMIT = 8;
     public static final int EXTEND_LIMIT = 9;
+
+    //hanging
+    public static final double HANGING_RETRACT_POSITION = 0.0;
+    public static final double HANGING_EXTENDING_POSITION = 18800.0;
 }

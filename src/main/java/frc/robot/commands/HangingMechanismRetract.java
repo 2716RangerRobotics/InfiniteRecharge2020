@@ -12,12 +12,17 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class HangingMechanismRetract extends CommandBase {
+  public double distance;
+  public double speed;  
   /**
    * Creates a new HangingMechanismRetract.
    */
   public HangingMechanismRetract() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hangingMechanism);
+    // this.distance = distance;
+
+    // this.speed = speed;
   }
 
   // Called when the command is initially scheduled.
@@ -28,18 +33,31 @@ public class HangingMechanismRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_MOTOR_SPEED);
+    if(RobotContainer.hangingMechanism.getRightEncoder()>Constants.HANGING_RETRACT_POSITION){
+      RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+    } else {
+      RobotContainer.hangingMechanism.stopRightMotor();
+    }
+    if(RobotContainer.hangingMechanism.getLeftEncoder()>Constants.HANGING_RETRACT_POSITION){
+      RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+    } else {
+      RobotContainer.hangingMechanism.stopLeftMotor();
+    }
+    
+    // RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   // RobotContainer.hangingMechanism.setRightMotor
+    RobotContainer.hangingMechanism.stopRightMotor();
+    RobotContainer.hangingMechanism.stopLeftMotor();
   }
   
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (RobotContainer.hangingMechanism.getRightEncoder()<=distance) &&
+    (RobotContainer.hangingMechanism.getLeftEncoder()<=distance);
   }
 }
