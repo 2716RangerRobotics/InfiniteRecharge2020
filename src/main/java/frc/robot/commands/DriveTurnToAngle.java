@@ -44,6 +44,4 @@ public class DriveTurnToAngle extends CommandBase {
   public void end(boolean interupted) {
     RobotContainer.drive.arcadeDrive(0, 0, true);
   }
-
-
 }

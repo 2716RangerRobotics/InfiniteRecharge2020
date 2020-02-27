@@ -30,6 +30,7 @@ import frc.robot.commands.BallTiltToScore;
 import frc.robot.commands.ColorWheelSpinnerLiftUp;
 import frc.robot.commands.ColorWheelSpinnerLiftDown;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
+import frc.robot.commands.ColorWheelSpinnerLiftToPosition;
 import frc.robot.commands.ColorWheelSpinnerWheelStop;
 import frc.robot.commands.DriveTurnToAngle;
 import frc.robot.commands.ColorWheelSpinnerRotationWheel;
@@ -171,17 +172,21 @@ public class RobotContainer {
     coDriverA1.whenReleased(new BallTiltStop());
     coDriverB2.whenPressed(new BallTiltIn());
     coDriverB2.whenReleased(new BallTiltStop());
+    coDriverSTART8.whenPressed(new BallTiltToScore());
+    coDriverB2.whenReleased(new BallTiltStop());
     coDriverRB6.whenPressed(new BallIntakeIntake());
     coDriverRB6.whenReleased(new BallIntakeIntakeStop());
     coDriverLB5.whenPressed(new BallIntakeOuttake());
     coDriverLB5.whenReleased(new BallIntakeOuttakeStop());
     coDriverDLeft.whenPressed(new ColorWheelSpinnerRotationWheel());
-    coDriverDLeft.whenReleased(new ColorWheelSpinnerWheelStop());
+    coDriverDLeft.whenReleased(new ColorWheelSpinnerWheelStop()); //do we need this for this command?
     coDriverDRight.whenPressed(new ColorWheelSpinnerColorRotation());
     coDriverDUp.whenPressed(new ColorWheelSpinnerLiftUp());
     coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
     coDriverDDown.whenPressed(new ColorWheelSpinnerLiftDown());
     coDriverDDown.whenReleased(new ColorWheelSpinnerLiftStop());
+    coDriverSEL7.whenPressed(new ColorWheelSpinnerLiftToPosition());
+    // coDriverSEL7.whenReleased(new ColorWheelSpinnerLiftStop()); //not sure if we need
   }
 
 
