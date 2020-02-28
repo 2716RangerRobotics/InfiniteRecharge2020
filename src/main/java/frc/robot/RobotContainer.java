@@ -179,7 +179,7 @@ public class RobotContainer {
     coDriverLB5.whenPressed(new BallIntakeOuttake());
     coDriverLB5.whenReleased(new BallIntakeOuttakeStop());
     coDriverDLeft.whenPressed(new ColorWheelSpinnerRotationWheel());
-    coDriverDLeft.whenReleased(new ColorWheelSpinnerWheelStop()); //do we need this for this command?
+    //coDriverDLeft.whenReleased(new ColorWheelSpinnerWheelStop()); //do we need this for this command?
     coDriverDRight.whenPressed(new ColorWheelSpinnerColorRotation());
     coDriverDUp.whenPressed(new ColorWheelSpinnerLiftUp());
     coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
@@ -243,6 +243,12 @@ public class RobotContainer {
 
   public static void setRumbleDriver(double rumble) {
     driverPad.setRumble(RumbleType.kLeftRumble, rumble);
+    driverPad.setRumble(RumbleType.kRightRumble, rumble);
   }
+
+  public static void setRumbleCoDriver(double rumble) {
+    coDriverPad.setRumble(RumbleType.kLeftRumble, rumble);
+    coDriverPad.setRumble(RumbleType.kRightRumble, rumble);
+}
 
 }

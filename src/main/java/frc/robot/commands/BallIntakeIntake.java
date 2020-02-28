@@ -29,7 +29,7 @@ public class BallIntakeIntake extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kIn);
-    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kSpin);
+    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kIn);
   }
 
   // Called once the command ends or is interrupted.

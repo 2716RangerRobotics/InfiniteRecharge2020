@@ -23,11 +23,12 @@ public class AutoDriveAndScore extends SequentialCommandGroup {
       new DriveStraightToDistance(50, .5),
       new DriveTurnToAngle(-90, .5),
       new DriveStraightToDistance(25, .5),
-      new DriveTurnToAngle(-90, .5),
+      new DriveTurnToAngle(90, .5),
       new DriveStraightToDistance(50, .5),
       new BallTiltToScore().withTimeout(3.0),
       new BallIntakeOuttake()
     );
   }
 }
+//this works if we are left of the port
 //11 pt. plan

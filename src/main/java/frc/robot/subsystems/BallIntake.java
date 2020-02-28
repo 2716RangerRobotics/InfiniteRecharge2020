@@ -85,8 +85,8 @@ public class BallIntake extends SubsystemBase {
         upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
         break;
       case kOut:
-        upperMotor1.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
+        upperMotor1.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
+        upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
         break;
       case kSpin:
         upperMotor1.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);

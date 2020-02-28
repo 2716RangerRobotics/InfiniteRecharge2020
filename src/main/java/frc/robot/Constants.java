@@ -64,4 +64,8 @@ public final class Constants {
     //hanging
     public static final double HANGING_RETRACT_POSITION = 0.0;
     public static final double HANGING_EXTENDING_POSITION = 18800.0;
+
+    //ballintake
+    public static final double BALL_INTAKE_FRONT_POSITION = 5;
+    public static final double BALL_INTAKE_REAR_POSITION = 700;
 }

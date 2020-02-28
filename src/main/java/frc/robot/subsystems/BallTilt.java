@@ -27,6 +27,8 @@ public class BallTilt extends SubsystemBase {
   static final double TILT_OUT_SPEED = 0.15;
   static final double TILT_IN_SPEED = -0.15;
   static final double TILT_SCORE_POSITION = 474;
+  static final double BALL_INTAKE_FRONT_POSITION = 5;
+  static final double BALL_INTAKE_REAR_POSITION = 700;
   /**
    * Creates a new BallTilt.
    */
@@ -68,7 +70,8 @@ public class BallTilt extends SubsystemBase {
     SmartDashboard.putBoolean("Left Front Limit Switch", !leftFrontLimit.get());
     SmartDashboard.putBoolean("Right Rear Limit Switch", !rightRearLimit.get());
     SmartDashboard.putBoolean("Left Rear Limit Switch", !leftRearLimit.get());
-    SmartDashboard.putNumber("LeftEnc",getEncoder());
+    SmartDashboard.putNumber("LeftEnc",getLeftEncoder());
+    SmartDashboard.putNumber("RightEnc",getRightEncoder());
     // This method will be called once per scheduler run
     if(isRearLimit()){
       tiltMotorLeft.setSelectedSensorPosition(0);
@@ -109,6 +112,14 @@ public class BallTilt extends SubsystemBase {
     driveTiltMotors(ControlMode.Position, TILT_SCORE_POSITION);
   }
 
+  public void intakeFrontPosition(){
+    driveTiltMotors(ControlMode.Position, BALL_INTAKE_FRONT_POSITION);
+  }
+
+  public void intakeRearPosition(){
+    driveTiltMotors(ControlMode.Position, BALL_INTAKE_REAR_POSITION);
+  }
+
   public void intakeTiltStop() {
     driveTiltMotors(ControlMode.PercentOutput, 0.0);
   }
@@ -122,8 +133,12 @@ public class BallTilt extends SubsystemBase {
     tiltMotorLeft.set(mode, speed);
   }
 
-  public double getEncoder(){
+  public double getLeftEncoder(){
     return tiltMotorLeft.getSelectedSensorPosition();
+  }
+
+  public double getRightEncoder(){
+    return tiltMotorRight.getSelectedSensorPosition();
   }
 
 }

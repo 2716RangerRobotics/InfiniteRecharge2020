@@ -8,15 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class BallTiltIn extends CommandBase {
+  public double rumble;
   /**
    * Creates a new BallIntakeTiltIn.
    */
   public BallTiltIn() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.ballTilt);
+    this.rumble = rumble;
   }
 
   // Called when the command is initially scheduled.
@@ -28,6 +31,14 @@ public class BallTiltIn extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.ballTilt.intakeTiltIn();
+    if(RobotContainer.ballTilt.getLeftEncoder()>Constants.BALL_INTAKE_REAR_POSITION){
+      RobotContainer.setRumbleCoDriver(rumble);
+      RobotContainer.setRumbleDriver(rumble);
+    }
+    if(RobotContainer.ballTilt.getRightEncoder()>Constants.BALL_INTAKE_REAR_POSITION){
+      RobotContainer.setRumbleCoDriver(rumble);
+      RobotContainer.setRumbleDriver(rumble);
+    }
   }
 
   // Called once the command ends or is interrupted.

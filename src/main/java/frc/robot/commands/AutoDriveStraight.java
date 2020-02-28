@@ -12,23 +12,17 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoFeederStationPosition extends SequentialCommandGroup {
+public class AutoDriveStraight extends SequentialCommandGroup {
   /**
-   * Creates a new AutoFeederStationPosition.
+   * Creates a new AutoDriveStraight.
    */
-  public AutoFeederStationPosition() {
+  public AutoDriveStraight() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
-      new DriveStraightToDistance(15, .5),
-      new DriveTurnToAngle(-90.0, .5),
-      new DriveStraightToDistance(30, .5),
-      new DriveTurnToAngle(90.0, .5),
-      new DriveStraightToDistance(5, .25),
-      new BallTiltToScore().withTimeout(2.0),
-      new BallIntakeIntake()
+      new DriveStraightToDistance(9, .15)
     );
   }
 }
-//works if we are left of the human player station
-//picks up balls from human player station
+//works anywhere (test plan)
+//5 pt. plan

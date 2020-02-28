@@ -14,6 +14,7 @@ import frc.robot.RobotContainer;
 public class HangingMechanismExtendToDistance extends CommandBase {
   public double distance;
   public double speed;
+  public double rumble;
   /**
    * Creates a new HangingMechanismExtend.
    */
@@ -22,6 +23,7 @@ public class HangingMechanismExtendToDistance extends CommandBase {
     addRequirements(RobotContainer.hangingMechanism);
     this.distance = distance;
     this.speed = speed;
+    this.rumble = rumble;
   }
 
   // Called when the command is initially scheduled.
@@ -36,11 +38,13 @@ public class HangingMechanismExtendToDistance extends CommandBase {
       RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopRightMotor();
+      RobotContainer.setRumbleCoDriver(rumble);
     }
     if(RobotContainer.hangingMechanism.getLeftEncoder()<Constants.HANGING_EXTENDING_POSITION){
       RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopLeftMotor();
+      RobotContainer.setRumbleCoDriver(rumble);
     }
 
   }

@@ -14,6 +14,7 @@ import frc.robot.RobotContainer;
 public class HangingMechanismRetract extends CommandBase {
   public double distance;
   public double speed;  
+  public double rumble;
   /**
    * Creates a new HangingMechanismRetract.
    */
@@ -23,6 +24,7 @@ public class HangingMechanismRetract extends CommandBase {
     // this.distance = distance;
 
     // this.speed = speed;
+    this.rumble = rumble;
   }
 
   // Called when the command is initially scheduled.
@@ -37,11 +39,13 @@ public class HangingMechanismRetract extends CommandBase {
       RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopRightMotor();
+      RobotContainer.setRumbleCoDriver(rumble);
     }
     if(RobotContainer.hangingMechanism.getLeftEncoder()>Constants.HANGING_RETRACT_POSITION){
       RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
     } else {
       RobotContainer.hangingMechanism.stopLeftMotor();
+      RobotContainer.setRumbleCoDriver(rumble);
     }
     
     // RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_MOTOR_SPEED);

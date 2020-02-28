@@ -16,7 +16,6 @@ public class AutoDriveToPositionAndScore extends SequentialCommandGroup {
   public AutoDriveToPositionAndScore() {
     // Use addRequirements() here to declare subsystem dependencies.
       super(
-        new BallIntakeIntake(),
         new DriveStraightToDistance(125, .5),
         new BallTiltOut(),
         new BallIntakeIntake(),
