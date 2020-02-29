@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class BallTiltOut extends CommandBase {
@@ -30,8 +31,12 @@ public class BallTiltOut extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.ballTilt.intakeTiltOut();
-    if(RobotContainer.ballTilt.isFrontLimit() == true){
-      RobotContainer.ballTilt.intakeTiltStop();
+    RobotContainer.ballTilt.intakeTiltIn();
+    if(RobotContainer.ballTilt.getLeftEncoder()<Constants.BALL_INTAKE_REAR_POSITION){
+      RobotContainer.setRumbleCoDriver(rumble);
+      RobotContainer.setRumbleDriver(rumble);
+    }
+    if(RobotContainer.ballTilt.getRightEncoder()<Constants.BALL_INTAKE_REAR_POSITION){
       RobotContainer.setRumbleCoDriver(rumble);
       RobotContainer.setRumbleDriver(rumble);
     }

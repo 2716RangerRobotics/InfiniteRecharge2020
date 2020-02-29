@@ -7,11 +7,21 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.commands.AutoDriveAndScore;
+import frc.robot.commands.AutoDriveStraight;
+import frc.robot.commands.AutoDriveToPositionAndScore;
+import frc.robot.commands.AutoFeederStationPosition;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,6 +33,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  SendableChooser<Command> chooser = new SendableChooser<>();
+
 //}
 // Robot extends IterativeRobot {
 
@@ -56,6 +68,18 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     //gearSwitch = new DigitalInput(0);
+    //imu = new AHRS(Port.kMXP);
+
+    //CommandBase.init();
+
+		chooser.addOption("Drives Straight", new AutoDriveStraight());
+		chooser.addOption("Drives and Scores", new AutoDriveAndScore());
+		chooser.addOption("Drives, pickes up balls, and then scores", new AutoDriveToPositionAndScore());
+    chooser.addOption("Gets balls from feeder station", new AutoFeederStationPosition());
+    chooser.addOption("Passes our balls to other teammates", new AutoFeederStationPosition());
+		chooser.addOption("None", null);
+
+		SmartDashboard.putData("Auto Mode", chooser);
   }
 
   /**
@@ -90,11 +114,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //startRecording();
 
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+		m_autonomousCommand = chooser.getSelected();
+
+		//resetIMU();
+
+		if (m_autonomousCommand != null) {
+      m_autonomousCommand.initialize();
     }
   }
 
@@ -103,6 +130,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    CommandScheduler.getInstance().run();
   }
 
   @Override
@@ -121,6 +149,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    CommandScheduler.getInstance().run();
   }
 
   @Override

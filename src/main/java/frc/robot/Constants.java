@@ -66,6 +66,10 @@ public final class Constants {
     public static final double HANGING_EXTENDING_POSITION = 18800.0;
 
     //ballintake
-    public static final double BALL_INTAKE_FRONT_POSITION = 5;
-    public static final double BALL_INTAKE_REAR_POSITION = 700;
+    public static final double BALL_INTAKE_FRONT_POSITION = 5.0;
+    public static final double BALL_INTAKE_REAR_POSITION = 700.0;
+
+    //color wheel
+    public static final double COLOR_WHEEL_MAX_POSITION = 50.0;
+    public static final double COLOR_WHEEL_MIN_POSITION = 0.0;
 }

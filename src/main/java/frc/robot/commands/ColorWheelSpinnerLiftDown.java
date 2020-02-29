@@ -8,15 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class ColorWheelSpinnerLiftDown extends CommandBase {
+  public double rumble;
   /**
    * Creates a new ColorWheelSpinnerLiftDown.
    */
   public ColorWheelSpinnerLiftDown() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.colorWheelSpinner);
+    this.rumble = rumble;
   }
 
   // Called when the command is initially scheduled.
@@ -28,6 +31,10 @@ public class ColorWheelSpinnerLiftDown extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.colorWheelSpinner.liftDown();
+    if(RobotContainer.colorWheelSpinner.isBottomBaseLimit()== true){
+      RobotContainer.setRumbleCoDriver(rumble);
+      RobotContainer.setRumbleDriver(rumble);
+    }
   }
 
   // Called once the command ends or is interrupted.
