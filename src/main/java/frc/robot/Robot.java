@@ -30,9 +30,9 @@ import frc.robot.commands.AutoFeederStationPosition;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private Command autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  private RobotContainer robotContainer;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
 //}
@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    robotContainer = new RobotContainer();
     //gearSwitch = new DigitalInput(0);
     //imu = new AHRS(Port.kMXP);
 
@@ -116,12 +116,12 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //startRecording();
 
-		m_autonomousCommand = chooser.getSelected();
+		autonomousCommand = chooser.getSelected();
 
 		//resetIMU();
 
-		if (m_autonomousCommand != null) {
-      m_autonomousCommand.initialize();
+		if (autonomousCommand != null) {
+      autonomousCommand.initialize();
     }
   }
 
@@ -139,8 +139,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
   }
 

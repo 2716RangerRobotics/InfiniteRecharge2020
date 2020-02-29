@@ -44,8 +44,8 @@ public final class Constants {
     public static final double UPPER_MOTOR_SPEED = 0.2;
     public static final double LOWER_MOTOR_SPEED = 0.2;
     public static final double CLIMBING_MOTOR_SPEED = 0.3;
-    public static final double CLIMBING_EXTENDING_MOTOR_SPEED = 0.3;
-    public static final double CLIMBING_RETRACTING_MOTOR_SPEED = -0.3;
+    public static final double CLIMBING_EXTENDING_MOTOR_SPEED = 0.15;
+    public static final double CLIMBING_RETRACTING_MOTOR_SPEED = -0.15;
     public static final double WHEEL_MOTOR_SPEED = 0.20;
     public static final double LIFT_MOTOR_SPEED = 0.40;
 
@@ -63,7 +63,8 @@ public final class Constants {
 
     //hanging
     public static final double HANGING_RETRACT_POSITION = 0.0;
-    public static final double HANGING_EXTENDING_POSITION = 18800.0;
+    public static final double HANGING_EXTENDING_POSITION = 18600.0;
+//    public static final double HANGING_EXTENDING_POSITION = 100000.0;
 
     //ballintake
     public static final double BALL_INTAKE_FRONT_POSITION = 5.0;

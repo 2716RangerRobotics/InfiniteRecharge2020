@@ -35,18 +35,34 @@ public class HangingMechanismRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.hangingMechanism.getRightEncoder()>Constants.HANGING_RETRACT_POSITION){
-      RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
-    } else {
+    if(RobotContainer.hangingMechanism.getRightEncoder()<Constants.HANGING_RETRACT_POSITION){
       RobotContainer.hangingMechanism.stopRightMotor();
-      RobotContainer.setRumbleCoDriver(rumble);
-    }
-    if(RobotContainer.hangingMechanism.getLeftEncoder()>Constants.HANGING_RETRACT_POSITION){
-      RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
-    } else {
-      RobotContainer.hangingMechanism.stopLeftMotor();
-      RobotContainer.setRumbleCoDriver(rumble);
-    }
+    } else if(RobotContainer.hangingMechanism.getRightEncoder()<Constants.HANGING_RETRACT_POSITION+3000){
+      RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+      // RobotContainer.setRumbleCoDriver(rumble);
+  } else {
+    RobotContainer.hangingMechanism.setRightMotor(-1.0);
+  }
+  if(RobotContainer.hangingMechanism.getLeftEncoder()<Constants.HANGING_RETRACT_POSITION){
+    RobotContainer.hangingMechanism.stopLeftMotor();
+  } else if(RobotContainer.hangingMechanism.getLeftEncoder()<Constants.HANGING_RETRACT_POSITION+3000){
+    RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+    // RobotContainer.setRumbleCoDriver(rumble);
+} else {
+  RobotContainer.hangingMechanism.setLeftMotor(-1.0);
+}
+    // if(RobotContainer.hangingMechanism.getRightEncoder()>Constants.HANGING_RETRACT_POSITION){
+    //   RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+    // } else {
+    //   RobotContainer.hangingMechanism.stopRightMotor();
+    //   RobotContainer.setRumbleCoDriver(rumble);
+    // }
+    // if(RobotContainer.hangingMechanism.getLeftEncoder()>Constants.HANGING_RETRACT_POSITION){
+    //   RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+    // } else {
+    //   RobotContainer.hangingMechanism.stopLeftMotor();
+    //   RobotContainer.setRumbleCoDriver(rumble);
+    // }
     
     // RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_MOTOR_SPEED);
   }

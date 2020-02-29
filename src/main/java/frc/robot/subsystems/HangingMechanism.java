@@ -24,8 +24,8 @@ public class HangingMechanism extends SubsystemBase {
 //  Encoder leftHangingEncoder;
 //  Encoder rightHangingEncoder;
 
-static final double HANGING_EXTEND_POSITION = 100000.0;
-static final double HANGING_RETRACT_POSITION = -100000.0;
+static final double HANGING_EXTEND_POSITION = 1000000.0;
+static final double HANGING_RETRACT_POSITION = -1000000.0;
 
   public HangingMechanism() {
     leftHangingMotor = new TalonSRX(Constants.CLIMBING_LEFT_MOTOR);
@@ -34,14 +34,17 @@ static final double HANGING_RETRACT_POSITION = -100000.0;
     leftHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     rightHangingMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     leftHangingMotor.configFactoryDefault();
+    leftHangingMotor.configVoltageCompSaturation(12.5);
+    leftHangingMotor.enableVoltageCompensation(true);
     rightHangingMotor.configFactoryDefault();
+    rightHangingMotor.configVoltageCompSaturation(12.5);
+    rightHangingMotor.enableVoltageCompensation(true);
     resetLeftEncoder();
     resetRightEncoder();
 
     // tiltMotorLeft.configFactoryDefault();
     // tiltMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    // tiltMotorLeft.configVoltageCompSaturation(12.5);
-    // tiltMotorLeft.enableVoltageCompensation(true);
+    
   }
 
 
@@ -84,10 +87,16 @@ public void hangingRetractDistance(){
 }
 
   public void resetLeftEncoder() {
-    leftHangingMotor.setSelectedSensorPosition(-250);
+    leftHangingMotor.setSelectedSensorPosition(0);
   }
   public void resetRightEncoder() {
-    rightHangingMotor.setSelectedSensorPosition(-250);
+    rightHangingMotor.setSelectedSensorPosition(0);
+  }
+  public void setLeftEncoder() {
+    leftHangingMotor.setSelectedSensorPosition(5000);
+  }
+  public void setRightEncoder() {
+    rightHangingMotor.setSelectedSensorPosition(5000);
   }
   public double getLeftEncoder() {
     return leftHangingMotor.getSelectedSensorPosition();

@@ -47,6 +47,7 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.commands.HangingMechanismRelease;
 import frc.robot.commands.HangingMechanismResetEnc;
 import frc.robot.commands.HangingMechanismRetract;
+import frc.robot.commands.HangingMechanismSetEnc;
 import frc.robot.commands.HangingMechanismStop;
 import frc.robot.commands.HangingMechanismExtendToDistance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -154,8 +155,8 @@ public class RobotContainer {
     driverRB6.whenReleased(new BallIntakeIntakeStop());
     driverLB5.whenPressed(new BallIntakeOuttake());
     driverLB5.whenReleased(new BallIntakeOuttakeStop());
-    // driverLTrigger.whenPressed(new AutoDriveAndScore());
-    // driverRTrigger.whenPressed(new AutoDriveToPositionAndScore()); //don't need buttons for auto
+    driverLTrigger.whenPressed(new HangingMechanismSetEnc());
+    //driverRTrigger.whenPressed(new ());
     driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
     driverSEL7.whenReleased(new ColorWheelSpinnerLiftStop());
     driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
