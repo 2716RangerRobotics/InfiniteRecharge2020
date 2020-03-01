@@ -15,12 +15,15 @@ import java.util.ResourceBundle.Control;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.Servo;
 
 import frc.robot.Constants;
 
 public class HangingMechanism extends SubsystemBase {
  TalonSRX leftHangingMotor;
  TalonSRX rightHangingMotor;
+ Servo rightServo;
+ Servo leftServo;
 //  Encoder leftHangingEncoder;
 //  Encoder rightHangingEncoder;
 
@@ -28,6 +31,9 @@ static final double HANGING_EXTEND_POSITION = 1000000.0;
 static final double HANGING_RETRACT_POSITION = -1000000.0;
 
   public HangingMechanism() {
+    leftServo = new Servo(Constants.HANGING_MECH_LEFT_SERVO);
+    rightServo = new Servo(Constants.HANGING_MECH_RIGHT_SERVO);
+
     leftHangingMotor = new TalonSRX(Constants.CLIMBING_LEFT_MOTOR);
     leftHangingMotor.setInverted(true);
     rightHangingMotor = new TalonSRX(Constants.CLIMBING_RIGHT_MOTOR);
@@ -116,17 +122,21 @@ public void hangingRetractDistance(){
   public void stopRightMotor() {
     rightHangingMotor.set(ControlMode.PercentOutput, 0.0);
   }
+  public void setLeftServo() {
+    leftServo.set(.5);
+  }
+  public void setRightServo() {
+    rightServo.set(.5);
+  }
+  public void setTestServo() {
+    rightServo.set(0.0);
+  }
 
-
-public void setLeftMotor(ControlMode percentoutput, double d) {
+  public void setLeftMotor(ControlMode percentoutput, double d) {
 }
-
-
-public void setRightMotor(ControlMode percentoutput, double d) {
+  public void setRightMotor(ControlMode percentoutput, double d) {
 }
-
-
-public boolean getLeftEncoder(ControlMode percentoutput, double d) {
+  public boolean getLeftEncoder(ControlMode percentoutput, double d) {
 	return false;
 }
 }

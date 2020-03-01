@@ -115,9 +115,9 @@ public class ColorWheelSpinner extends SubsystemBase {
       // System.out.println("Unknown");
     }
     if(isExtendLimit()) {
-      RobotContainer.setRumbleDriver(.5);
+      //RobotContainer.setRumbleDriver(.5);
     }else{
-      RobotContainer.setRumbleDriver(0);
+      //RobotContainer.setRumbleDriver(0);
     }
 
     /**

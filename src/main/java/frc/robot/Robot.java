@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.AutoDriveAndScore;
 import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.AutoDriveToPositionAndScore;
+import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
 
 /**
@@ -72,11 +73,11 @@ public class Robot extends TimedRobot {
 
     //CommandBase.init();
 
-		chooser.addOption("Drives Straight", new AutoDriveStraight());
-		chooser.addOption("Drives and Scores", new AutoDriveAndScore());
-		chooser.addOption("Drives, pickes up balls, and then scores", new AutoDriveToPositionAndScore());
-    chooser.addOption("Gets balls from feeder station", new AutoFeederStationPosition());
-    chooser.addOption("Passes our balls to other teammates", new AutoFeederStationPosition());
+		chooser.addOption("AutoDriveStraight", new AutoDriveStraight());
+		chooser.addOption("AutoDriveAndScore", new AutoDriveAndScore());
+		chooser.addOption("AutoDriveToPositionAndScore", new AutoDriveToPositionAndScore());
+    chooser.addOption("AutoFeederStationPosition", new AutoFeederStationPosition());
+    chooser.addOption("AutoFeedShooter", new AutoFeedShooter());
 		chooser.addOption("None", null);
 
 		SmartDashboard.putData("Auto Mode", chooser);

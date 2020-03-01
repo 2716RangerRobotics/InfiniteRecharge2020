@@ -23,13 +23,16 @@ public class BallIntakeIntakeStop extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kOff1);
+    RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kOff2);
+    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kOff2);
+    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kOff1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kOff);
-    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kOff);
+    
   }
 
   // Called once the command ends or is interrupted.

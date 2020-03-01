@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoDriveAndScore;
+import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.AutoDriveToPositionAndScore;
 import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
@@ -26,6 +27,7 @@ import frc.robot.commands.BallTiltIn;
 import frc.robot.commands.BallTiltOut;
 import frc.robot.commands.BallTiltStop;
 import frc.robot.commands.BallTiltToScore;
+import frc.robot.commands.CoDriverLower1Stop;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.commands.ColorWheelSpinnerLiftUp;
 import frc.robot.commands.ColorWheelSpinnerLiftDown;
@@ -48,6 +50,7 @@ import frc.robot.commands.HangingMechanismRelease;
 import frc.robot.commands.HangingMechanismResetEnc;
 import frc.robot.commands.HangingMechanismRetract;
 import frc.robot.commands.HangingMechanismSetEnc;
+import frc.robot.commands.HangingMechanismSetServo;
 import frc.robot.commands.HangingMechanismStop;
 import frc.robot.commands.HangingMechanismExtendToDistance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -156,23 +159,27 @@ public class RobotContainer {
     driverLB5.whenPressed(new BallIntakeOuttake());
     driverLB5.whenReleased(new BallIntakeOuttakeStop());
     driverLTrigger.whenPressed(new HangingMechanismSetEnc());
-    //driverRTrigger.whenPressed(new ());
+    driverRTrigger.whenPressed(new AutoDriveStraight(), false);
     driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
     driverSEL7.whenReleased(new ColorWheelSpinnerLiftStop());
     driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
     driverSTART8.whenReleased(new ColorWheelSpinnerLiftStop());
+    driverDUp.whenPressed(new HangingMechanismSetServo());
+    //driverDDown.whenPressed(new HangingMechanismResetServo());
     // driverDLeft.whenPressed(new DriveTurnToAngle(-25, .25));
     // driverDRight.whenPressed(new DriveTurnToAngle(25, .25));
+    
 
     coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
     coDriverY4.whenPressed(new HangingMechanismExtendToDistance(100000, 0.3));
     coDriverY4.whenReleased(new HangingMechanismStop());
-    coDriverX3.whenPressed(new HangingMechanismRetract());//does nothing
+    coDriverX3.whenPressed(new HangingMechanismRetract());
     coDriverX3.whenReleased(new HangingMechanismStop());
-    coDriverA1.whenPressed(new BallTiltOut());
-    coDriverA1.whenReleased(new BallTiltStop());
-    coDriverB2.whenPressed(new BallTiltIn());
-    coDriverB2.whenReleased(new BallTiltStop());
+    // coDriverA1.whenPressed(new BallTiltOut());
+    // coDriverA1.whenReleased(new BallTiltStop());
+    // coDriverB2.whenPressed(new BallTiltIn());
+    // coDriverB2.whenReleased(new BallTiltStop());
+    coDriverA1.whenPressed(new CoDriverLower1Stop());
     coDriverSTART8.whenPressed(new BallTiltToScore());
     coDriverB2.whenReleased(new BallTiltStop());
     coDriverRB6.whenPressed(new BallIntakeIntake());
@@ -201,6 +208,11 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     
     return null;
+    //return AutoDriveStraight();
+    //return AutoDriveAndScore();
+    //return AutoDriveToPositionAndScore();
+    //return AutoFeederStationPosition();
+    //return AutoFeedShooter();
   }
 
   /**

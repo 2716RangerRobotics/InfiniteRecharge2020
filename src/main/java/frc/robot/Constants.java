@@ -34,15 +34,17 @@ public final class Constants {
     public static final int LIFT_MOTOR = 5;
 
     //PWM Channels
-    public static final int YOUR_ACTUATOR_CHANNEL = 1;
+    //public static final int YOUR_ACTUATOR_CHANNEL = 1;
+    public static final int HANGING_MECH_LEFT_SERVO = 1;
+    public static final int HANGING_MECH_RIGHT_SERVO = 2;
 
     //PCM Channels
     public static final int TILT_FORWARD_1 = 0;
 	public static final int TILT_REVERSE_2 = 1;
 
     //motor speeds
-    public static final double UPPER_MOTOR_SPEED = 0.2;
-    public static final double LOWER_MOTOR_SPEED = 0.2;
+    public static final double UPPER_MOTOR_SPEED = 0.3;
+    public static final double LOWER_MOTOR_SPEED = 0.3;
     public static final double CLIMBING_MOTOR_SPEED = 0.3;
     public static final double CLIMBING_EXTENDING_MOTOR_SPEED = 0.15;
     public static final double CLIMBING_RETRACTING_MOTOR_SPEED = -0.15;
@@ -64,10 +66,12 @@ public final class Constants {
     //hanging
     public static final double HANGING_RETRACT_POSITION = 0.0;
     public static final double HANGING_EXTENDING_POSITION = 18600.0;
+    public static final int HANGING_RIGHT_SERVO = 0;
+    public static final int HANGING_LEFT_SERVO = 0;
 //    public static final double HANGING_EXTENDING_POSITION = 100000.0;
 
     //ballintake
-    public static final double BALL_INTAKE_FRONT_POSITION = 5.0;
+    public static final double BALL_INTAKE_FRONT_POSITION = -700.0;
     public static final double BALL_INTAKE_REAR_POSITION = 700.0;
 
     //color wheel

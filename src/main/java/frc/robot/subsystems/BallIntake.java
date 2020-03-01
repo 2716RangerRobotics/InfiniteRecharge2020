@@ -32,17 +32,19 @@ public class BallIntake extends SubsystemBase {
     int ballCount = 0;
 
     static final double ROLLER_MOTOR_IN_SPEED = -0.25;
-    static final double ROLLER_MOTOR_OUT_SPEED = 0.25;
+    static final double ROLLER_MOTOR_OUT_SPEED = 0.45;
 
 
     public enum UpperState {
-      kOff,
+      kOff1,
+      kOff2,
       kIn,
       kOut,
       kSpin
     }
     public enum LowerState {
-      kOff,
+      kOff1,
+      kOff2,
       kIn,
       kOut,
       kSpin
@@ -76,8 +78,10 @@ public class BallIntake extends SubsystemBase {
   
   public void setUpperMotors(UpperState state) {
     switch (state) {
-      case kOff:
+      case kOff1:
         upperMotor1.set(ControlMode.PercentOutput, 0.0);
+        break;
+      case kOff2:
         upperMotor2.set(ControlMode.PercentOutput, 0.0);
         break;
       case kIn:
@@ -85,8 +89,8 @@ public class BallIntake extends SubsystemBase {
         upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
         break;
       case kOut:
-        upperMotor1.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
+        upperMotor1.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
+        upperMotor2.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
         break;
       case kSpin:
         upperMotor1.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
@@ -97,8 +101,10 @@ public class BallIntake extends SubsystemBase {
 
   public void setLowerMotors(LowerState state) {
     switch (state) {
-      case kOff:
+      case kOff1:
         lowerMotor1.set(ControlMode.PercentOutput, 0.0);
+        break;
+      case kOff2:
         lowerMotor2.set(ControlMode.PercentOutput, 0.0);
         break;
       case kIn:

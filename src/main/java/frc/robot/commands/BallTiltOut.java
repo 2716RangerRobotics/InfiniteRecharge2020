@@ -31,15 +31,27 @@ public class BallTiltOut extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.ballTilt.intakeTiltOut();
-    RobotContainer.ballTilt.intakeTiltIn();
-    if(RobotContainer.ballTilt.getLeftEncoder()<Constants.BALL_INTAKE_REAR_POSITION){
-      RobotContainer.setRumbleCoDriver(rumble);
-      RobotContainer.setRumbleDriver(rumble);
+    if(RobotContainer.ballTilt.getLeftEncoder()<Constants.BALL_INTAKE_FRONT_POSITION){
+      RobotContainer.ballTilt.intakeTiltStop();
+      // RobotContainer.setRumbleCoDriver(rumble);
+      // RobotContainer.setRumbleDriver(rumble);
+    }else{
+      RobotContainer.ballTilt.intakeTiltOut();
     }
-    if(RobotContainer.ballTilt.getRightEncoder()<Constants.BALL_INTAKE_REAR_POSITION){
-      RobotContainer.setRumbleCoDriver(rumble);
-      RobotContainer.setRumbleDriver(rumble);
+    if(RobotContainer.ballTilt.getRightEncoder()<Constants.BALL_INTAKE_FRONT_POSITION){
+      RobotContainer.ballTilt.intakeTiltStop();
+      // RobotContainer.setRumbleCoDriver(rumble);
+      // RobotContainer.setRumbleDriver(rumble);
+    }else{
+      RobotContainer.ballTilt.intakeTiltOut();
     }
+    // if(RobotContainer.ballTilt.isFrontLimit()== true){
+    //   RobotContainer.setRumbleCoDriver(1.0);
+    //   RobotContainer.setRumbleDriver(1.0);
+    // }else{
+    //   RobotContainer.setRumbleCoDriver(0.0);
+    //   RobotContainer.setRumbleDriver(0.0);
+    // }
   }
 
   // Called once the command ends or is interrupted.

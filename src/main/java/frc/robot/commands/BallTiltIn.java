@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.BallTilt;
 
 public class BallTiltIn extends CommandBase {
   public double rumble;
@@ -32,14 +33,30 @@ public class BallTiltIn extends CommandBase {
   public void execute() {
     RobotContainer.ballTilt.intakeTiltIn();
     if(RobotContainer.ballTilt.getLeftEncoder()>Constants.BALL_INTAKE_REAR_POSITION){
-      RobotContainer.setRumbleCoDriver(rumble);
-      RobotContainer.setRumbleDriver(rumble);
+      RobotContainer.ballTilt.intakeTiltStop();
+      // RobotContainer.setRumbleCoDriver(1.0);
+      // RobotContainer.setRumbleDriver(1.0);
+    }else{
+      RobotContainer.ballTilt.intakeTiltIn();
     }
     if(RobotContainer.ballTilt.getRightEncoder()>Constants.BALL_INTAKE_REAR_POSITION){
-      RobotContainer.setRumbleCoDriver(rumble);
-      RobotContainer.setRumbleDriver(rumble);
+      RobotContainer.ballTilt.intakeTiltStop();
+    }else{
+        RobotContainer.ballTilt.intakeTiltIn();
+      }
+
+      // RobotContainer.setRumbleCoDriver(1.0);
+      // RobotContainer.setRumbleDriver(1.0);
     }
-  }
+
+  // if(RobotContainer.ballTilt.isRearLimit() == true){
+  //   RobotContainer.setRumbleCoDriver(1.0);
+  //   RobotContainer.setRumbleDriver(1.0);
+  // }else{
+  //   RobotContainer.setRumbleDriver(0.0);
+  //   RobotContainer.setRumbleCoDriver(0.0);
+  // }
+
 
   // Called once the command ends or is interrupted.
   @Override

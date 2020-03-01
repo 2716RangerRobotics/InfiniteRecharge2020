@@ -24,8 +24,8 @@ public class BallTilt extends SubsystemBase {
   DigitalInput rightRearLimit;
   DigitalInput leftRearLimit;
   
-  static final double TILT_OUT_SPEED = 0.15;
-  static final double TILT_IN_SPEED = -0.15;
+  static final double TILT_OUT_SPEED = 0.3;
+  static final double TILT_IN_SPEED = -0.3;
   static final double TILT_SCORE_POSITION = 474;
   static final double BALL_INTAKE_FRONT_POSITION = 5;
   static final double BALL_INTAKE_REAR_POSITION = 700;

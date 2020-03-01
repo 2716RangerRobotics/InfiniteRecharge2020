@@ -32,8 +32,11 @@ public class ColorWheelSpinnerLiftUp extends CommandBase {
   public void execute() {
     RobotContainer.colorWheelSpinner.liftUp();
     if(RobotContainer.colorWheelSpinner.isTopBaseLimit()== true){
-      RobotContainer.setRumbleCoDriver(rumble);
-      RobotContainer.setRumbleDriver(rumble);
+      RobotContainer.setRumbleCoDriver(1.0);
+      RobotContainer.setRumbleDriver(1.0);
+    } else{
+      RobotContainer.setRumbleCoDriver(0.0);
+      RobotContainer.setRumbleDriver(0.0);
     }
   }
 
