@@ -31,19 +31,19 @@ public class BallTiltIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.ballTilt.intakeTiltIn();
-    if(RobotContainer.ballTilt.getLeftEncoder()>Constants.BALL_INTAKE_REAR_POSITION){
+    //RobotContainer.ballTilt.intakeLimitIn();
+    if(RobotContainer.ballTilt.isRearLimit()== true){
       RobotContainer.ballTilt.intakeTiltStop();
       // RobotContainer.setRumbleCoDriver(1.0);
       // RobotContainer.setRumbleDriver(1.0);
     }else{
-      RobotContainer.ballTilt.intakeTiltIn();
+      RobotContainer.ballTilt.intakeFrontPosition();
     }
-    if(RobotContainer.ballTilt.getRightEncoder()>Constants.BALL_INTAKE_REAR_POSITION){
-      RobotContainer.ballTilt.intakeTiltStop();
-    }else{
-        RobotContainer.ballTilt.intakeTiltIn();
-      }
+    // if(RobotContainer.ballTilt.isRearLimit()== true){
+    //   RobotContainer.ballTilt.intakeTiltStop();
+    // }else{
+    //   RobotContainer.ballTilt.intakeTiltIn();
+    //   }
 
       // RobotContainer.setRumbleCoDriver(1.0);
       // RobotContainer.setRumbleDriver(1.0);
@@ -67,6 +67,6 @@ public class BallTiltIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.ballTilt.isRearLimit();
+    return false;
   }
 }

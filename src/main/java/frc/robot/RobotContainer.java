@@ -27,6 +27,7 @@ import frc.robot.commands.BallTiltIn;
 import frc.robot.commands.BallTiltOut;
 import frc.robot.commands.BallTiltStop;
 import frc.robot.commands.BallTiltToScore;
+import frc.robot.commands.CoDriverIntakeRumble;
 import frc.robot.commands.CoDriverLower1Stop;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.commands.ColorWheelSpinnerLiftUp;
@@ -34,6 +35,7 @@ import frc.robot.commands.ColorWheelSpinnerLiftDown;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
 import frc.robot.commands.ColorWheelSpinnerLiftToPosition;
 import frc.robot.commands.ColorWheelSpinnerWheelStop;
+import frc.robot.commands.DriveStraightToDistance;
 import frc.robot.commands.DriveTurnToAngle;
 import frc.robot.commands.ColorWheelSpinnerRotationWheel;
 import frc.robot.commands.ColorWheelSpinnerWheelStop;
@@ -48,6 +50,7 @@ import frc.robot.subsystems.HangingMechanism;
 import frc.robot.subsystems.Limelight;
 import frc.robot.commands.HangingMechanismRelease;
 import frc.robot.commands.HangingMechanismResetEnc;
+import frc.robot.commands.HangingMechanismResetServo;
 import frc.robot.commands.HangingMechanismRetract;
 import frc.robot.commands.HangingMechanismSetEnc;
 import frc.robot.commands.HangingMechanismSetServo;
@@ -72,6 +75,7 @@ public class RobotContainer {
   //public DigitalInput gearSwitch;
   public static ColorWheelSpinner colorWheelSpinner;
   public static AutoDriveAndScore autoDriveAndScore;
+  public static AutoDriveStraight autoDriveStraight;
   public static AutoFeederStationPosition autoFeederStationPosition;
   public static AutoFeedShooter autoFeedShooter;
   public static AutoDriveToPositionAndScore autoDriveToPositionAndScore;
@@ -129,6 +133,7 @@ public class RobotContainer {
     //gearSwitch = new DigitalInput(Constants.GEAR_SWITCH_PORT);
     colorWheelSpinner = new ColorWheelSpinner();
     autoDriveAndScore = new AutoDriveAndScore();
+    autoDriveStraight = new AutoDriveStraight();
     autoDriveToPositionAndScore = new AutoDriveToPositionAndScore();
     autoFeederStationPosition = new AutoFeederStationPosition();
     autoFeedShooter = new AutoFeedShooter();
@@ -148,14 +153,15 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverA1.whenPressed(new BallTiltOut());
-    driverA1.whenReleased(new BallTiltStop());
     driverB2.whenPressed(new BallTiltIn());
-    driverB2.whenReleased(new BallTiltStop());
+    //driverB2.whenReleased(new BallTiltStop());
+    driverA1.whenPressed(new BallTiltOut());
+    //driverA1.whenReleased(new BallTiltStop());
     driverX3.whenPressed(new HangingMechanismResetEnc());
     driverY4.whenPressed(new BallTiltToScore());
     driverRB6.whenPressed(new BallIntakeIntake());
     driverRB6.whenReleased(new BallIntakeIntakeStop());
+    driverRB6.whenReleased(new CoDriverIntakeRumble());
     driverLB5.whenPressed(new BallIntakeOuttake());
     driverLB5.whenReleased(new BallIntakeOuttakeStop());
     driverLTrigger.whenPressed(new HangingMechanismSetEnc());
@@ -164,7 +170,7 @@ public class RobotContainer {
     driverSEL7.whenReleased(new ColorWheelSpinnerLiftStop());
     driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
     driverSTART8.whenReleased(new ColorWheelSpinnerLiftStop());
-    driverDUp.whenPressed(new HangingMechanismSetServo());
+
     //driverDDown.whenPressed(new HangingMechanismResetServo());
     // driverDLeft.whenPressed(new DriveTurnToAngle(-25, .25));
     // driverDRight.whenPressed(new DriveTurnToAngle(25, .25));
@@ -180,12 +186,13 @@ public class RobotContainer {
     // coDriverB2.whenPressed(new BallTiltIn());
     // coDriverB2.whenReleased(new BallTiltStop());
     coDriverA1.whenPressed(new CoDriverLower1Stop());
+    coDriverB2.whenPressed(new HangingMechanismResetServo());
+    coDriverRB6.whenPressed(new HangingMechanismSetServo());
     coDriverSTART8.whenPressed(new BallTiltToScore());
-    coDriverB2.whenReleased(new BallTiltStop());
-    coDriverRB6.whenPressed(new BallIntakeIntake());
-    coDriverRB6.whenReleased(new BallIntakeIntakeStop());
-    coDriverLB5.whenPressed(new BallIntakeOuttake());
-    coDriverLB5.whenReleased(new BallIntakeOuttakeStop());
+    // coDriverRB6.whenPressed(new BallIntakeIntake());
+    // coDriverRB6.whenReleased(new BallIntakeIntakeStop());
+    // coDriverLB5.whenPressed(new BallIntakeOuttake());
+    // coDriverLB5.whenReleased(new BallIntakeOuttakeStop());
     coDriverDLeft.whenPressed(new ColorWheelSpinnerRotationWheel());
     //coDriverDLeft.whenReleased(new ColorWheelSpinnerWheelStop()); //do we need this for this command?
     coDriverDRight.whenPressed(new ColorWheelSpinnerColorRotation());
@@ -207,12 +214,16 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     
-    return null;
-    //return AutoDriveStraight();
+    //return null;
+    return AutoDriveStraight();
     //return AutoDriveAndScore();
     //return AutoDriveToPositionAndScore();
     //return AutoFeederStationPosition();
     //return AutoFeedShooter();
+  }
+
+  public Command AutoDriveStraight() {
+    return autoDriveStraight;
   }
 
   /**
@@ -259,10 +270,18 @@ public class RobotContainer {
     driverPad.setRumble(RumbleType.kLeftRumble, rumble);
     driverPad.setRumble(RumbleType.kRightRumble, rumble);
   }
+  public static void setRumbleTimeDriver(double time){
+    driverPad.setRumble(RumbleType.kLeftRumble, time);
+    driverPad.setRumble(RumbleType.kRightRumble, time);
+  }
 
   public static void setRumbleCoDriver(double rumble) {
     coDriverPad.setRumble(RumbleType.kLeftRumble, rumble);
     coDriverPad.setRumble(RumbleType.kRightRumble, rumble);
+  }
+  public static void setRumbleTimeCoDriver(double time){
+    coDriverPad.setRumble(RumbleType.kLeftRumble, time);
+    coDriverPad.setRumble(RumbleType.kRightRumble, time);
 }
 
 }

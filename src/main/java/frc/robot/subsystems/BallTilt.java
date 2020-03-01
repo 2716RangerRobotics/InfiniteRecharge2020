@@ -24,11 +24,13 @@ public class BallTilt extends SubsystemBase {
   DigitalInput rightRearLimit;
   DigitalInput leftRearLimit;
   
-  static final double TILT_OUT_SPEED = 0.3;
-  static final double TILT_IN_SPEED = -0.3;
+  static final double TILT_OUT_SPEED = 0.5;
+  static final double TILT_IN_SPEED = -0.5;
+  static final double TILT_IN_SPEED_STOP = 0.0;
+  static final double TILT_OUT_SPEED_STOP = 0.0;
   static final double TILT_SCORE_POSITION = 474;
-  static final double BALL_INTAKE_FRONT_POSITION = 5;
-  static final double BALL_INTAKE_REAR_POSITION = 700;
+  static final double BALL_INTAKE_FRONT_POSITION = -400;
+  static final double BALL_INTAKE_REAR_POSITION = 10000;
   /**
    * Creates a new BallTilt.
    */
@@ -70,6 +72,8 @@ public class BallTilt extends SubsystemBase {
     SmartDashboard.putBoolean("Left Front Limit Switch", !leftFrontLimit.get());
     SmartDashboard.putBoolean("Right Rear Limit Switch", !rightRearLimit.get());
     SmartDashboard.putBoolean("Left Rear Limit Switch", !leftRearLimit.get());
+    //SmartDashboard.putBoolean("intakeLimitIn", intakeLimitIn());
+    //SmartDashboard.putBoolean("intakeLimitOut", intakeLimitOut());
     SmartDashboard.putNumber("LeftEnc",getLeftEncoder());
     SmartDashboard.putNumber("RightEnc",getRightEncoder());
     // This method will be called once per scheduler run
@@ -87,8 +91,7 @@ public class BallTilt extends SubsystemBase {
     else{
       return false;
     } 
-
-  }
+}
   public boolean isRearLimit() {
     if(!rightRearLimit.get() || !leftRearLimit.get()){
      return true; 
@@ -140,5 +143,28 @@ public class BallTilt extends SubsystemBase {
   public double getRightEncoder(){
     return tiltMotorRight.getSelectedSensorPosition();
   }
-
+  //public boolean intakeLimitIn(){
+    //driveTiltMotors(ControlMode.PercentOutput, TILT_IN_SPEED_STOP);
+//   if(isRearLimit()){
+//     driveTiltMotors(ControlMode.PercentOutput, TILT_IN_SPEED_STOP);
+//     //tiltMotorRight.set(ControlMode.PercentOutput, TILT_IN_SPEED_STOP);
+//     return true;
+//   }else{
+//     tiltMotorLeft.set(ControlMode.PercentOutput, TILT_IN_SPEED);
+//     //tiltMotorRight.set(ControlMode.PercentOutput, TILT_IN_SPEED);
+//   }
+     //return false;
+//}
+  //public boolean intakeLimitOut(){
+    //driveTiltMotors(ControlMode.PercentOutput, TILT_OUT_SPEED_STOP);
+  // if(isFrontLimit()){
+  //   tiltMotorLeft.set(ControlMode.PercentOutput, TILT_OUT_SPEED_STOP);
+  //   //tiltMotorRight.set(ControlMode.PercentOutput, TILT_OUT_SPEED_STOP);
+  //   return true;
+  // }else{
+  //   tiltMotorLeft.set(ControlMode.PercentOutput, TILT_OUT_SPEED);
+  //   //tiltMotorRight.set(ControlMode.PercentOutput, TILT_OUT_SPEED);
+  // }
+    //return false;
+//}
 }

@@ -128,7 +128,10 @@ public void hangingRetractDistance(){
   public void setRightServo() {
     rightServo.set(.5);
   }
-  public void setTestServo() {
+  public void resetLeftServo() {
+    leftServo.set(0.0);
+  }
+  public void resetRightServo() {
     rightServo.set(0.0);
   }
 

@@ -135,7 +135,7 @@ public class ColorWheelSpinner extends SubsystemBase {
   }
   
   public boolean isBottomBaseLimit() {
-    if(!bottomBaseLimit.get()){
+    if(bottomBaseLimit.get()){
       return true;
     }
     else{
@@ -144,7 +144,7 @@ public class ColorWheelSpinner extends SubsystemBase {
   }
 
   public boolean isTopBaseLimit() {
-    if(!topBaseLimit.get()){
+    if(topBaseLimit.get()){
       return true;
     }
     else{
@@ -153,7 +153,7 @@ public class ColorWheelSpinner extends SubsystemBase {
   }
 
   public boolean isExtendLimit() {
-    if(!extendLimit.get()){
+    if(extendLimit.get()){
       return true;
     }
     else{

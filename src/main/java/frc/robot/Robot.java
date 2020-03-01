@@ -12,7 +12,8 @@ import com.kauailabs.navx.frc.AHRS;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -31,9 +32,9 @@ import frc.robot.commands.AutoFeederStationPosition;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command autonomousCommand;
+  public Command autonomousCommand;
 
-  private RobotContainer robotContainer;
+  public RobotContainer robotContainer;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
 //}
@@ -115,7 +116,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    //startRecording();
+      //startRecording();
 
 		autonomousCommand = chooser.getSelected();
 

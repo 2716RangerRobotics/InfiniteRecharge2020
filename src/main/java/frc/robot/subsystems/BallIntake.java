@@ -31,8 +31,8 @@ public class BallIntake extends SubsystemBase {
     boolean prevBallSensor;
     int ballCount = 0;
 
-    static final double ROLLER_MOTOR_IN_SPEED = -0.25;
-    static final double ROLLER_MOTOR_OUT_SPEED = 0.45;
+    static final double ROLLER_MOTOR_IN_SPEED = -0.8;
+    static final double ROLLER_MOTOR_OUT_SPEED = 0.6;
 
 
     public enum UpperState {
