@@ -30,17 +30,19 @@ public class ColorWheelSpinnerLiftUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.colorWheelSpinner.liftUp();
+    //RobotContainer.colorWheelSpinner.liftUp();
     if(RobotContainer.colorWheelSpinner.isTopBaseLimit()== true){
+      RobotContainer.colorWheelSpinner.stopLift();
       RobotContainer.setRumbleCoDriver(1.0);
       RobotContainer.setRumbleDriver(1.0);
-      RobotContainer.setRumbleTimeDriver(1.0);
-      RobotContainer.setRumbleTimeCoDriver(1.0);
+      // RobotContainer.setRumbleTimeDriver(1.0);
+      // RobotContainer.setRumbleTimeCoDriver(1.0);
     } else{
+      RobotContainer.colorWheelSpinner.liftUp();
       RobotContainer.setRumbleCoDriver(0.0);
       RobotContainer.setRumbleDriver(0.0);
-      RobotContainer.setRumbleTimeDriver(0.0);
-      RobotContainer.setRumbleTimeCoDriver(0.0);
+      // RobotContainer.setRumbleTimeDriver(0.0);
+      // RobotContainer.setRumbleTimeCoDriver(0.0);
     }
   }
 

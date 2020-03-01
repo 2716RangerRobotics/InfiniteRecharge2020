@@ -24,6 +24,8 @@ import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.AutoDriveToPositionAndScore;
 import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
+import frc.robot.commands.DriveBrakeOn;
+import frc.robot.commands.DriveCoastOn;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -109,6 +111,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+    Command autoModeToRun = chooser.getSelected();
+    if(autoModeToRun != null){
+      SmartDashboard.putString("Auto Mode To Run", autoModeToRun.getName());
+    }else{
+      SmartDashboard.putString("Auto Mode To Run", "NO AUTO TO RUN!");
+    }
   }
 
   /**
@@ -123,7 +131,7 @@ public class Robot extends TimedRobot {
 		//resetIMU();
 
 		if (autonomousCommand != null) {
-      autonomousCommand.initialize();
+      autonomousCommand.schedule();
     }
   }
 
@@ -144,6 +152,7 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+    CommandScheduler.getInstance().schedule(new DriveBrakeOn());
   }
 
   /**

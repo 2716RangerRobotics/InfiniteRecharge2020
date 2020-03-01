@@ -20,6 +20,7 @@ public class AutoDriveStraight extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
+      new DriveBrakeOn(),
       new DriveStraightToDistance(9, .15)
     );
     System.out.println("something");

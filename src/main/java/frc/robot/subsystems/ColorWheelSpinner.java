@@ -129,13 +129,13 @@ public class ColorWheelSpinner extends SubsystemBase {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
-    SmartDashboard.putBoolean("Bottom Base Limit Switch", isBottomBaseLimit());
-    SmartDashboard.putBoolean("Top Base Limit Switch", isTopBaseLimit());
-    SmartDashboard.putBoolean("Extend Limit Switch", isExtendLimit());
+    SmartDashboard.putBoolean("Bottom Base Limit Switch", !bottomBaseLimit.get());
+    SmartDashboard.putBoolean("Top Base Limit Switch", !topBaseLimit.get());
+    SmartDashboard.putBoolean("Extend Limit Switch", !extendLimit.get());
   }
   
   public boolean isBottomBaseLimit() {
-    if(bottomBaseLimit.get()){
+    if(!bottomBaseLimit.get()){
       return true;
     }
     else{
@@ -144,7 +144,7 @@ public class ColorWheelSpinner extends SubsystemBase {
   }
 
   public boolean isTopBaseLimit() {
-    if(topBaseLimit.get()){
+    if(!topBaseLimit.get()){
       return true;
     }
     else{
@@ -153,7 +153,7 @@ public class ColorWheelSpinner extends SubsystemBase {
   }
 
   public boolean isExtendLimit() {
-    if(extendLimit.get()){
+    if(!extendLimit.get()){
       return true;
     }
     else{
@@ -200,7 +200,7 @@ public class ColorWheelSpinner extends SubsystemBase {
     // liftMotor.set(ControlMode.PercentOutput, SPIN_COLOR_WHEEL_POSITION);
     // yourActuator.setSpeed(0.0); //to stop
   }
-  public void liftToPosition(){
-    liftMotor.set(ControlMode.PercentOutput, SPIN_COLOR_WHEEL_POSITION);
-  }
+  //public void liftToPosition(){
+    //liftMotor.set(ControlMode.PercentOutput, SPIN_COLOR_WHEEL_POSITION); //speed not position
+  //}
   }

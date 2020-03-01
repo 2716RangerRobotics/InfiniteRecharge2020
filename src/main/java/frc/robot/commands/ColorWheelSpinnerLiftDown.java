@@ -30,18 +30,20 @@ public class ColorWheelSpinnerLiftDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.colorWheelSpinner.liftDown();
-    //if(RobotContainer.colorWheelSpinner.isBottomBaseLimit()== true){
-      //RobotContainer.setRumbleCoDriver(1.0);
-      //RobotContainer.setRumbleDriver(1.0);
+    //RobotContainer.colorWheelSpinner.liftDown();
+    if(RobotContainer.colorWheelSpinner.isBottomBaseLimit()== true){
+      RobotContainer.colorWheelSpinner.stopLift();
+      RobotContainer.setRumbleCoDriver(1.0);
+      RobotContainer.setRumbleDriver(1.0);
       //RobotContainer.setRumbleTimeDriver(1.0);
       //RobotContainer.setRumbleTimeCoDriver(1.0);
-    //}else{
-      //RobotContainer.setRumbleCoDriver(0.0);
-      //RobotContainer.setRumbleDriver(0.0);
+    }else{
+      RobotContainer.colorWheelSpinner.liftDown();
+      RobotContainer.setRumbleCoDriver(0.0);
+      RobotContainer.setRumbleDriver(0.0);
       //RobotContainer.setRumbleTimeDriver(0.0);
       //RobotContainer.setRumbleTimeCoDriver(0.0);
-    //}
+    }
   }
 
   // Called once the command ends or is interrupted.

@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.I2C;
@@ -53,6 +54,20 @@ public class Drive extends SubsystemBase {
 
     rightEncoder.setPositionConversionFactor(1.6866);
     leftEncoder.setPositionConversionFactor(1.6866);
+
+    leftMotorMaster.setSmartCurrentLimit(Constants.STALL_LIMIT_DRIVE, Constants.FREE_LIMIT_DRIVE);
+    leftMotorFollower.setSmartCurrentLimit(Constants.STALL_LIMIT_DRIVE, Constants.FREE_LIMIT_DRIVE);
+
+    rightMotorMaster.setSmartCurrentLimit(Constants.STALL_LIMIT_DRIVE, Constants.FREE_LIMIT_DRIVE);
+    rightMotorFollower.setSmartCurrentLimit(Constants.STALL_LIMIT_DRIVE, Constants.FREE_LIMIT_DRIVE);
+
+    leftMotorMaster.setOpenLoopRampRate(Constants.RAMP_RATE);
+    leftMotorFollower.setOpenLoopRampRate(Constants.RAMP_RATE);
+
+    rightMotorMaster.setOpenLoopRampRate(Constants.RAMP_RATE);
+    rightMotorFollower.setOpenLoopRampRate(Constants.RAMP_RATE);
+
+    // leftMotorMaster.setOpenLoopRampRate(rate);
   }
 
   @Override
@@ -60,7 +75,21 @@ public class Drive extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Gyro", imu.getYaw());
   }
-
+  
+  public void setBrakeMode(boolean brakeMode){
+  
+    if(brakeMode){
+      leftMotorMaster.setIdleMode(IdleMode.kBrake);
+      leftMotorFollower.setIdleMode(IdleMode.kBrake);
+      rightMotorMaster.setIdleMode(IdleMode.kBrake);
+      rightMotorFollower.setIdleMode(IdleMode.kBrake);
+    }else{
+      leftMotorMaster.setIdleMode(IdleMode.kCoast);
+      leftMotorFollower.setIdleMode(IdleMode.kCoast);
+      rightMotorMaster.setIdleMode(IdleMode.kCoast);
+      rightMotorFollower.setIdleMode(IdleMode.kCoast);
+    }
+  }
   public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
     // local variables to hold the computed PWM values for the motors
     double leftMotorSpeed;

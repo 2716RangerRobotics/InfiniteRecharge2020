@@ -20,6 +20,7 @@ public class AutoFeederStationPosition extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
+      new DriveBrakeOn(),
       new DriveStraightToDistance(15, .5),
       new DriveTurnToAngle(-90.0, .5),
       new DriveStraightToDistance(30, .5),

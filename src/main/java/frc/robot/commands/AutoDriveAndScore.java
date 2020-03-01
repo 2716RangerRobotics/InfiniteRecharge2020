@@ -20,13 +20,14 @@ public class AutoDriveAndScore extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
+      new DriveBrakeOn(),
       new DriveStraightToDistance(50, .5),
       new DriveTurnToAngle(-90, .5),
       new DriveStraightToDistance(25, .5),
       new DriveTurnToAngle(90, .5),
       new DriveStraightToDistance(50, .5),
       new BallTiltToScore().withTimeout(3.0),
-      new BallIntakeOuttake()
+      new BallIntakeHandleOuttake()
     );
   }
 }

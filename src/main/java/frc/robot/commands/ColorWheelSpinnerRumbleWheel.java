@@ -8,16 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.BallIntake;
 
-public class BallIntakeOuttake extends CommandBase {
+public class ColorWheelSpinnerRumbleWheel extends CommandBase {
   /**
-   * Creates a new BallIntakeOuttake.
+   * Creates a new ColorWheelSpinnerDriveStop.
    */
-  public BallIntakeOuttake() {
+  public ColorWheelSpinnerRumbleWheel() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.ballIntake);
+    addRequirements(RobotContainer.colorWheelSpinner);
   }
 
   // Called when the command is initially scheduled.
@@ -28,9 +28,15 @@ public class BallIntakeOuttake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kOut);
-    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kOut);
+    if(RobotContainer.colorWheelSpinner.isExtendLimit()== true){
+      RobotContainer.setRumbleDriver(.25);
+      RobotContainer.setRumbleCoDriver(.25);
+      //RobotContainer.setRumbleTimeDriver(1.0);
+  }else{
+      RobotContainer.setRumbleDriver(0.0);
+      RobotContainer.setRumbleCoDriver(0.0);
   }
+}
 
   // Called once the command ends or is interrupted.
   @Override

@@ -8,17 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.BallIntake;
+import frc.robot.subsystems.BallHandle;
 
-public class CoDriverLower1Stop extends CommandBase {
+public class BallHandleUpperStop extends CommandBase {
   /**
-   * Creates a new CoDriverLower1Stop.
+   * Creates a new BallIntakeUpperState.
    */
-  public CoDriverLower1Stop() {
+  public BallHandleUpperStop() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.ballIntake);
+    addRequirements(RobotContainer.ballHandle);
   }
 
   // Called when the command is initially scheduled.
@@ -29,8 +28,8 @@ public class CoDriverLower1Stop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kOff1);
-    RobotContainer.ballIntake.setUpperMotors(BallIntake.UpperState.kOff2);
+    RobotContainer.ballHandle.setUpperMotors(BallHandle.UpperState.kOff1);
+    RobotContainer.ballHandle.setUpperMotors(BallHandle.UpperState.kOff2);
   }
 
   // Called once the command ends or is interrupted.

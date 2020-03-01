@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,8 +18,6 @@ import frc.robot.Constants;
 
 public class BallIntake extends SubsystemBase {
 
-    VictorSPX upperMotor1;
-    VictorSPX upperMotor2;
     VictorSPX lowerMotor1;
     VictorSPX lowerMotor2;
     DigitalInput ballCountSensor;
@@ -34,14 +31,6 @@ public class BallIntake extends SubsystemBase {
     static final double ROLLER_MOTOR_IN_SPEED = -0.8;
     static final double ROLLER_MOTOR_OUT_SPEED = 0.6;
 
-
-    public enum UpperState {
-      kOff1,
-      kOff2,
-      kIn,
-      kOut,
-      kSpin
-    }
     public enum LowerState {
       kOff1,
       kOff2,
@@ -53,9 +42,7 @@ public class BallIntake extends SubsystemBase {
     * Creates a new BallIntake.
     */
     public BallIntake() {
-        upperMotor1 = new VictorSPX(Constants.UPPER_MOTOR_1);
-        upperMotor2 = new VictorSPX(Constants.UPPER_MOTOR_2);
-        lowerMotor1 = new VictorSPX(Constants.LOWER_MOTOR_1);
+       lowerMotor1 = new VictorSPX(Constants.LOWER_MOTOR_1);
         lowerMotor2 = new VictorSPX(Constants.LOWER_MOTOR_2);
         ballCountSensor = new DigitalInput(Constants.BALL_COUNT_SENSOR);
     }
@@ -74,29 +61,6 @@ public class BallIntake extends SubsystemBase {
 
   public void resetBallCount(){
     ballCount = 0;
-  }
-  
-  public void setUpperMotors(UpperState state) {
-    switch (state) {
-      case kOff1:
-        upperMotor1.set(ControlMode.PercentOutput, 0.0);
-        break;
-      case kOff2:
-        upperMotor2.set(ControlMode.PercentOutput, 0.0);
-        break;
-      case kIn:
-        upperMotor1.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
-        break;
-      case kOut:
-        upperMotor1.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
-        break;
-      case kSpin:
-        upperMotor1.set(ControlMode.PercentOutput, -Constants.UPPER_MOTOR_SPEED);
-        upperMotor2.set(ControlMode.PercentOutput, Constants.UPPER_MOTOR_SPEED);
-        break;
-    }
   }
 
   public void setLowerMotors(LowerState state) {
