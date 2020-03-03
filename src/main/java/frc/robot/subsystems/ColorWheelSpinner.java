@@ -164,6 +164,14 @@ public class ColorWheelSpinner extends SubsystemBase {
   public boolean isRed(){
     return colorString.contentEquals("R");
   }
+
+  public boolean isGreen(){
+    return colorString.contentEquals("G");
+  }
+
+  public boolean isYellow(){
+    return colorString.contentEquals("Y");
+  }
   
   public String getColorString(){
     return colorString;

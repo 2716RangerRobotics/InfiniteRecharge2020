@@ -13,6 +13,8 @@ import frc.robot.RobotContainer;
 
 public class HangingMechanismRetract extends CommandBase {
   public double distance;
+  public double prevRightEnc;
+  public double prevLeftEnc;
   public double speed;  
   public double rumble;
   /**
@@ -30,6 +32,8 @@ public class HangingMechanismRetract extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    prevRightEnc = 0.0;
+    prevLeftEnc = 0.0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +43,12 @@ public class HangingMechanismRetract extends CommandBase {
       RobotContainer.hangingMechanism.stopRightMotor();
     } else if(RobotContainer.hangingMechanism.getRightEncoder()<Constants.HANGING_RETRACT_POSITION+3000){
       RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+      // if (prevRightEnc == RobotContainer.hangingMechanism.getRightEncoder()) {
+      //   RobotContainer.hangingMechanism.stopRightMotor();
+      // }
+      // else {
+      //   prevRightEnc = RobotContainer.hangingMechanism.getRightEncoder();
+      // }
       // RobotContainer.setRumbleCoDriver(rumble);
   } else {
     RobotContainer.hangingMechanism.setRightMotor(-0.60);
@@ -48,6 +58,12 @@ public class HangingMechanismRetract extends CommandBase {
   } else if(RobotContainer.hangingMechanism.getLeftEncoder()<Constants.HANGING_RETRACT_POSITION+3000){
     RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
     // RobotContainer.setRumbleCoDriver(rumble);
+    // if (prevLeftEnc == RobotContainer.hangingMechanism.getLeftEncoder()) {
+    //   RobotContainer.hangingMechanism.stopLeftMotor();
+    // }
+    // else {
+    //   prevLeftEnc = RobotContainer.hangingMechanism.getLeftEncoder();
+    // }
 } else {
   RobotContainer.hangingMechanism.setLeftMotor(-0.60);
 }

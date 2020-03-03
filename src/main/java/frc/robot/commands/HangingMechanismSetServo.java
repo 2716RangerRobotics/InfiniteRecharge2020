@@ -23,7 +23,12 @@ public class HangingMechanismSetServo extends InstantCommand {
   //Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  RobotContainer.hangingMechanism.setRightServo();
-  RobotContainer.hangingMechanism.setLeftServo();
+    // RobotContainer.hangingMechanism.stopRightMotor();
+  // } else if(RobotContainer.hangingMechanism.getRightEncoder()>Constants.HANGING_EXTENDING_POSITION-3000){
+    RobotContainer.hangingMechanism.setRightServo();
+    RobotContainer.hangingMechanism.setLeftServo();
   }
+  // public void execute() {
+    // RobotContainer.hangingMechanism.setLeftMotor(-0.10);
+  // }
 }

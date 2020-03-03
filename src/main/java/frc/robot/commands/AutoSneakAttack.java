@@ -9,25 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoDriveAndScore extends SequentialCommandGroup {
+public class AutoSneakAttack extends SequentialCommandGroup {
   /**
    * Creates a new AutoDriveAndScore.
    */
-  public AutoDriveAndScore() {
+  public AutoSneakAttack() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveBrakeOn(),
-      new DriveStraightToDistance(25, .25),
-      new DriveTurnToAngle(-90, .25),
-      new DriveStraightToDistance(75, .25),
-      new DriveTurnToAngle(90, .25),
-      new DriveStraightToDistance(85, .25),
-      new BallTiltToScore().withTimeout(3.0),
-      new BallIntakeHandleOuttake().withTimeout(5.0)
+      //new BallTiltOut(),
+      //new BallIntakeIntake(),
+      //new BallHandleIntake(),
+      new DriveStraightToDistance(257, .35),
+      new DriveStraightToDistance(100, -.35)
     );
   }
 }

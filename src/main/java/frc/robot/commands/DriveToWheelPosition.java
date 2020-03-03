@@ -8,53 +8,49 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ColorWheelSpinnerRotationWheel extends CommandBase {
-  public int numberOfGreens;
-  public boolean prevIsGreen;
+public class DriveToWheelPosition extends CommandBase {
   /**
-   * Creates a new ColorWheelSpinnerRotationWheel.
+   * Creates a new DriveToWheelPosition.
    */
-  public ColorWheelSpinnerRotationWheel() {
+  public DriveToWheelPosition() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.colorWheelSpinner);
+    addRequirements(RobotContainer.drive, RobotContainer.colorWheelSpinner);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    numberOfGreens = 0;
+    // if(RobotContainer.colorWheelSpinner.isExtendLimit()) {
+    //   RobotContainer.drive.setLeftRightMotorOutputs(0.0, 0.0);
+    // }else{
+    //   RobotContainer.drive.setLeftRightMotorOutputs(0.05, 0.05);
+    // }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.colorWheelSpinner.wheelSpin();
-
-    SmartDashboard.putNumber("Number of Greens", numberOfGreens);
-
-    if(RobotContainer.colorWheelSpinner.isGreen() && !prevIsGreen){
-      numberOfGreens++;
-    } 
-    
-    prevIsGreen = RobotContainer.colorWheelSpinner.isGreen();
-    // if (numberOfGreens == 7){
-    //   RobotContainer.colorWheelSpinner.stopWheelSpin();
-    // }
+    //RobotContainer.drive.setLeftRightMotorOutputs(.05, .05);
+    if(RobotContainer.colorWheelSpinner.isExtendLimit()) {
+      RobotContainer.drive.setLeftRightMotorOutputs(0.0, 0.0);
+    }else{
+      RobotContainer.drive.setLeftRightMotorOutputs(0.05, 0.05);
+    }
   }
 
-  // Called once the command ends or is interrupted.
+  // Called once the command ens or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.colorWheelSpinner.stopWheelSpin();
+    RobotContainer.colorWheelSpinner.isExtendLimit();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return numberOfGreens >= 10;
+    return false;
+    //return RobotContainer.colorWheelSpinner.isExtendLimit();
   }
 }

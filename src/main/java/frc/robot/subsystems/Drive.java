@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Drive extends SubsystemBase {
   CANSparkMax leftMotorMaster;
@@ -96,6 +97,11 @@ public class Drive extends SubsystemBase {
     double rightMotorSpeed;
 
     moveValue = limit(moveValue);
+  //   private void DriveStraightStop{
+    if (RobotContainer.colorWheelSpinner.isExtendLimit() && moveValue > 0.0){
+      moveValue = 0.0;
+    }
+  // }
     rotateValue = limit(rotateValue);
 
     if (squaredInputs) {

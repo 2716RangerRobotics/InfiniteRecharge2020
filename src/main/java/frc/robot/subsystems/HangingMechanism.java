@@ -125,10 +125,10 @@ public void hangingRetractDistance(){
 }
 
   public void resetLeftEncoder() {
-    leftHangingMotor.setSelectedSensorPosition(0);
+    leftHangingMotor.setSelectedSensorPosition(-350);
   }
   public void resetRightEncoder() {
-    rightHangingMotor.setSelectedSensorPosition(0);
+    rightHangingMotor.setSelectedSensorPosition(-350);
   }
   public void setLeftEncoder() {
     leftHangingMotor.setSelectedSensorPosition(3000);

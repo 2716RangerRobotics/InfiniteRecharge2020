@@ -37,7 +37,9 @@ import frc.robot.commands.ColorWheelSpinnerLiftDown;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
 import frc.robot.commands.ColorWheelSpinnerLiftToPosition;
 import frc.robot.commands.ColorWheelSpinnerWheelStop;
+import frc.robot.commands.DriveStop;
 import frc.robot.commands.DriveStraightToDistance;
+import frc.robot.commands.DriveToWheelPosition;
 import frc.robot.commands.DriveTurnToAngle;
 import frc.robot.commands.ColorWheelSpinnerRotationWheel;
 import frc.robot.commands.ColorWheelSpinnerWheelStop;
@@ -168,6 +170,8 @@ public class RobotContainer {
     driverRB6.whenReleased(new CoDriverIntakeRumble());
     driverLB5.whenPressed(new BallIntakeIntake());
     driverLB5.whenReleased(new BallIntakeIntakeStop());
+    driverSEL7.whenPressed(new DriveToWheelPosition());
+    driverSEL7.whenReleased(new DriveStop());
     //driverRTrigger.whenPressed(new AutoDriveStraight(), false);
     // driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
     // driverSEL7.whenReleased(new ColorWheelSpinnerLiftStop());
