@@ -27,8 +27,8 @@ public class Drive extends SubsystemBase {
   CANEncoder rightEncoder;
   CANEncoder leftEncoder;
   private AHRS imu;
-  public static final double FeedForward = 0.2;
-  public static final double kProportion = 0.02;
+  public static final double FeedForward = 0.18;
+  public static final double kProportion = 0.025;
 
   /**
    * Creates a new Drive.
@@ -151,9 +151,13 @@ public class Drive extends SubsystemBase {
   public void turnToAngle(double targetAngle, double turnSpeed) {
     double error = targetAngle - getAngle();
     if (error > 0) {
-      arcadeDrive(0, FeedForward + (kProportion * error), false);
+      // arcadeDrive(0, -1.0*(FeedForward + (kProportion * error)), false);
+      setLeftRightMotorOutputs(1.0*(FeedForward + (kProportion * error)),
+          -1.0*(FeedForward + (kProportion * error)) );
     } else {
-      //This is wrong: arcadeDrive(0, -FeedForward + (-kProportion * error), false);
+      //arcadeDrive(0, -1.0*(-FeedForward + (kProportion * error)), false);
+      setLeftRightMotorOutputs(1.0*(-FeedForward + (kProportion * error)),
+        -1.0*(-FeedForward + (kProportion * error)) );
     }
   }
 

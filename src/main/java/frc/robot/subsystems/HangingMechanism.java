@@ -48,6 +48,38 @@ static final double HANGING_RETRACT_POSITION = -1000000.0;
     resetLeftEncoder();
     resetRightEncoder();
 
+    //leftHangingMotor.config_kP(0, 1.0);
+    // leftHangingMotor.config_kI(0, 0.0);
+    // leftHangingMotor.config_kD(0, 0.0);
+    // leftHangingMotor.config_kF(0, 0.0);
+
+    // leftHangingMotor.configPeakOutputForward(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
+    // leftHangingMotor.configPeakOutputReverse(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
+
+    // rightHangingMotor.config_kP(0, 1.0);
+    // rightHangingMotor.config_kI(0, 0.0);
+    // rightHangingMotor.config_kD(0, 0.0);
+    // rightHangingMotor.config_kF(0, 0.0);
+
+    // rightHangingMotor.configPeakOutputForward(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
+    // rightHangingMotor.configPeakOutputReverse(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
+
+    // leftHangingMotor.config_kP(0, 1.0);
+    // leftHangingMotor.config_kI(0, 0.0);
+    // leftHangingMotor.config_kD(0, 0.0);
+    // leftHangingMotor.config_kF(0, 0.0);
+
+    // leftHangingMotor.configPeakOutputForward(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+    // leftHangingMotor.configPeakOutputReverse(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+
+    // rightHangingMotor.config_kP(0, 1.0);
+    // rightHangingMotor.config_kI(0, 0.0);
+    // rightHangingMotor.config_kD(0, 0.0);
+    // rightHangingMotor.config_kF(0, 0.0);
+
+    // rightHangingMotor.configPeakOutputForward(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+    // rightHangingMotor.configPeakOutputReverse(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
+
     // tiltMotorLeft.configFactoryDefault();
     // tiltMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     
@@ -99,10 +131,10 @@ public void hangingRetractDistance(){
     rightHangingMotor.setSelectedSensorPosition(0);
   }
   public void setLeftEncoder() {
-    leftHangingMotor.setSelectedSensorPosition(5000);
+    leftHangingMotor.setSelectedSensorPosition(3000);
   }
   public void setRightEncoder() {
-    rightHangingMotor.setSelectedSensorPosition(5000);
+    rightHangingMotor.setSelectedSensorPosition(3000);
   }
   public double getLeftEncoder() {
     return leftHangingMotor.getSelectedSensorPosition();
@@ -113,8 +145,15 @@ public void hangingRetractDistance(){
   public void setLeftMotor(double speed) {
     leftHangingMotor.set(ControlMode.PercentOutput, speed);
   }
+  public void setLeftMotor(ControlMode mode, double value) {
+    leftHangingMotor.set(mode, value);
+  }
+
   public void setRightMotor(double speed){
     rightHangingMotor.set(ControlMode.PercentOutput, speed);
+  }
+  public void setRightMotor(ControlMode mode, double value) {
+    rightHangingMotor.set(mode, value);
   }
   public void stopLeftMotor() {
     leftHangingMotor.set(ControlMode.PercentOutput, 0.0);
@@ -135,11 +174,4 @@ public void hangingRetractDistance(){
     rightServo.set(0.0);
   }
 
-  public void setLeftMotor(ControlMode percentoutput, double d) {
-}
-  public void setRightMotor(ControlMode percentoutput, double d) {
-}
-  public boolean getLeftEncoder(ControlMode percentoutput, double d) {
-	return false;
-}
 }

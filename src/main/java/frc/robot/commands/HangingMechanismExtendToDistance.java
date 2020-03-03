@@ -40,7 +40,7 @@ public class HangingMechanismExtendToDistance extends CommandBase {
         RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
         // RobotContainer.setRumbleCoDriver(rumble);
     } else {
-      RobotContainer.hangingMechanism.setRightMotor(0.15);
+      RobotContainer.hangingMechanism.setRightMotor(0.60);
     }
     if(RobotContainer.hangingMechanism.getLeftEncoder()>Constants.HANGING_EXTENDING_POSITION){
       RobotContainer.hangingMechanism.stopLeftMotor();
@@ -48,7 +48,7 @@ public class HangingMechanismExtendToDistance extends CommandBase {
       RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);
       // RobotContainer.setRumbleCoDriver(rumble);
   } else {
-    RobotContainer.hangingMechanism.setLeftMotor(0.15);
+    RobotContainer.hangingMechanism.setLeftMotor(0.60);
   }
     //    if(RobotContainer.hangingMechanism.getRightEncoder()<Constants.HANGING_EXTENDING_POSITION){
     //   RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_EXTENDING_MOTOR_SPEED);

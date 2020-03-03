@@ -31,6 +31,7 @@ public class BallTilt extends SubsystemBase {
   static final double TILT_SCORE_POSITION = 474;
   static final double BALL_INTAKE_FRONT_POSITION = -400;
   static final double BALL_INTAKE_REAR_POSITION = 10000;
+  static final double TILT_PASS_POSITION = 1200;
   /**
    * Creates a new BallTilt.
    */
@@ -50,10 +51,10 @@ public class BallTilt extends SubsystemBase {
     tiltMotorLeft.setSensorPhase(false);
     tiltMotorRight.follow(tiltMotorLeft);
 
-    tiltMotorLeft.config_kP(0,1);
-    tiltMotorLeft.config_kI(0, 0);
-    tiltMotorLeft.config_kD(0, 0);
-    tiltMotorLeft.config_kF(0, 0);
+    tiltMotorLeft.config_kP(0, 1.0);
+    tiltMotorLeft.config_kI(0, 0.0);
+    tiltMotorLeft.config_kD(0, 0.0);
+    tiltMotorLeft.config_kF(0, 0.0);
 
     tiltMotorLeft.configPeakOutputForward(TILT_OUT_SPEED);
     tiltMotorLeft.configPeakOutputReverse(TILT_IN_SPEED);
@@ -113,6 +114,9 @@ public class BallTilt extends SubsystemBase {
   }
   public void intakeTiltScore() {
     driveTiltMotors(ControlMode.Position, TILT_SCORE_POSITION);
+  }
+  public void outtakeTiltPass() {
+    driveTiltMotors(ControlMode.Position, TILT_PASS_POSITION);
   }
 
   public void intakeFrontPosition(){

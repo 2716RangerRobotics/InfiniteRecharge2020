@@ -41,7 +41,7 @@ public class HangingMechanismRetract extends CommandBase {
       RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
       // RobotContainer.setRumbleCoDriver(rumble);
   } else {
-    RobotContainer.hangingMechanism.setRightMotor(-0.15);
+    RobotContainer.hangingMechanism.setRightMotor(-0.60);
   }
   if(RobotContainer.hangingMechanism.getLeftEncoder()<Constants.HANGING_RETRACT_POSITION){
     RobotContainer.hangingMechanism.stopLeftMotor();
@@ -49,7 +49,7 @@ public class HangingMechanismRetract extends CommandBase {
     RobotContainer.hangingMechanism.setLeftMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);
     // RobotContainer.setRumbleCoDriver(rumble);
 } else {
-  RobotContainer.hangingMechanism.setLeftMotor(-0.15);
+  RobotContainer.hangingMechanism.setLeftMotor(-0.60);
 }
     // if(RobotContainer.hangingMechanism.getRightEncoder()>Constants.HANGING_RETRACT_POSITION){
     //   RobotContainer.hangingMechanism.setRightMotor(Constants.CLIMBING_RETRACTING_MOTOR_SPEED);

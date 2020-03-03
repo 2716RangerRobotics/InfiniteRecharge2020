@@ -32,7 +32,7 @@ public class DriveTurnToAngle extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
   public void execute() {
-    RobotContainer.drive.turnToAngle(angle, -turnSpeed);
+    RobotContainer.drive.turnToAngle(angle, turnSpeed);
   }
 
     // Make this return true when this Command no longer needs to run execute()

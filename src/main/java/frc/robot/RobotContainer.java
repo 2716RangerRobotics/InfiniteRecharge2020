@@ -29,6 +29,7 @@ import frc.robot.commands.BallTiltIn;
 import frc.robot.commands.BallTiltOut;
 import frc.robot.commands.BallTiltStop;
 import frc.robot.commands.BallTiltToScore;
+import frc.robot.commands.BallTiltToPass;
 import frc.robot.commands.CoDriverIntakeRumble;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.commands.ColorWheelSpinnerLiftUp;
@@ -158,9 +159,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverA1.whenPressed(new BallTiltOut());
-    driverB2.whenPressed(new BallTiltIn());
+    driverA1.whenPressed(new BallTiltOut().withTimeout(3.0));
+    driverB2.whenPressed(new BallTiltIn().withTimeout(3.0));
     driverY4.whenPressed(new BallTiltToScore());
+    driverX3.whenPressed(new BallTiltToPass());
     driverRB6.whenPressed(new BallIntakeHandleOuttake());
     driverRB6.whenReleased(new BallIntakeHandleStop());
     driverRB6.whenReleased(new CoDriverIntakeRumble());
@@ -172,13 +174,14 @@ public class RobotContainer {
     // driverSTART8.whenPressed(new ColorWheelSpinnerLiftUp());
     // driverSTART8.whenReleased(new ColorWheelSpinnerLiftStop());
 
-    // driverDLeft.whenPressed(new DriveTurnToAngle(-25, .25));
-    // driverDRight.whenPressed(new DriveTurnToAngle(25, .25));
-    
-
-    coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
+    driverDLeft.whenPressed(new DriveTurnToAngle(-25, .25));
+    driverDRight.whenPressed(new DriveTurnToAngle(25, .25));
+  
+    //coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
     coDriverA1.whenPressed(new BallHandleIntake());
     coDriverA1.whenReleased(new BallHandleUpperStop());
+    coDriverLTrigger.whenPressed(new HangingMechanismResetEnc());
+    coDriverRTrigger.whenPressed(new HangingMechanismSetEnc());
     // coDriverB2.whenPressed(new BallIntakeUpperState());
     coDriverX3.whenPressed(new HangingMechanismRetract());
     coDriverX3.whenReleased(new HangingMechanismStop());
@@ -243,15 +246,7 @@ public class RobotContainer {
     }
   }
 
-  public static double getDriverDPadLeft() {
-    if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.1) {
-      return -1.0*driverPad.getX(Hand.kLeft);
-    } else {
-    return 0;
-    }
-  }
-
-  public static double getDriverDPadRight() {
+  public static double getDriverStickLeftY() {
     if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.1) {
       return -1.0*driverPad.getY(Hand.kLeft);
     } else {

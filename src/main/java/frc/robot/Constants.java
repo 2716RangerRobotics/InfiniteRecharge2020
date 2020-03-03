@@ -46,8 +46,8 @@ public final class Constants {
     public static final double UPPER_MOTOR_SPEED = 0.6;
     public static final double LOWER_MOTOR_SPEED = 0.6;
     public static final double CLIMBING_MOTOR_SPEED = 0.3;
-    public static final double CLIMBING_EXTENDING_MOTOR_SPEED = 0.15;
-    public static final double CLIMBING_RETRACTING_MOTOR_SPEED = -0.15;
+    public static final double CLIMBING_EXTENDING_MOTOR_SPEED = 0.3;
+    public static final double CLIMBING_RETRACTING_MOTOR_SPEED = -0.3;
     public static final double WHEEL_MOTOR_SPEED = 0.25; //make a ramp
     public static final double LIFT_MOTOR_SPEED = 0.40;
     public static final int STALL_LIMIT_DRIVE = 50;
