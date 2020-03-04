@@ -140,11 +140,11 @@ public class RobotContainer {
     ballTilt = new BallTilt();
     //gearSwitch = new DigitalInput(Constants.GEAR_SWITCH_PORT);
     colorWheelSpinner = new ColorWheelSpinner();
-    autoDriveAndScore = new AutoDriveAndScore();
-    autoDriveStraight = new AutoDriveStraight();
-    autoDriveToPositionAndScore = new AutoDriveToPositionAndScore();
-    autoFeederStationPosition = new AutoFeederStationPosition();
-    autoFeedShooter = new AutoFeedShooter();
+    // autoDriveAndScore = new AutoDriveAndScore();
+    // autoDriveStraight = new AutoDriveStraight();
+    // autoDriveToPositionAndScore = new AutoDriveToPositionAndScore();
+    // autoFeederStationPosition = new AutoFeederStationPosition();
+    // autoFeedShooter = new AutoFeedShooter();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
     // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
     SmartDashboard.putData(drive);
@@ -161,8 +161,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverA1.whenPressed(new BallTiltOut().withTimeout(3.0));
-    driverB2.whenPressed(new BallTiltIn().withTimeout(3.0));
+    driverA1.whenPressed(new BallTiltOut().withTimeout(2.0));
+    driverB2.whenPressed(new BallTiltIn().withTimeout(2.0));
     driverY4.whenPressed(new BallTiltToScore());
     driverX3.whenPressed(new BallTiltToPass());
     driverRB6.whenPressed(new BallIntakeHandleOuttake());
