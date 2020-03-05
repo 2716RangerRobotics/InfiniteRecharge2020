@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.AutoDriveAndScore;
 import frc.robot.commands.AutoDriveStraight;
+import frc.robot.commands.AutoDriveStraightAndScore;
 import frc.robot.commands.AutoDriveToPositionAndScore;
 import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
@@ -78,7 +79,8 @@ public class Robot extends TimedRobot {
     //CommandBase.init();
 
 		chooser.addOption("AutoDriveStraight", new AutoDriveStraight());
-		chooser.addOption("AutoDriveAndScore", new AutoDriveAndScore());
+    chooser.addOption("AutoDriveAndScore", new AutoDriveAndScore());
+    chooser.addOption("AutoDriveStraightAndScore", new AutoDriveStraightAndScore());
 		chooser.addOption("AutoDriveToPositionAndScore", new AutoDriveToPositionAndScore());
     chooser.addOption("AutoFeederStationPosition", new AutoFeederStationPosition());
     chooser.addOption("AutoFeedShooter", new AutoFeedShooter());
