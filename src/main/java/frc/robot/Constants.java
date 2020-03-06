@@ -34,7 +34,7 @@ public final class Constants {
     public static final int LIFT_MOTOR = 5;
 
     //PWM Channels
-    //public static final int YOUR_ACTUATOR_CHANNEL = 1;
+    public static final int YOUR_ACTUATOR_CHANNEL = 0;
     public static final int HANGING_MECH_LEFT_SERVO = 1;
     public static final int HANGING_MECH_RIGHT_SERVO = 2;
 
@@ -50,9 +50,13 @@ public final class Constants {
     public static final double CLIMBING_RETRACTING_MOTOR_SPEED = -0.3;
     public static final double WHEEL_MOTOR_SPEED = 0.35; //make a ramp
     public static final double LIFT_MOTOR_SPEED = 0.40;
-    public static final int STALL_LIMIT_DRIVE = 50;
-    public static final int FREE_LIMIT_DRIVE = 40;
+    public static final int STALL_LIMIT_DRIVE = 40;
+    public static final int FREE_LIMIT_DRIVE = 30;
+    public static final int SLOW_STALL_LIMIT_DRIVE = 30;
+    public static final int SLOW_FREE_LIMIT_DRIVE = 15;
     public static final double RAMP_RATE = .01;
+    public static final double DRIVE_SLOW_SPEED = 0.5;
+    public static final double TURN_SLOW_SPEED = 0.7;
 
     // //limit switch
     // public static final int GEAR_SWITCH_PORT = 0;

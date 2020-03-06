@@ -10,8 +10,8 @@ package frc.robot.subsystems;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+//import com.ctre.phoenix.motorcontrol.ControlMode;
+// import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -23,11 +23,11 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.Servo;
 
 public class ColorWheelSpinner extends SubsystemBase {
-  VictorSPX wheelMotor;
-  VictorSPX liftMotor;
+  // VictorSPX wheelMotor;
+  // VictorSPX liftMotor;
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private ColorSensorV3 colorSensor;
-  // Servo yourActuator;
+  Servo yourActuator;
   DigitalInput bottomBaseLimit;
   DigitalInput topBaseLimit;
   DigitalInput extendLimit;
@@ -62,12 +62,12 @@ public class ColorWheelSpinner extends SubsystemBase {
     colorMatcher.addColorMatch(kRedTarget);
     colorMatcher.addColorMatch(kYellowTarget); 
     
-    // yourActuator = new Servo(Constants.YOUR_ACTUATOR_CHANNEL);
-    // yourActuator.setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
-    // yourActuator.setSpeed(-1.0);
+    yourActuator = new Servo(Constants.YOUR_ACTUATOR_CHANNEL);
+    yourActuator.setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
+    yourActuator.setSpeed(-1.0);
     
-    wheelMotor = new VictorSPX(Constants.WHEEL_MOTOR);
-    liftMotor = new VictorSPX(Constants.LIFT_MOTOR);
+    //wheelMotor = new VictorSPX(Constants.WHEEL_MOTOR);
+    //liftMotor = new VictorSPX(Constants.LIFT_MOTOR);
     
     bottomBaseLimit = new DigitalInput(Constants.BOTTOM_BASE_LIMIT);
     topBaseLimit = new DigitalInput(Constants.TOP_BASE_LIMIT);
@@ -124,14 +124,14 @@ public class ColorWheelSpinner extends SubsystemBase {
      * Open Smart Dashboard or Shuffleboard to see the color detected by the 
      * sensor.
      */
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
-    SmartDashboard.putBoolean("Bottom Base Limit Switch", !bottomBaseLimit.get());
-    SmartDashboard.putBoolean("Top Base Limit Switch", !topBaseLimit.get());
-    SmartDashboard.putBoolean("Extend Limit Switch", !extendLimit.get());
+    // SmartDashboard.putNumber("Red", detectedColor.red);
+    // SmartDashboard.putNumber("Green", detectedColor.green);
+    // SmartDashboard.putNumber("Blue", detectedColor.blue);
+    // SmartDashboard.putNumber("Confidence", match.confidence);
+    // SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putBoolean("Wheel Bot Lim", !bottomBaseLimit.get());
+    SmartDashboard.putBoolean("Wheel Top Lim", !topBaseLimit.get());
+    SmartDashboard.putBoolean("Wheel Contact", !extendLimit.get());
   }
   
   public boolean isBottomBaseLimit() {
@@ -177,36 +177,36 @@ public class ColorWheelSpinner extends SubsystemBase {
     return colorString;
   }  
   
-  public void wheelSpin() {
-    wheelMotor.set(ControlMode.PercentOutput, Constants.WHEEL_MOTOR_SPEED);
-  }
+  // public void wheelSpin() {
+    // wheelMotor.set(ControlMode.PercentOutput, Constants.WHEEL_MOTOR_SPEED);
+  // }
 
-  public void stopWheelSpin() {
-    wheelMotor.set(ControlMode.PercentOutput, 0.0);
-  }
+  // public void stopWheelSpin() {
+    // wheelMotor.set(ControlMode.PercentOutput, 0.0);
+  // }
   
   public void liftUp() {
     if(isTopBaseLimit()){
-      liftMotor.set(ControlMode.PercentOutput, 0.0);
+      yourActuator.setSpeed(1.0); //to open
+      // liftMotor.set(ControlMode.PercentOutput, 0.0);
     }else{
-      liftMotor.set(ControlMode.PercentOutput, Constants.LIFT_MOTOR_SPEED);
+      yourActuator.setPosition(1.00);
+      // liftMotor.set(ControlMode.PercentOutput, Constants.LIFT_MOTOR_SPEED);
     }
-    // yourActuator.setSpeed(1.0); //to open
-    // yourActuator.setPosition(1.00);
   }
   public void liftDown() {
     if(isBottomBaseLimit()){
-      liftMotor.set(ControlMode.PercentOutput, 0.0);
+      yourActuator.setSpeed(-1.0); //to close
+      //liftMotor.set(ControlMode.PercentOutput, 0.0);
     }else{
-      liftMotor.set(ControlMode.PercentOutput, -Constants.LIFT_MOTOR_SPEED);
+      yourActuator.setPosition(0.00);
+      // liftMotor.set(ControlMode.PercentOutput, -Constants.LIFT_MOTOR_SPEED);
     }
-    // yourActuator.setSpeed(-1.0); //to close
-    // yourActuator.setPosition(0.00);
   }
   public void stopLift() {
-    liftMotor.set(ControlMode.PercentOutput, 0.0);
+    //liftMotor.set(ControlMode.PercentOutput, 0.0);
     // liftMotor.set(ControlMode.PercentOutput, SPIN_COLOR_WHEEL_POSITION);
-    // yourActuator.setSpeed(0.0); //to stop
+    yourActuator.setSpeed(0.0); //to stop
   }
   //public void liftToPosition(){
     //liftMotor.set(ControlMode.PercentOutput, SPIN_COLOR_WHEEL_POSITION); //speed not position

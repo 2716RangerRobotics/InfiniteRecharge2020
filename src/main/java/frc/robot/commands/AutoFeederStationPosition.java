@@ -7,7 +7,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -21,13 +23,16 @@ public class AutoFeederStationPosition extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveBrakeOn(),
-      new DriveStraightToDistance(15, .5),
-      new DriveTurnToAngle(-90.0, .5),
-      new DriveStraightToDistance(30, .5),
-      new DriveTurnToAngle(90.0, .5),
+      new DriveStraightToDistance(15, .25),
+      new DriveTurnToAngle(-90.0, .25),
+      new DriveStraightToDistance(30, .25),
+      new DriveTurnToAngle(90.0, .25),
       new DriveStraightToDistance(5, .25),
-      new BallTiltToScore().withTimeout(2.0),
-      new BallIntakeIntake()
+      new ParallelRaceGroup(
+        new BallTiltToScore().withTimeout(2.0),
+        new BallIntakeIntake(),
+        new WaitCommand(5.0)
+      )
     );
   }
 }

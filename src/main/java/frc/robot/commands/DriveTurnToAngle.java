@@ -27,7 +27,8 @@ public class DriveTurnToAngle extends CommandBase {
 
     // Called just before this Command runs the first time
   public void initialize() {
-    RobotContainer.drive.zeroAngle();
+    // RobotContainer.drive.zeroAngle();
+    angle =+ RobotContainer.drive.getAngle();
   }
 
     // Called repeatedly when this Command is scheduled to run

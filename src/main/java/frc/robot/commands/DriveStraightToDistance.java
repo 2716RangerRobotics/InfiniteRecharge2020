@@ -16,6 +16,7 @@ public class DriveStraightToDistance extends CommandBase {
 	private double speed;
 	private boolean isReverse;
   private double startAngle;
+  private boolean isAngleTargeted;
 
 	/**$
 	 * Drive to distance
@@ -26,7 +27,16 @@ public class DriveStraightToDistance extends CommandBase {
     this.distance = distanceInInches;
     this.speed = speed;
     addRequirements(RobotContainer.drive);
-    
+    isAngleTargeted = false;
+    if (speed < 0) isReverse = true;
+  }
+
+  public DriveStraightToDistance(double distanceInInches, double speed, double angle) {
+    this.distance = distanceInInches;
+    this.speed = speed;
+    addRequirements(RobotContainer.drive);
+    this.startAngle = angle;
+    isAngleTargeted = true;
     if (speed < 0) isReverse = true;
   }
 
@@ -34,7 +44,9 @@ public class DriveStraightToDistance extends CommandBase {
   @Override
   public void initialize() {
     // RobotContainer.drive.zeroAngle();
+    if(!isAngleTargeted){
     startAngle = RobotContainer.drive.getAngle();
+    }
     RobotContainer.drive.resetLeftEncoder();
     RobotContainer.drive.resetRightEncoder();
   }

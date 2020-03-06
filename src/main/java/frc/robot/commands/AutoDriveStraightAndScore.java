@@ -7,7 +7,9 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;;
 
 public class AutoDriveStraightAndScore extends SequentialCommandGroup {
   /**
@@ -18,9 +20,17 @@ public class AutoDriveStraightAndScore extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveBrakeOn(),
-      new DriveStraightToDistance(133, .25),
-      new BallTiltToScore(),
-      new BallIntakeHandleOuttake().withTimeout(5.0)
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(133, .25),
+        new BallTiltToScore()
+      ),
+      new ParallelRaceGroup(
+        new BallTiltToScore(),
+        new BallIntakeHandleOuttake(),
+        new WaitCommand(5.0)
+        ),
+      new BallIntakeHandleStop()
+      
     );
   }
 }

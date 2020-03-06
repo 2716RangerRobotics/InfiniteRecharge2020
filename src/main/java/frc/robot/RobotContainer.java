@@ -61,6 +61,7 @@ import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.BallTilt;
 import frc.robot.subsystems.ColorWheelSpinner;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.DriveSlow;
 import frc.robot.subsystems.BallHandle;
 // import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HangingMechanism;
@@ -75,6 +76,7 @@ import frc.robot.subsystems.Limelight;
 public class RobotContainer {
   // The robot's subsystems are instantiated here...
   public static Drive drive;
+  // public static DriveSlow driveSlow;
   public static HangingMechanism hangingMechanism;
   public static BallIntake ballIntake;
   public static BallHandle ballHandle;
@@ -134,6 +136,7 @@ public class RobotContainer {
   public RobotContainer() {
     // The robot's subsystems and commands are constructed here...
     drive = new Drive();
+    // driveSlow = new DriveSlow();
     hangingMechanism = new HangingMechanism();
     ballIntake = new BallIntake();
     ballHandle = new BallHandle();
@@ -147,7 +150,7 @@ public class RobotContainer {
     // autoFeedShooter = new AutoFeedShooter();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
     // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-    SmartDashboard.putData(drive);
+    // SmartDashboard.putData(drive);
     limelight = new Limelight();
 
     // Configure the button bindings - DO THIS LAST!!!
@@ -236,8 +239,14 @@ public class RobotContainer {
 		} else {
 			return 0;
 		}
+  }
+  public static double getDriverRightStickY() {
+		if (Math.abs(driverPad.getY(Hand.kRight)) > 0.1) {
+			return -1.0*driverPad.getY(Hand.kRight);
+		} else {
+			return 0;
+		}
 	}
-
   /**
    * 
    * @return value of the joystick [-1.0, 1.0]
@@ -249,10 +258,24 @@ public class RobotContainer {
 			return 0;
     }
   }
+  public static double getDriverRightStickX() {
+		if (Math.abs(driverPad.getX(Hand.kRight)) > 0.1) {
+			return -1.0*driverPad.getX(Hand.kRight);
+		} else {
+			return 0;
+    }
+  }
 
   public static double getDriverStickLeftY() {
     if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.1) {
       return -1.0*driverPad.getY(Hand.kLeft);
+    } else {
+      return 0;
+    }
+  }
+  public static double getDriverStickRightY() {
+    if (Math.abs(driverPad.getY(Hand.kRight)) > 0.1) {
+      return -1.0*driverPad.getY(Hand.kRight);
     } else {
       return 0;
     }

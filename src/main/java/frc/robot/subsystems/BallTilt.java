@@ -69,14 +69,13 @@ public class BallTilt extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Right Front Limit Switch", !rightFrontLimit.get());
-    SmartDashboard.putBoolean("Left Front Limit Switch", !leftFrontLimit.get());
-    SmartDashboard.putBoolean("Right Rear Limit Switch", !rightRearLimit.get());
-    SmartDashboard.putBoolean("Left Rear Limit Switch", !leftRearLimit.get());
+    SmartDashboard.putBoolean("RFront Lim", !rightFrontLimit.get());
+    SmartDashboard.putBoolean("LFront Lim", !leftFrontLimit.get());
+    SmartDashboard.putBoolean("RRear Lim", !rightRearLimit.get());
+    SmartDashboard.putBoolean("LRear Lim", !leftRearLimit.get());
     //SmartDashboard.putBoolean("intakeLimitIn", intakeLimitIn());
     //SmartDashboard.putBoolean("intakeLimitOut", intakeLimitOut());
-    SmartDashboard.putNumber("LeftEnc",getLeftEncoder());
-    SmartDashboard.putNumber("RightEnc",getRightEncoder());
+    SmartDashboard.putNumber("TiltEnc",getLeftEncoder());
     // This method will be called once per scheduler run
     if(isRearLimit()){
       tiltMotorLeft.setSelectedSensorPosition(0);

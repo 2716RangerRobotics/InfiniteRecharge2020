@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class DriveWithGamePad extends CommandBase {
@@ -27,11 +28,17 @@ public class DriveWithGamePad extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double driveValue = RobotContainer.getDriverLeftStickY();
-    double turnValue = RobotContainer.getDriverLeftStickX();
+    double driveValueFast = RobotContainer.getDriverLeftStickY();
+    double turnValueFast = RobotContainer.getDriverLeftStickX();
+    double driveValueSlow = RobotContainer.getDriverRightStickY();
+    double turnValueSlow = RobotContainer.getDriverRightStickX();
     // System.out.println("moveValue: " + driveValue + "  turnValue: "+ turnValue);
-	  RobotContainer.drive.arcadeDrive(driveValue, turnValue, true);
-
+    if(Math.abs(driveValueSlow) > .1 || Math.abs(turnValueSlow) > .1){
+      RobotContainer.drive.arcadeDrive(Constants.DRIVE_SLOW_SPEED*driveValueSlow,
+        Constants.TURN_SLOW_SPEED*turnValueSlow, true);
+    }else{
+	    RobotContainer.drive.arcadeDrive(driveValueFast, turnValueFast, true);
+    }
 		
   }
 

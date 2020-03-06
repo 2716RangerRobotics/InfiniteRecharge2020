@@ -7,7 +7,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -21,13 +23,21 @@ public class AutoDriveAndScore extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveBrakeOn(),
+      new DriveResetGyro(),
       new DriveStraightToDistance(25, .25),
-      new DriveTurnToAngle(-90, .25),
-      new DriveStraightToDistance(68, .25),
-      new DriveTurnToAngle(90, .25),
-      new DriveStraightToDistance(108, .25),
-      new BallTiltToScore(),
-      new BallIntakeHandleOuttake().withTimeout(5.0)
+      new DriveTurnToAngle(-90, .35),
+      new DriveStraightToDistance(68, .25, -90),
+      new DriveTurnToAngle(90, .35),
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(108, .25, 0.0),
+        new BallTiltToScore()
+        ),
+      new ParallelRaceGroup(
+        new BallTiltToScore(),
+        new BallIntakeHandleOuttake(),
+        new WaitCommand(5.0)
+        ),
+      new BallIntakeHandleStop()
     );
   }
 }
