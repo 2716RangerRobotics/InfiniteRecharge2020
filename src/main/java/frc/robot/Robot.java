@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.AutoDriveAndScore;
 import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.AutoDriveStraightAndScore;
-import frc.robot.commands.AutoDriveToPositionAndScore;
+import frc.robot.commands.AutoDriveToRendezvousAndScore;
 import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
 import frc.robot.commands.AutoSneakAttack;
@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
 		chooser.addOption("AutoDriveStraight", new AutoDriveStraight());
     chooser.addOption("AutoDriveAndScore", new AutoDriveAndScore());
     chooser.addOption("AutoDriveStraightAndScore", new AutoDriveStraightAndScore());
-		chooser.addOption("AutoDriveToPositionAndScore", new AutoDriveToPositionAndScore());
+		chooser.addOption("AutoDriveToRendezvousAndScore", new AutoDriveToRendezvousAndScore());
     chooser.addOption("AutoFeederStationPosition", new AutoFeederStationPosition());
     chooser.addOption("AutoFeedShooter", new AutoFeedShooter());
     chooser.addOption("AutoSneakAttack", new AutoSneakAttack());
@@ -111,6 +111,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    CommandScheduler.getInstance().schedule(new DriveCoastOn());
   }
 
   @Override

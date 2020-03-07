@@ -21,15 +21,24 @@ public class AutoTrenchClaim extends SequentialCommandGroup {
   public AutoTrenchClaim() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(
+      super(
       new DriveBrakeOn(),
-      new BallIntakeIntake(),
-      new ParallelCommandGroup(
-        // new DriveStraightToDistance(distanceInInches, speed),
-        new BallTiltOut()
-      )
+      //new BallTiltOut(),
+      //new BallIntakeIntake(),
+      //new BallHandleIntake(),
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(257, .25, 0.0),
+        new BallTiltOut(),
+        new BallHandleIntake()
+        ),
+      new DriveTurnToAngle(180, .35),
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(100, .35),
+        new BallTiltToScore()
+        )
+      
+    );
       // new 
       // new DriveStraightToDistance(distanceInInches, speed),
-    );
   }
 }

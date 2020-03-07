@@ -24,4 +24,8 @@ public class DriveCoastOn extends InstantCommand {
   public void initialize() {
     RobotContainer.drive.setBrakeMode(false);
   }
+  @Override
+  public boolean runsWhenDisabled(){
+    return true;
+  }
 }

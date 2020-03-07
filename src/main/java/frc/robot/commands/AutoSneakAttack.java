@@ -7,7 +7,9 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class AutoSneakAttack extends SequentialCommandGroup {
   /**
@@ -21,8 +23,15 @@ public class AutoSneakAttack extends SequentialCommandGroup {
       //new BallTiltOut(),
       //new BallIntakeIntake(),
       //new BallHandleIntake(),
-      new DriveStraightToDistance(257, .35),
-      new DriveStraightToDistance(100, -.35)
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(257, .25, 0.0),
+        new BallTiltOut(),
+        new BallHandleIntake()
+        ),
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(100, -.35),
+        new BallTiltToScore()
+        )
     );
   }
 }

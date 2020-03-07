@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,13 +25,9 @@ public class BallTilt extends SubsystemBase {
   DigitalInput rightRearLimit;
   DigitalInput leftRearLimit;
   
-  static final double TILT_OUT_SPEED = 0.3;
-  static final double TILT_IN_SPEED = -0.3;
-  static final double TILT_IN_SPEED_STOP = 0.0;
-  static final double TILT_OUT_SPEED_STOP = 0.0;
+  static final double TILT_OUT_SPEED = 0.45;
+  static final double TILT_IN_SPEED = -0.45;
   static final double TILT_SCORE_POSITION = 474;
-  static final double BALL_INTAKE_FRONT_POSITION = -400;
-  static final double BALL_INTAKE_REAR_POSITION = 10000;
   static final double TILT_PASS_POSITION = 1200;
   /**
    * Creates a new BallTilt.
@@ -41,6 +38,7 @@ public class BallTilt extends SubsystemBase {
     tiltMotorRight.configVoltageCompSaturation(12.5);
     tiltMotorRight.enableVoltageCompensation(true);
     tiltMotorRight.setInverted(true);
+    tiltMotorRight.setNeutralMode(NeutralMode.Brake);
 
     tiltMotorLeft = new TalonSRX(Constants.TILT_MOTOR_LEFT);
     tiltMotorLeft.configFactoryDefault();
@@ -49,6 +47,7 @@ public class BallTilt extends SubsystemBase {
     tiltMotorLeft.enableVoltageCompensation(true);
     tiltMotorLeft.setInverted(false);
     tiltMotorLeft.setSensorPhase(false);
+    tiltMotorLeft.setNeutralMode(NeutralMode.Brake);
     tiltMotorRight.follow(tiltMotorLeft);
 
     tiltMotorLeft.config_kP(0, 1.0);
@@ -117,23 +116,29 @@ public class BallTilt extends SubsystemBase {
   public void outtakeTiltPass() {
     driveTiltMotors(ControlMode.Position, TILT_PASS_POSITION);
   }
+  //Don't so it this way,  
+  // public void intakeFrontPosition(){
+  //   driveTiltMotors(ControlMode.Position, BALL_INTAKE_FRONT_POSITION);
+  // }
 
-  public void intakeFrontPosition(){
-    driveTiltMotors(ControlMode.Position, BALL_INTAKE_FRONT_POSITION);
-  }
-
-  public void intakeRearPosition(){
-    driveTiltMotors(ControlMode.Position, BALL_INTAKE_REAR_POSITION);
-  }
+  // public void intakeRearPosition(){
+  //   driveTiltMotors(ControlMode.Position, BALL_INTAKE_REAR_POSITION);
+  // }
 
   public void intakeTiltStop() {
     driveTiltMotors(ControlMode.PercentOutput, 0.0);
   }
   
   private void driveTiltMotors(ControlMode mode, double speed){
-    if(isFrontLimit() && speed > 0.0){
+    if(isFrontLimit() && ( 
+      (mode == ControlMode.PercentOutput && speed > 0.0)||
+        (mode == ControlMode.Position && speed > getLeftEncoder()))){
+      mode = ControlMode.PercentOutput;
       speed = 0.0;
-    }else if (isRearLimit() && speed < 0.0){
+    }else if (isRearLimit() && ( 
+      (mode == ControlMode.PercentOutput && speed < 0.0)||
+        (mode == ControlMode.Position && speed < getLeftEncoder()))){
+      mode = ControlMode.PercentOutput;
       speed = 0.0;
     }
     tiltMotorLeft.set(mode, speed);
@@ -143,31 +148,5 @@ public class BallTilt extends SubsystemBase {
     return tiltMotorLeft.getSelectedSensorPosition();
   }
 
-  public double getRightEncoder(){
-    return tiltMotorRight.getSelectedSensorPosition();
-  }
-  //public boolean intakeLimitIn(){
-    //driveTiltMotors(ControlMode.PercentOutput, TILT_IN_SPEED_STOP);
-//   if(isRearLimit()){
-//     driveTiltMotors(ControlMode.PercentOutput, TILT_IN_SPEED_STOP);
-//     //tiltMotorRight.set(ControlMode.PercentOutput, TILT_IN_SPEED_STOP);
-//     return true;
-//   }else{
-//     tiltMotorLeft.set(ControlMode.PercentOutput, TILT_IN_SPEED);
-//     //tiltMotorRight.set(ControlMode.PercentOutput, TILT_IN_SPEED);
-//   }
-     //return false;
-//}
-  //public boolean intakeLimitOut(){
-    //driveTiltMotors(ControlMode.PercentOutput, TILT_OUT_SPEED_STOP);
-  // if(isFrontLimit()){
-  //   tiltMotorLeft.set(ControlMode.PercentOutput, TILT_OUT_SPEED_STOP);
-  //   //tiltMotorRight.set(ControlMode.PercentOutput, TILT_OUT_SPEED_STOP);
-  //   return true;
-  // }else{
-  //   tiltMotorLeft.set(ControlMode.PercentOutput, TILT_OUT_SPEED);
-  //   //tiltMotorRight.set(ControlMode.PercentOutput, TILT_OUT_SPEED);
-  // }
-    //return false;
-//}
+  
 }

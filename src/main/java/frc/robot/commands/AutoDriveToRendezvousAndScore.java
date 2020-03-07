@@ -11,22 +11,28 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class AutoDriveToPositionAndScore extends SequentialCommandGroup {
+public class AutoDriveToRendezvousAndScore extends SequentialCommandGroup {
   /**
    * Creates a new AutoDriveToPositionAndScore.
    */
-  public AutoDriveToPositionAndScore() {
+  public AutoDriveToRendezvousAndScore() {
     // Use addRequirements() here to declare subsystem dependencies.
       super(
         new DriveBrakeOn(),
         new DriveStraightToDistance(125, .25),
         new BallTiltOut(),
         new BallIntakeIntake(),
-        new BallTiltIn(),
-        new DriveStraightToDistance(50, -.25),
-        new DriveTurnToAngle(180, .25),
+        // new BallTiltIn(),
+        new DriveTurnToAngle(90, .35),
         new ParallelRaceGroup(
-          new DriveStraightToDistance(50, .25),
+          new DriveStraightToDistance(60, .25)
+        ),
+        new DriveStraightToDistance(50, -.25),
+        new DriveTurnToAngle(-90, .25),
+        new DriveStraightToDistance(50, -.25),
+        new DriveTurnToAngle(-90, .25),
+        new ParallelRaceGroup(
+          new DriveStraightToDistance(75, .25),
           new BallTiltToScore()
         ),
         new ParallelRaceGroup(

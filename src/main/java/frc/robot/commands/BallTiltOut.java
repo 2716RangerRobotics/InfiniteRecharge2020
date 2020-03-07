@@ -36,8 +36,7 @@ public class BallTiltOut extends CommandBase {
       // RobotContainer.setRumbleCoDriver(rumble);
     //   // RobotContainer.setRumbleDriver(rumble);
     }else{
-      RobotContainer.ballTilt.intakeRearPosition();
-       //RobotContainer.ballTilt.intakeTiltOut();
+       RobotContainer.ballTilt.intakeTiltOut();
      }
     //if(RobotContainer.ballTilt.isFrontLimit()== true){
       //RobotContainer.ballTilt.intakeTiltStop();

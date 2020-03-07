@@ -20,8 +20,10 @@ public class AutoDriveStraightAndScore extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveBrakeOn(),
+      new DriveResetGyro(),
+      new DriveStraightToDistance(138, .25),
       new ParallelRaceGroup(
-        new DriveStraightToDistance(133, .25),
+        new DriveStraightToDistance(5, .25),
         new BallTiltToScore()
       ),
       new ParallelRaceGroup(

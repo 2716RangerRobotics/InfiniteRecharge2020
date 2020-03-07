@@ -24,10 +24,10 @@ public class AutoDriveAndScore extends SequentialCommandGroup {
     super(
       new DriveBrakeOn(),
       new DriveResetGyro(),
-      new DriveStraightToDistance(25, .25),
-      new DriveTurnToAngle(-90, .35),
-      new DriveStraightToDistance(68, .25, -90),
+      new DriveStraightToDistance(50, .25),
       new DriveTurnToAngle(90, .35),
+      new DriveStraightToDistance(175, .25, -90),
+      new DriveTurnToAngle(-90, .35),
       new ParallelRaceGroup(
         new DriveStraightToDistance(108, .25, 0.0),
         new BallTiltToScore()

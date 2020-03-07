@@ -33,7 +33,7 @@ public class DriveWithGamePad extends CommandBase {
     double driveValueSlow = RobotContainer.getDriverRightStickY();
     double turnValueSlow = RobotContainer.getDriverRightStickX();
     // System.out.println("moveValue: " + driveValue + "  turnValue: "+ turnValue);
-    if(Math.abs(driveValueSlow) > .1 || Math.abs(turnValueSlow) > .1){
+    if(Math.abs(driveValueSlow) > .2 || Math.abs(turnValueSlow) > .2){
       RobotContainer.drive.arcadeDrive(Constants.DRIVE_SLOW_SPEED*driveValueSlow,
         Constants.TURN_SLOW_SPEED*turnValueSlow, true);
     }else{

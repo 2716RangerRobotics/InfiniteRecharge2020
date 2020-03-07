@@ -27,4 +27,8 @@ public class DriveResetGyro extends InstantCommand {
     RobotContainer.drive.zeroAngle();
   }
 
+  @Override
+  public boolean runsWhenDisabled(){
+    return true;
+  }
 }

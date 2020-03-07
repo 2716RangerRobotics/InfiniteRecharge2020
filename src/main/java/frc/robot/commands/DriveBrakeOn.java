@@ -24,4 +24,8 @@ public class DriveBrakeOn extends InstantCommand {
   public void initialize() {
     RobotContainer.drive.setBrakeMode(true);
   }
+  @Override
+  public boolean runsWhenDisabled(){
+    return true;
+  }
 }

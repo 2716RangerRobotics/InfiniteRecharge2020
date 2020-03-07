@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoDriveAndScore;
 import frc.robot.commands.AutoDriveStraight;
-import frc.robot.commands.AutoDriveToPositionAndScore;
+import frc.robot.commands.AutoDriveToRendezvousAndScore;
 import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
 import frc.robot.commands.BallHandleIntake;
@@ -37,6 +37,7 @@ import frc.robot.commands.ColorWheelSpinnerLiftDown;
 import frc.robot.commands.ColorWheelSpinnerLiftStop;
 import frc.robot.commands.ColorWheelSpinnerLiftToPosition;
 import frc.robot.commands.ColorWheelSpinnerWheelStop;
+import frc.robot.commands.DriveResetGyro;
 import frc.robot.commands.DriveStop;
 import frc.robot.commands.DriveStraightToDistance;
 import frc.robot.commands.DriveToWheelPosition;
@@ -87,7 +88,7 @@ public class RobotContainer {
   public static AutoDriveStraight autoDriveStraight;
   public static AutoFeederStationPosition autoFeederStationPosition;
   public static AutoFeedShooter autoFeedShooter;
-  public static AutoDriveToPositionAndScore autoDriveToPositionAndScore;
+  public static AutoDriveToRendezvousAndScore autoDriveToRendezvousAndScore;
   public static Limelight limelight;
   // The robot's commands are instantiated here...
   // The driver's controller
@@ -165,7 +166,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverA1.whenPressed(new BallTiltOut().withTimeout(2.0));
-    driverB2.whenPressed(new BallTiltIn().withTimeout(2.0));
+    driverB2.whenPressed(new BallTiltIn().withTimeout(1.50));
     driverY4.whenPressed(new BallTiltToScore());
     driverX3.whenPressed(new BallTiltToPass());
     driverRB6.whenPressed(new BallIntakeHandleOuttake());
@@ -187,6 +188,7 @@ public class RobotContainer {
     //coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
     coDriverA1.whenPressed(new BallHandleIntake());
     coDriverA1.whenReleased(new BallHandleUpperStop());
+    coDriverB2.whenPressed(new BallTiltIn().withTimeout(1.5));
     coDriverLTrigger.whenPressed(new HangingMechanismResetEnc());
     coDriverRTrigger.whenPressed(new HangingMechanismSetEnc());
     // coDriverB2.whenPressed(new BallIntakeUpperState());
@@ -203,7 +205,7 @@ public class RobotContainer {
     coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
     coDriverDDown.whenPressed(new ColorWheelSpinnerLiftDown());
     coDriverDDown.whenReleased(new ColorWheelSpinnerLiftStop());
-    //coDriverSEL7.whenPressed(new ColorWheelSpinnerLiftToPosition());
+    coDriverSEL7.whenPressed(new DriveResetGyro());
     // coDriverSEL7.whenReleased(new ColorWheelSpinnerLiftStop()); //not sure if we need
   }
 
@@ -252,14 +254,14 @@ public class RobotContainer {
    * @return value of the joystick [-1.0, 1.0]
    */
 	public static double getDriverLeftStickX() {
-		if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.1) {
+		if (Math.abs(driverPad.getX(Hand.kLeft)) > 0.15) {
 			return -1.0*driverPad.getX(Hand.kLeft);
 		} else {
 			return 0;
     }
   }
   public static double getDriverRightStickX() {
-		if (Math.abs(driverPad.getX(Hand.kRight)) > 0.1) {
+		if (Math.abs(driverPad.getX(Hand.kRight)) > 0.15) {
 			return -1.0*driverPad.getX(Hand.kRight);
 		} else {
 			return 0;
@@ -267,14 +269,14 @@ public class RobotContainer {
   }
 
   public static double getDriverStickLeftY() {
-    if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.1) {
+    if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.15) {
       return -1.0*driverPad.getY(Hand.kLeft);
     } else {
       return 0;
     }
   }
   public static double getDriverStickRightY() {
-    if (Math.abs(driverPad.getY(Hand.kRight)) > 0.1) {
+    if (Math.abs(driverPad.getY(Hand.kRight)) > 0.15) {
       return -1.0*driverPad.getY(Hand.kRight);
     } else {
       return 0;
@@ -298,5 +300,4 @@ public class RobotContainer {
     coDriverPad.setRumble(RumbleType.kLeftRumble, time);
     coDriverPad.setRumble(RumbleType.kRightRumble, time);
 }
-
 }
