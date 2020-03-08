@@ -28,17 +28,17 @@ public class DriveTurnToAngle extends CommandBase {
     // Called just before this Command runs the first time
   public void initialize() {
     // RobotContainer.drive.zeroAngle();
-    angle =+ RobotContainer.drive.getAngle();
+    this.angle =  this.angle + RobotContainer.drive.getAngle();
   }
 
     // Called repeatedly when this Command is scheduled to run
   public void execute() {
-    RobotContainer.drive.turnToAngle(angle, turnSpeed);
+    RobotContainer.drive.turnToAngle(this.angle, turnSpeed);
   }
 
     // Make this return true when this Command no longer needs to run execute()
   public boolean isFinished() {
-    return (Math.abs(RobotContainer.drive.getAngle() - angle) <= 1);
+    return (Math.abs(RobotContainer.drive.getAngle() - this.angle) <= 1);
   }
 
     // Called once after isFinished returns true

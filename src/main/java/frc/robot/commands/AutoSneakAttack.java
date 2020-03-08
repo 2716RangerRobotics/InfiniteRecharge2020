@@ -7,33 +7,51 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class AutoSneakAttack extends SequentialCommandGroup {
   /**
-   * Creates a new AutoDriveAndScore.
+   * Creates a new AutoTrenchClaim.
    */
   public AutoSneakAttack() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(
+      super(
       new DriveBrakeOn(),
-      //new BallTiltOut(),
-      //new BallIntakeIntake(),
-      //new BallHandleIntake(),
-      new ParallelRaceGroup(
-        new DriveStraightToDistance(257, .25, 0.0),
+      new DriveResetGyro(),
+      new ParallelCommandGroup(
         new BallTiltOut(),
-        new BallHandleIntake()
-        ),
+        new DriveStraightToDistance(60, .45, 0.0)
+      ),
+      new DriveResetGyro(),      
       new ParallelRaceGroup(
-        new DriveStraightToDistance(100, -.35),
-        new BallTiltToScore()
-        )
+        new BallIntakeIntake(),
+        new BallHandleIntake(),
+        new DriveStraightToDistance(102, .35, 0.0)
+      ),
+      new DriveResetGyro(),
+      new DriveResetEncoders(),
+      new WaitCommand(.05),
+      new ParallelCommandGroup(
+        new DriveStraightToDistance(88, .25, 0.0),
+        new BallTiltIn()
+
+      )
+      //new BallIntakeIntake(),
+     // new DriveTurnToAngle(180, .35),
+     // new ParallelRaceGroup(
+        //new DriveStraightToDistance(100, .35),
+       // new BallTiltToScore()
+     // )
+      
     );
+      // new 
+      // new DriveStraightToDistance(distanceInInches, speed),
   }
 }
-//this works if we are left of the port
-//11 pt. plan

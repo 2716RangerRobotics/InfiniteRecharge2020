@@ -53,6 +53,8 @@ import frc.robot.commands.HangingMechanismRetract;
 import frc.robot.commands.HangingMechanismSetEnc;
 import frc.robot.commands.HangingMechanismSetServo;
 import frc.robot.commands.HangingMechanismStop;
+import frc.robot.commands.LimelightLEDOff;
+import frc.robot.commands.LimelightLEDOn;
 import frc.robot.commands.HangingMechanismExtendToDistance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -77,12 +79,11 @@ import frc.robot.subsystems.Limelight;
 public class RobotContainer {
   // The robot's subsystems are instantiated here...
   public static Drive drive;
-  // public static DriveSlow driveSlow;
   public static HangingMechanism hangingMechanism;
   public static BallIntake ballIntake;
   public static BallHandle ballHandle;
   public static BallTilt ballTilt;
-  //public DigitalInput gearSwitch;
+  
   public static ColorWheelSpinner colorWheelSpinner;
   public static AutoDriveAndScore autoDriveAndScore;
   public static AutoDriveStraight autoDriveStraight;
@@ -90,7 +91,7 @@ public class RobotContainer {
   public static AutoFeedShooter autoFeedShooter;
   public static AutoDriveToRendezvousAndScore autoDriveToRendezvousAndScore;
   public static Limelight limelight;
-  // The robot's commands are instantiated here...
+  
   // The driver's controller
   static XboxController driverPad = new XboxController(0);
   static Button driverA1 = new JoystickButton(driverPad, 1);
@@ -137,20 +138,13 @@ public class RobotContainer {
   public RobotContainer() {
     // The robot's subsystems and commands are constructed here...
     drive = new Drive();
-    // driveSlow = new DriveSlow();
     hangingMechanism = new HangingMechanism();
     ballIntake = new BallIntake();
     ballHandle = new BallHandle();
     ballTilt = new BallTilt();
-    //gearSwitch = new DigitalInput(Constants.GEAR_SWITCH_PORT);
-    colorWheelSpinner = new ColorWheelSpinner();
-    // autoDriveAndScore = new AutoDriveAndScore();
-    // autoDriveStraight = new AutoDriveStraight();
-    // autoDriveToPositionAndScore = new AutoDriveToPositionAndScore();
-    // autoFeederStationPosition = new AutoFeederStationPosition();
-    // autoFeedShooter = new AutoFeedShooter();
+    // colorWheelSpinner = new ColorWheelSpinner();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
-    // m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+    
     // SmartDashboard.putData(drive);
     limelight = new Limelight();
 
@@ -171,11 +165,10 @@ public class RobotContainer {
     driverX3.whenPressed(new BallTiltToPass());
     driverRB6.whenPressed(new BallIntakeHandleOuttake());
     driverRB6.whenReleased(new BallIntakeHandleStop());
-    driverRB6.whenReleased(new CoDriverIntakeRumble());
+    // driverRB6.whenReleased(new CoDriverIntakeRumble());
     driverLB5.whenPressed(new BallIntakeIntake());
     driverLB5.whenReleased(new BallIntakeIntakeStop());
-    driverSEL7.whenPressed(new DriveToWheelPosition());
-    driverSEL7.whenReleased(new DriveStop());
+    // driverSEL7.whileHeld(new DriveToWheelPosition());
     //driverRTrigger.whenPressed(new AutoDriveStraight(), false);
     // driverSEL7.whenPressed(new ColorWheelSpinnerLiftDown());
     // driverSEL7.whenReleased(new ColorWheelSpinnerLiftStop());
@@ -185,7 +178,6 @@ public class RobotContainer {
     driverDLeft.whenPressed(new DriveTurnToAngle(-25, .25));
     driverDRight.whenPressed(new DriveTurnToAngle(25, .25));
   
-    //coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
     coDriverA1.whenPressed(new BallHandleIntake());
     coDriverA1.whenReleased(new BallHandleUpperStop());
     coDriverB2.whenPressed(new BallTiltIn().withTimeout(1.5));
@@ -198,15 +190,18 @@ public class RobotContainer {
     coDriverY4.whenReleased(new HangingMechanismStop());
     coDriverRB6.whenPressed(new HangingMechanismSetServo());
     coDriverLB5.whenPressed(new HangingMechanismResetServo());
-    coDriverDLeft.whenPressed(new ColorWheelSpinnerRotationWheel());
+    // coDriverDLeft.whenPressed(new ColorWheelSpinnerRotationWheel());
     //coDriverDLeft.whenReleased(new ColorWheelSpinnerWheelStop()); //do we need this for this command?
-    coDriverDRight.whenPressed(new ColorWheelSpinnerColorRotation());
-    coDriverDUp.whenPressed(new ColorWheelSpinnerLiftUp());
-    coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
-    coDriverDDown.whenPressed(new ColorWheelSpinnerLiftDown());
-    coDriverDDown.whenReleased(new ColorWheelSpinnerLiftStop());
+    // coDriverDRight.whenPressed(new ColorWheelSpinnerColorRotation());
+    // coDriverDUp.whenPressed(new ColorWheelSpinnerLiftUp());
+    // coDriverDUp.whenReleased(new ColorWheelSpinnerLiftStop());
+    // coDriverDDown.whenPressed(new ColorWheelSpinnerLiftDown());
+    // coDriverDDown.whenReleased(new ColorWheelSpinnerLiftStop());
     coDriverSEL7.whenPressed(new DriveResetGyro());
+    // coDriverLTrigger.whenPressed(new LimelightLEDOff());
+    // coDriverRTrigger.whenPressed(new LimelightLEDOn());
     // coDriverSEL7.whenReleased(new ColorWheelSpinnerLiftStop()); //not sure if we need
+    //coDriverLTriggerRTrigger.whenPressed(new HangingMechanismRelease());
   }
 
 
@@ -226,10 +221,6 @@ public class RobotContainer {
     //return AutoFeederStationPosition();
     //return AutoFeedShooter();
   }
-
-  // public Command AutoDriveStraight() {
-  //   return autoDriveStraight;
-  // }
 
   /**
    * 
@@ -260,6 +251,11 @@ public class RobotContainer {
 			return 0;
     }
   }
+
+   /**
+   * 
+   * @return value of the joystick [-1.0, 1.0]
+   */
   public static double getDriverRightStickX() {
 		if (Math.abs(driverPad.getX(Hand.kRight)) > 0.15) {
 			return -1.0*driverPad.getX(Hand.kRight);
@@ -268,6 +264,10 @@ public class RobotContainer {
     }
   }
 
+   /**
+   * 
+   * @return value of the joystick [-1.0, 1.0]
+   */
   public static double getDriverStickLeftY() {
     if (Math.abs(driverPad.getY(Hand.kLeft)) > 0.15) {
       return -1.0*driverPad.getY(Hand.kLeft);
@@ -275,6 +275,11 @@ public class RobotContainer {
       return 0;
     }
   }
+
+   /**
+   * 
+   * @return value of the joystick [-1.0, 1.0]
+   */
   public static double getDriverStickRightY() {
     if (Math.abs(driverPad.getY(Hand.kRight)) > 0.15) {
       return -1.0*driverPad.getY(Hand.kRight);

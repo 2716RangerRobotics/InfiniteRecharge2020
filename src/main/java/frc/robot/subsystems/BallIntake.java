@@ -50,13 +50,13 @@ public class BallIntake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if( !ballCountSensor.get() && prevBallSensor){
-      ballCount++;
-    }
+    // if( !ballCountSensor.get() && prevBallSensor){
+    //   ballCount++;
+    // }
     
     // SmartDashboard.putBoolean("Ball Count Sensor", !ballCountSensor.get());
     // SmartDashboard.putNumber("Ball Count", ballCount);
-    prevBallSensor = ballCountSensor.get();
+    // prevBallSensor = ballCountSensor.get();
   }
 
   public void resetBallCount(){

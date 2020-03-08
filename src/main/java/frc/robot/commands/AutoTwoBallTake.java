@@ -10,35 +10,43 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoTrenchClaim extends SequentialCommandGroup {
+public class AutoTwoBallTake extends SequentialCommandGroup {
   /**
-   * Creates a new AutoTrenchClaim.
+   * Creates a new AutoDriveAndScore.
    */
-  public AutoTrenchClaim() {
+  public AutoTwoBallTake() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-      super(
+    super(
       new DriveBrakeOn(),
-      //new BallTiltOut(),
-      //new BallIntakeIntake(),
-      //new BallHandleIntake(),
-      new ParallelRaceGroup(
-        new DriveStraightToDistance(257, .25, 0.0),
+      new DriveResetGyro(),
+      new ParallelCommandGroup(
         new BallTiltOut(),
-        new BallHandleIntake()
-        ),
-      new DriveTurnToAngle(180, .35),
+        new DriveStraightToDistance(40, .45, 0.0),
+      ),
       new ParallelRaceGroup(
-        new DriveStraightToDistance(100, .35),
-        new BallTiltToScore()
-        )
-      
-    );
-      // new 
-      // new DriveStraightToDistance(distanceInInches, speed),
+        new DriveStraightToDistance(88, .25, 0.0),
+        new BallIntakeIntake(),
+        new BallHandleIntake()
+        // new WaitCommand(2.0)
+      ),
+      new BallIntakeHandleStop(),
+      new DriveTurnToAngle(45, .35),
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(10, .05),
+        new BallIntakeIntake(),
+        new BallHandleIntake()
+        // new WaitCommand(2.0)
+      ),
+      new BallIntakeHandleStop(),
+      new DriveTurnToAngle(-45, .35),
+        new DriveStraightToDistance(100, -.35),
+        new BallTiltIn()
+      );
+    
   }
 }
+//this works if we are left of the port
+//11 pt. plan

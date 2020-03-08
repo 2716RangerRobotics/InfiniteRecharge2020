@@ -12,6 +12,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -74,7 +76,9 @@ public class Drive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Gyro", imu.getYaw());
+    if(DriverStation.getInstance().isAutonomous()||DriverStation.getInstance().isTest()){
+      SmartDashboard.putNumber("Gyro", imu.getYaw());
+    }
   }
   
   public void setBrakeMode(boolean brakeMode){
@@ -97,11 +101,7 @@ public class Drive extends SubsystemBase {
     double rightMotorSpeed;
 
     moveValue = limit(moveValue);
-  //   private void DriveStraightStop{
-    if (RobotContainer.colorWheelSpinner.isExtendLimit() && moveValue > 0.0){
-      moveValue = 0.0;
-    }
-  // }
+
     rotateValue = limit(rotateValue);
 
     if (squaredInputs) {

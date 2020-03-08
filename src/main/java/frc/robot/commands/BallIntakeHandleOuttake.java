@@ -38,6 +38,10 @@ public class BallIntakeHandleOuttake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kOff1);
+    RobotContainer.ballIntake.setLowerMotors(BallIntake.LowerState.kOff2);
+    RobotContainer.ballHandle.setUpperMotors(BallHandle.UpperState.kOff1);
+    RobotContainer.ballHandle.setUpperMotors(BallHandle.UpperState.kOff2);
   }
 
   // Returns true when the command should end.

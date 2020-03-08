@@ -29,6 +29,9 @@ public class BallTilt extends SubsystemBase {
   static final double TILT_IN_SPEED = -0.45;
   static final double TILT_SCORE_POSITION = 474;
   static final double TILT_PASS_POSITION = 1200;
+
+  private boolean prevRearLimit = false;
+  private boolean prevFrontLimit = false;
   /**
    * Creates a new BallTilt.
    */
@@ -76,11 +79,13 @@ public class BallTilt extends SubsystemBase {
     //SmartDashboard.putBoolean("intakeLimitOut", intakeLimitOut());
     SmartDashboard.putNumber("TiltEnc",getLeftEncoder());
     // This method will be called once per scheduler run
-    if(isRearLimit()){
+    if(isRearLimit() && !prevRearLimit){
       tiltMotorLeft.setSelectedSensorPosition(0);
-    }else if(isFrontLimit()){
+    }else if(isFrontLimit() && !prevFrontLimit){
       tiltMotorLeft.setSelectedSensorPosition(2260);
     }
+    prevRearLimit = isRearLimit();
+    prevFrontLimit = isFrontLimit();
   }
 
   public boolean isFrontLimit() {

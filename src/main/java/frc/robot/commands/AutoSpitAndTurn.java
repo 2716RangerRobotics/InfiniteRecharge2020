@@ -7,40 +7,28 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoDriveAndScore extends SequentialCommandGroup {
+public class AutoSpitAndTurn extends SequentialCommandGroup {
   /**
-   * Creates a new AutoDriveAndScore.
+   * Creates a new AutoDriveStraight.
    */
-  public AutoDriveAndScore() {
+  public AutoSpitAndTurn() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveBrakeOn(),
-      new DriveResetGyro(),
-      new DriveStraightToDistance(50, .25, 0.0),
-      new DriveTurnToAngle(90, .35),
-      new DriveStraightToDistance(85, .25, 90),
-      new DriveTurnToAngle(-90, .35),
-      new ParallelRaceGroup(
-        new DriveStraightToDistance(108, .25, 0.0),
-        new BallTiltToScore()
-        ),
-      //new ParallelRaceGroup(
-        //new BallTiltToScore(),
-        //new BallIntakeHandleOuttake(),
-        //new WaitCommand(5.0)
-       // ),
       new BallIntakeHandleOuttake(),
-      new WaitCommand(3.0)
+      new WaitCommand(3.0),
+      new DriveTurnToAngle(-90, .35),
+      new DriveStraightToDistance(50, .25)
     );
+    // System.out.println("something");
   }
 }
-//this works if we are left of the port 6 ft.
-//11 pt. plan
+//works anywhere (test plan)
+//5 pt. plan

@@ -26,6 +26,8 @@ import frc.robot.commands.AutoDriveToRendezvousAndScore;
 import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
 import frc.robot.commands.AutoSneakAttack;
+import frc.robot.commands.AutoSpitAndTurn;
+import frc.robot.commands.AutoTwoBallTake;
 import frc.robot.commands.DriveBrakeOn;
 import frc.robot.commands.DriveCoastOn;
 
@@ -79,12 +81,14 @@ public class Robot extends TimedRobot {
     //CommandBase.init();
 
 		chooser.addOption("AutoDriveStraight", new AutoDriveStraight());
-    chooser.addOption("AutoDriveAndScore", new AutoDriveAndScore());
+    chooser.addOption("AutoDriveAndScore ~13ft~", new AutoDriveAndScore());
     chooser.addOption("AutoDriveStraightAndScore", new AutoDriveStraightAndScore());
 		chooser.addOption("AutoDriveToRendezvousAndScore", new AutoDriveToRendezvousAndScore());
     chooser.addOption("AutoFeederStationPosition", new AutoFeederStationPosition());
     chooser.addOption("AutoFeedShooter", new AutoFeedShooter());
+    chooser.addOption("AutoTwoBallTake", new AutoTwoBallTake());
     chooser.addOption("AutoSneakAttack", new AutoSneakAttack());
+    chooser.addOption("AutoSpitAndTurn", new AutoSpitAndTurn());
 		chooser.addOption("None", null);
 
 		SmartDashboard.putData("Auto Mode", chooser);

@@ -45,7 +45,7 @@ public class DriveStraightToDistance extends CommandBase {
   public void initialize() {
     // RobotContainer.drive.zeroAngle();
     if(!isAngleTargeted){
-    startAngle = RobotContainer.drive.getAngle();
+      startAngle = RobotContainer.drive.getAngle();
     }
     RobotContainer.drive.resetLeftEncoder();
     RobotContainer.drive.resetRightEncoder();
@@ -58,14 +58,14 @@ public class DriveStraightToDistance extends CommandBase {
     // System.out.println(startAngle + ", " + drive.getAngle());
     double currentAngle = RobotContainer.drive.getAngle();
     if (currentAngle > startAngle + 2) {
-      turnValue = 0.3;
+      turnValue = 0.15;
 
     } else if (currentAngle > startAngle + 0.5) {
-      turnValue = 0.2;
+      turnValue = 0.1;
     } else if (currentAngle < startAngle - 0.5) {
-      turnValue = -0.2;
+      turnValue = -0.1;
     } else if (currentAngle < startAngle - 2) {
-      turnValue = -0.3;
+      turnValue = -0.15;
     } else {
       turnValue = 0;
     }
