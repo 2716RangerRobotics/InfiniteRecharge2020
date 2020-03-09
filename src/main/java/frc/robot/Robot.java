@@ -19,7 +19,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.commands.AutoDriveAndScore;
+import frc.robot.commands.AutoAttackAtAngle;
+import frc.robot.commands.AutoDriveTurnAndScore;
 import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.AutoDriveStraightAndScore;
 import frc.robot.commands.AutoDriveToRendezvousAndScore;
@@ -81,7 +82,7 @@ public class Robot extends TimedRobot {
     //CommandBase.init();
 
 		chooser.addOption("AutoDriveStraight", new AutoDriveStraight());
-    chooser.addOption("AutoDriveAndScore ~13ft~", new AutoDriveAndScore());
+    chooser.addOption("AutoDriveAndScore ~13ft~", new AutoDriveTurnAndScore());
     chooser.addOption("AutoDriveStraightAndScore", new AutoDriveStraightAndScore());
 		chooser.addOption("AutoDriveToRendezvousAndScore", new AutoDriveToRendezvousAndScore());
     chooser.addOption("AutoFeederStationPosition", new AutoFeederStationPosition());
@@ -89,6 +90,7 @@ public class Robot extends TimedRobot {
     chooser.addOption("AutoTwoBallTake", new AutoTwoBallTake());
     chooser.addOption("AutoSneakAttack", new AutoSneakAttack());
     chooser.addOption("AutoSpitAndTurn", new AutoSpitAndTurn());
+    chooser.addOption("AutoAttackAtAngle", new AutoAttackAtAngle());
 		chooser.addOption("None", null);
 
 		SmartDashboard.putData("Auto Mode", chooser);

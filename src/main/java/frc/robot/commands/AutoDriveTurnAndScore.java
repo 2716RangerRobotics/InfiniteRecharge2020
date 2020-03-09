@@ -15,35 +15,39 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoSpitAndTurn extends SequentialCommandGroup {
+public class AutoDriveTurnAndScore extends SequentialCommandGroup {
   /**
-   * Creates a new AutoDriveStraight.
+   * Creates a new AutoDriveAndScore.
    */
-  public AutoSpitAndTurn() {
+  public AutoDriveTurnAndScore() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveBrakeOn(),
       new DriveResetGyro(),
-      new BallTiltToPass().withTimeout(3.0),//adjust for partner's needs
-      // new WaitCommand(3.0),
-      new ParallelRaceGroup(
-        new BallIntakeHandleOuttake(),
-        new BallTiltToPass(),
-        new WaitCommand(3.0)
-      ),
-      new BallIntakeHandleStop(),
-      new ParallelCommandGroup(
-        new DriveStraightToDistance(-12, -.35),
-        new BallTiltIn()
-      ),
+      new DriveStraightToDistance(52, .25, 0.0),
+      new DriveTurnToAngle(90, .35),
+      new DriveStraightToDistance(85, .25, 90),
       new DriveTurnToAngle(-90, .35),
       new DriveResetEncoders(),
       new WaitCommand(.05),
-      new DriveStraightToDistance(50, .25)
+      new ParallelRaceGroup(
+        new DriveStraightToDistance(60, .25, 0.0),
+        new BallTiltToScore(),
+        new WaitCommand(1.5)
+      ),
+      //new ParallelRaceGroup(
+        //new BallTiltToScore(),
+        //new BallIntakeHandleOuttake(),
+        //new WaitCommand(5.0)
+       // ),
+      new ParallelCommandGroup(
+        new DriveStraightToDistance(8, .25),
+        new BallIntakeHandleOuttake(),
+        new BallTiltToScore()
+      ).withTimeout(5)
     );
-    // System.out.println("something");
   }
 }
-//works anywhere (test plan)
-//5 pt. plan
+//this works if we are left of the port 13 ft.
+//11 pt. plan

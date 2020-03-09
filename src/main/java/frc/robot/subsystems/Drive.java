@@ -76,9 +76,10 @@ public class Drive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(DriverStation.getInstance().isAutonomous()||DriverStation.getInstance().isTest()){
-      SmartDashboard.putNumber("Gyro", imu.getYaw());
-    }
+    // if(DriverStation.getInstance().isAutonomous()||DriverStation.getInstance().isTest()){
+      SmartDashboard.putNumber("Gyro", (int)imu.getYaw());
+      SmartDashboard.putNumber("DriveEnc", getLeftPosition());
+    // }
   }
   
   public void setBrakeMode(boolean brakeMode){

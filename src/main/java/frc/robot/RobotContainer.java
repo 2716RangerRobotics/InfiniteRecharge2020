@@ -14,11 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.AutoDriveAndScore;
-import frc.robot.commands.AutoDriveStraight;
-import frc.robot.commands.AutoDriveToRendezvousAndScore;
-import frc.robot.commands.AutoFeedShooter;
-import frc.robot.commands.AutoFeederStationPosition;
 import frc.robot.commands.BallHandleIntake;
 import frc.robot.commands.BallHandleUpperStop;
 import frc.robot.commands.BallIntakeIntake;
@@ -64,7 +59,6 @@ import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.BallTilt;
 import frc.robot.subsystems.ColorWheelSpinner;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.DriveSlow;
 import frc.robot.subsystems.BallHandle;
 // import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HangingMechanism;
@@ -85,11 +79,7 @@ public class RobotContainer {
   public static BallTilt ballTilt;
   
   public static ColorWheelSpinner colorWheelSpinner;
-  public static AutoDriveAndScore autoDriveAndScore;
-  public static AutoDriveStraight autoDriveStraight;
-  public static AutoFeederStationPosition autoFeederStationPosition;
-  public static AutoFeedShooter autoFeedShooter;
-  public static AutoDriveToRendezvousAndScore autoDriveToRendezvousAndScore;
+
   public static Limelight limelight;
   
   // The driver's controller
