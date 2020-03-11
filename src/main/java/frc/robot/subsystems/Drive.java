@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
@@ -33,6 +34,7 @@ public class Drive extends SubsystemBase {
   private AHRS imu;
   public static final double FeedForward = 0.18;
   public static final double kProportion = 0.025;
+  DigitalInput colorWheelLimit;
 
   /**
    * Creates a new Drive.
@@ -72,6 +74,7 @@ public class Drive extends SubsystemBase {
     rightMotorFollower.setOpenLoopRampRate(Constants.RAMP_RATE);
 
     // leftMotorMaster.setOpenLoopRampRate(rate);
+    colorWheelLimit = new DigitalInput(Constants.EXTEND_LIMIT);
   }
 
   @Override
@@ -80,6 +83,8 @@ public class Drive extends SubsystemBase {
     // if(DriverStation.getInstance().isAutonomous()||DriverStation.getInstance().isTest()){
       SmartDashboard.putNumber("Gyro", (int)imu.getYaw());
       SmartDashboard.putNumber("DriveEnc", getLeftPosition());
+      SmartDashboard.putBoolean("Wheel Contact", !colorWheelLimit.get());
+
     // }
   }
   
@@ -95,6 +100,14 @@ public class Drive extends SubsystemBase {
       leftMotorFollower.setIdleMode(IdleMode.kCoast);
       rightMotorMaster.setIdleMode(IdleMode.kCoast);
       rightMotorFollower.setIdleMode(IdleMode.kCoast);
+    }
+  }
+  public boolean isColorWheelLimit() {
+    if(!colorWheelLimit.get()){
+      return true;
+    }
+    else{
+      return false;
     }
   }
   public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {

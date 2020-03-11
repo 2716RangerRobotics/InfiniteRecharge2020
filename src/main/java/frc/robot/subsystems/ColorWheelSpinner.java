@@ -30,7 +30,7 @@ public class ColorWheelSpinner extends SubsystemBase {
   Servo yourActuator;
   DigitalInput bottomBaseLimit;
   DigitalInput topBaseLimit;
-  DigitalInput extendLimit;
+  
 
   String colorString = "U";
   /**
@@ -71,7 +71,7 @@ public class ColorWheelSpinner extends SubsystemBase {
     
     bottomBaseLimit = new DigitalInput(Constants.BOTTOM_BASE_LIMIT);
     topBaseLimit = new DigitalInput(Constants.TOP_BASE_LIMIT);
-    extendLimit = new DigitalInput(Constants.EXTEND_LIMIT);
+    
   }
 
   @Override
@@ -114,11 +114,7 @@ public class ColorWheelSpinner extends SubsystemBase {
       colorString = "U";
       // System.out.println("Unknown");
     }
-    if(isExtendLimit()) {
-      //RobotContainer.setRumbleDriver(.5);
-    }else{
-      //RobotContainer.setRumbleDriver(0);
-    }
+
 
     /**
      * Open Smart Dashboard or Shuffleboard to see the color detected by the 
@@ -131,7 +127,6 @@ public class ColorWheelSpinner extends SubsystemBase {
     // SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putBoolean("Wheel Bot Lim", !bottomBaseLimit.get());
     SmartDashboard.putBoolean("Wheel Top Lim", !topBaseLimit.get());
-    SmartDashboard.putBoolean("Wheel Contact", !extendLimit.get());
   }
   
   public boolean isBottomBaseLimit() {
@@ -152,14 +147,7 @@ public class ColorWheelSpinner extends SubsystemBase {
     }
   }
 
-  public boolean isExtendLimit() {
-    if(!extendLimit.get()){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
+
 
   public boolean isRed(){
     return colorString.contentEquals("R");

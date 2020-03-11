@@ -28,14 +28,14 @@ public class ColorWheelSpinnerRumbleWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.colorWheelSpinner.isExtendLimit()== true){
-      RobotContainer.setRumbleDriver(.25);
-      RobotContainer.setRumbleCoDriver(.25);
-      //RobotContainer.setRumbleTimeDriver(1.0);
-  }else{
-      RobotContainer.setRumbleDriver(0.0);
-      RobotContainer.setRumbleCoDriver(0.0);
-  }
+  //   if(RobotContainer.colorWheelSpinner.isExtendLimit()== true){
+  //     RobotContainer.setRumbleDriver(.25);
+  //     RobotContainer.setRumbleCoDriver(.25);
+  //     //RobotContainer.setRumbleTimeDriver(1.0);
+  // }else{
+  //     RobotContainer.setRumbleDriver(0.0);
+  //     RobotContainer.setRumbleCoDriver(0.0);
+  // }
 }
 
   // Called once the command ends or is interrupted.

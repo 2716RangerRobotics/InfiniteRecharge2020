@@ -16,7 +16,7 @@ public class DriveToWheelPosition extends CommandBase {
    */
   public DriveToWheelPosition() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.drive, RobotContainer.colorWheelSpinner);
+    addRequirements(RobotContainer.drive);
     
   }
 
@@ -34,7 +34,7 @@ public class DriveToWheelPosition extends CommandBase {
   @Override
   public void execute() {
     //RobotContainer.drive.setLeftRightMotorOutputs(.05, .05);
-    if(RobotContainer.colorWheelSpinner.isExtendLimit()) {
+    if(RobotContainer.drive.isColorWheelLimit()) {
       RobotContainer.drive.setLeftRightMotorOutputs(0.0, 0.0);
     }else{
       RobotContainer.drive.setLeftRightMotorOutputs(0.05, 0.05);
@@ -51,6 +51,6 @@ public class DriveToWheelPosition extends CommandBase {
   @Override
   public boolean isFinished() {
     // return false;
-    return RobotContainer.colorWheelSpinner.isExtendLimit();
+    return RobotContainer.drive.isColorWheelLimit();
   }
 }
