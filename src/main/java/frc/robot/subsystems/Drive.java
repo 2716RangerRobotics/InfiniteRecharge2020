@@ -15,6 +15,7 @@ import com.revrobotics.CANEncoder;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -37,7 +38,7 @@ public class Drive extends SubsystemBase {
    * Creates a new Drive.
    */
   public Drive() {
-    imu = new AHRS(I2C.Port.kMXP);
+    imu = new AHRS(SPI.Port.kMXP);
     leftMotorMaster = new CANSparkMax(Constants.LEFT_MOTOR_MASTER, MotorType.kBrushless);
     leftMotorFollower = new CANSparkMax(Constants.LEFT_MOTOR_FOLLOWER, MotorType.kBrushless);
     rightMotorMaster = new CANSparkMax(Constants.RIGHT_MOTOR_MASTER, MotorType.kBrushless);

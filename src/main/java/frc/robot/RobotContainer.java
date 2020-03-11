@@ -132,7 +132,7 @@ public class RobotContainer {
     ballIntake = new BallIntake();
     ballHandle = new BallHandle();
     ballTilt = new BallTilt();
-    // colorWheelSpinner = new ColorWheelSpinner();
+    colorWheelSpinner = new ColorWheelSpinner();
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveWithGamePad());
     
     // SmartDashboard.putData(drive);

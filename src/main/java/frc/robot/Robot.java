@@ -20,12 +20,16 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.AutoAttackAtAngle;
+import frc.robot.commands.AutoDriveBackwards;
 import frc.robot.commands.AutoDriveTurnAndScore;
+import frc.robot.commands.AutoFakeSneakAttack;
+import frc.robot.commands.AutoFakeTwoBallTake;
 import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.AutoDriveStraightAndScore;
 import frc.robot.commands.AutoDriveToRendezvousAndScore;
 import frc.robot.commands.AutoFeedShooter;
 import frc.robot.commands.AutoFeederStationPosition;
+import frc.robot.commands.AutoLetThemEatBalls;
 import frc.robot.commands.AutoSneakAttack;
 import frc.robot.commands.AutoSpitAndTurn;
 import frc.robot.commands.AutoTwoBallTake;
@@ -81,14 +85,18 @@ public class Robot extends TimedRobot {
 
     //CommandBase.init();
 
-		chooser.addOption("AutoDriveStraight", new AutoDriveStraight());
+    chooser.addOption("AutoDriveStraight", new AutoDriveStraight());
+    chooser.addOption("AutoDriveBackwards", new AutoDriveBackwards());
     chooser.addOption("AutoDriveAndScore ~13ft~", new AutoDriveTurnAndScore());
     chooser.addOption("AutoDriveStraightAndScore", new AutoDriveStraightAndScore());
-		chooser.addOption("AutoDriveToRendezvousAndScore", new AutoDriveToRendezvousAndScore());
+    chooser.addOption("AutoLetThemEatBalls", new AutoLetThemEatBalls());
     chooser.addOption("AutoFeederStationPosition", new AutoFeederStationPosition());
     chooser.addOption("AutoFeedShooter", new AutoFeedShooter());
     chooser.addOption("AutoTwoBallTake", new AutoTwoBallTake());
+    chooser.addOption("AutoFakeTwoBallTake", new AutoFakeTwoBallTake());
     chooser.addOption("AutoSneakAttack", new AutoSneakAttack());
+    chooser.addOption("AutoFakeSneakAttack", new AutoFakeSneakAttack());
+    chooser.addOption("AutoDriveToRendezvousAndScore", new AutoDriveToRendezvousAndScore());
     chooser.addOption("AutoSpitAndTurn", new AutoSpitAndTurn());
     chooser.addOption("AutoAttackAtAngle", new AutoAttackAtAngle());
 		chooser.addOption("None", null);
